@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Typography Styles -->
+    <style name="TextDisplay">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorOnBackground</item>
+    </style>
+    <style name="TextHeadline">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textFontWeight">600</item>
+        <item name="android:textColor">?attr/colorOnBackground</item>
+    </style>
+    <style name="TextBodyLarge">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">?attr/colorOnBackground</item>
+    </style>
+    <style name="TextBodyMedium">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+    <style name="TextCaption">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+    <style name="TextMono">
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+    <style name="TextBadge">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <!-- Card Styles -->
+    <style name="NishaanCard" parent="Widget.Material3.CardView.Filled">
+        <item name="cardBackgroundColor">?attr/colorSurface</item>
+        <item name="cardCornerRadius">@dimen/dimen_card_corner_radius</item>
+        <item name="cardElevation">@dimen/dimen_card_elevation</item>
+        <item name="strokeWidth">@dimen/dimen_card_stroke_width</item>
+        <item name="strokeColor">?attr/colorOutlineVariant</item>
+        <item name="contentPadding">@dimen/dimen_card_padding</item>
+    </style>
+    <style name="NishaanCardAlert" parent="NishaanCard">
+        <item name="cardBackgroundColor">?attr/colorSurfaceVariant</item>
+    </style>
+
+    <!-- Button Styles -->
+    <style name="PrimaryButton" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/color_primary</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="cornerRadius">@dimen/dimen_button_corner_radius</item>
+        <item name="android:minHeight">@dimen/dimen_button_height</item>
+        <item name="elevation">0dp</item>
+    </style>
+    <style name="SecondaryButton" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="strokeColor">@color/color_primary</item>
+        <item name="strokeWidth">@dimen/dimen_button_outline_stroke</item>
+        <item name="android:textColor">@color/color_primary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="cornerRadius">@dimen/dimen_button_corner_radius</item>
+        <item name="android:minHeight">@dimen/dimen_button_height</item>
+    </style>
+    <style name="TextButton" parent="Widget.Material3.Button.TextButton">
+        <item name="android:textColor">@color/color_accent_info</item>
+    </style>
+
+    <!-- Input Style -->
+    <style name="NishaanInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">?attr/colorSurfaceVariant</item>
+        <item name="boxStrokeColor">@color/color_primary</item>
+        <item name="boxCornerRadiusTopStart">@dimen/dimen_input_corner_radius</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/dimen_input_corner_radius</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/dimen_input_corner_radius</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/dimen_input_corner_radius</item>
+    </style>
+</resources>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Spacing System (8dp base unit) -->
+    <dimen name="spacing_xs">4dp</dimen>
+    <dimen name="spacing_sm">8dp</dimen>
+    <dimen name="spacing_md">16dp</dimen>
+    <dimen name="spacing_lg">24dp</dimen>
+    <dimen name="spacing_xl">32dp</dimen>
+    <dimen name="spacing_xxl">48dp</dimen>
+
+    <!-- Screen -->
+    <dimen name="dimen_screen_margin">16dp</dimen>
+
+    <!-- Cards -->
+    <dimen name="dimen_card_padding">16dp</dimen>
+    <dimen name="dimen_card_corner_radius">8dp</dimen>
+    <dimen name="dimen_card_elevation">2dp</dimen>
+    <dimen name="dimen_card_stroke_width">1dp</dimen>
+    <dimen name="dimen_card_alert_stripe_width">4dp</dimen>
+
+    <!-- Buttons -->
+    <dimen name="dimen_button_height">52dp</dimen>
+    <dimen name="dimen_button_corner_radius">6dp</dimen>
+    <dimen name="dimen_button_outline_stroke">1.5dp</dimen>
+
+    <!-- Inputs -->
+    <dimen name="dimen_input_corner_radius">6dp</dimen>
+
+    <!-- Severity Badge -->
+    <dimen name="dimen_badge_corner_radius">4dp</dimen>
+    <dimen name="dimen_badge_padding_h">8dp</dimen>
+    <dimen name="dimen_badge_padding_v">4dp</dimen>
+
+    <!-- Icons -->
+    <dimen name="dimen_icon_default">24dp</dimen>
+    <dimen name="dimen_icon_large">40dp</dimen>
+    <dimen name="dimen_icon_avatar">48dp</dimen>
+
+    <!-- Bottom Navigation -->
+    <dimen name="dimen_bottom_nav_border">1dp</dimen>
+
+    <!-- Map -->
+    <dimen name="dimen_map_polyline_stroke">4dp</dimen>
+
+    <!-- FAB -->
+    <dimen name="dimen_fab_margin">16dp</dimen>
+
+    <!-- Timeline (Agent Trace) -->
+    <dimen name="dimen_timeline_dot">12dp</dimen>
+    <dimen name="dimen_timeline_line_width">2dp</dimen>
+</resources>

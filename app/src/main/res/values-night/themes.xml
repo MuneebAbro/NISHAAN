@@ -1,0 +1,18 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Dark Theme (Default — Command Center aesthetic) -->
+    <style name="Base.Theme.NISHAAN" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/color_primary_variant</item>
+        <item name="android:colorBackground">@color/color_background_dark</item>
+        <item name="colorOnBackground">@color/color_on_background_dark</item>
+        <item name="colorSurface">@color/color_surface_dark</item>
+        <item name="colorOnSurface">@color/color_on_surface_dark</item>
+        <item name="colorSurfaceVariant">@color/color_surface_variant_dark</item>
+        <item name="colorOnSurfaceVariant">@color/color_on_surface_muted_dark</item>
+        <item name="colorOutlineVariant">@color/color_divider_dark</item>
+        <item name="android:statusBarColor">@color/color_background_dark</item>
+        <item name="android:navigationBarColor">@color/color_surface_dark</item>
+    </style>
+    <style name="Theme.NISHAAN" parent="Base.Theme.NISHAAN" />
+</resources>

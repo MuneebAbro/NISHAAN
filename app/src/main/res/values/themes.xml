@@ -1,0 +1,18 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Light Theme -->
+    <style name="Base.Theme.NISHAAN" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/color_primary_light</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/color_primary</item>
+        <item name="android:colorBackground">@color/color_background_light</item>
+        <item name="colorOnBackground">@color/color_on_background_light</item>
+        <item name="colorSurface">@color/color_surface_light</item>
+        <item name="colorOnSurface">@color/color_on_surface_light</item>
+        <item name="colorSurfaceVariant">@color/color_surface_variant_light</item>
+        <item name="colorOnSurfaceVariant">@color/color_on_surface_muted_light</item>
+        <item name="colorOutlineVariant">@color/color_divider_light</item>
+        <item name="android:statusBarColor">@color/color_background_light</item>
+        <item name="android:navigationBarColor">@color/color_surface_light</item>
+    </style>
+    <style name="Theme.NISHAAN" parent="Base.Theme.NISHAAN" />
+</resources>
