@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashFragment">
+
+    <!-- Splash -->
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.maximus.nishaan.feature.splash.SplashFragment"
+        android:label="Splash"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_splash_to_onboarding"
+            app:destination="@id/onboardingFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splash_to_auth"
+            app:destination="@id/authFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splash_to_home"
+            app:destination="@id/homeDashboardFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!-- Onboarding -->
+    <fragment
+        android:id="@+id/onboardingFragment"
+        android:name="com.maximus.nishaan.feature.onboarding.OnboardingFragment"
+        android:label="Onboarding"
+        tools:layout="@layout/fragment_onboarding">
+        <action
+            android:id="@+id/action_onboarding_to_language"
+            app:destination="@id/languageSelectFragment" />
+    </fragment>
+
+    <!-- Language Select -->
+    <fragment
+        android:id="@+id/languageSelectFragment"
+        android:name="com.maximus.nishaan.feature.onboarding.LanguageSelectFragment"
+        android:label="Language"
+        tools:layout="@layout/fragment_language_select">
+        <action
+            android:id="@+id/action_language_to_permissions"
+            app:destination="@id/permissionsFragment" />
+    </fragment>
+
+    <!-- Permissions -->
+    <fragment
+        android:id="@+id/permissionsFragment"
+        android:name="com.maximus.nishaan.feature.onboarding.PermissionsFragment"
+        android:label="Permissions"
+        tools:layout="@layout/fragment_permissions">
+        <action
+            android:id="@+id/action_permissions_to_auth"
+            app:destination="@id/authFragment"
+            app:popUpTo="@id/onboardingFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!-- Auth -->
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="com.maximus.nishaan.feature.auth.AuthFragment"
+        android:label="Sign In"
+        tools:layout="@layout/fragment_auth">
+        <action
+            android:id="@+id/action_auth_to_home"
+            app:destination="@id/homeDashboardFragment"
+            app:popUpTo="@id/authFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!-- Home Dashboard (root destination) -->
+    <fragment
+        android:id="@+id/homeDashboardFragment"
+        android:name="com.maximus.nishaan.feature.home.HomeDashboardFragment"
+        android:label="NISHAAN"
+        tools:layout="@layout/fragment_home_dashboard">
+        <action
+            android:id="@+id/action_home_to_crisisDetail"
+            app:destination="@id/crisisDetailFragment" />
+        <action
+            android:id="@+id/action_home_to_reportMissing"
+            app:destination="@id/reportMissingFragment" />
+    </fragment>
+
+    <!-- Crisis Detail -->
+    <fragment
+        android:id="@+id/crisisDetailFragment"
+        android:name="com.maximus.nishaan.feature.crisis.CrisisDetailFragment"
+        android:label="Crisis Detail"
+        tools:layout="@layout/fragment_crisis_detail">
+        <argument
+            android:name="crisisId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_crisisDetail_to_agentTrace"
+            app:destination="@id/agentTraceFragment" />
+        <action
+            android:id="@+id/action_crisisDetail_to_missingHub"
+            app:destination="@id/missingHubFragment" />
+    </fragment>
+
+    <!-- Agent Trace View -->
+    <fragment
+        android:id="@+id/agentTraceFragment"
+        android:name="com.maximus.nishaan.feature.agenttrace.AgentTraceFragment"
+        android:label="Agent Trace"
+        tools:layout="@layout/fragment_agent_trace">
+        <argument
+            android:name="crisisId"
+            app:argType="string" />
+        <argument
+            android:name="crisisTitle"
+            app:argType="string" />
+    </fragment>
+
+    <!-- Report Missing Person -->
+    <fragment
+        android:id="@+id/reportMissingFragment"
+        android:name="com.maximus.nishaan.feature.missing.ReportMissingFragment"
+        android:label="Report Missing"
+        tools:layout="@layout/fragment_report_missing">
+        <action
+            android:id="@+id/action_reportMissing_to_confirmation"
+            app:destination="@id/confirmationFragment"
+            app:popUpTo="@id/reportMissingFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!-- Confirmation -->
+    <fragment
+        android:id="@+id/confirmationFragment"
+        android:name="com.maximus.nishaan.feature.missing.ConfirmationFragment"
+        android:label="Confirmed"
+        tools:layout="@layout/fragment_confirmation">
+        <argument
+            android:name="personName"
+            app:argType="string" />
+        <argument
+            android:name="reportId"
+            app:argType="string" />
+    </fragment>
+
+    <!-- Missing Persons Hub -->
+    <fragment
+        android:id="@+id/missingHubFragment"
+        android:name="com.maximus.nishaan.feature.missing.MissingHubFragment"
+        android:label="Missing Persons"
+        tools:layout="@layout/fragment_missing_hub">
+        <argument
+            android:name="crisisId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_missingHub_to_missingDetail"
+            app:destination="@id/missingDetailFragment" />
+    </fragment>
+
+    <!-- Missing Person Detail -->
+    <fragment
+        android:id="@+id/missingDetailFragment"
+        android:name="com.maximus.nishaan.feature.missing.MissingDetailFragment"
+        android:label="Missing Person"
+        tools:layout="@layout/fragment_missing_detail">
+        <argument
+            android:name="reportId"
+            app:argType="string" />
+    </fragment>
+
+    <!-- Alerts List -->
+    <fragment
+        android:id="@+id/alertsFragment"
+        android:name="com.maximus.nishaan.feature.alerts.AlertsFragment"
+        android:label="Alerts"
+        tools:layout="@layout/fragment_alerts_list" />
+
+    <!-- Profile -->
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.maximus.nishaan.feature.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profile_to_auth"
+            app:destination="@id/authFragment"
+            app:popUpTo="@id/homeDashboardFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+</navigation>

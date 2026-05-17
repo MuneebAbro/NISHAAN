@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/android:colorBackground"
+    android:orientation="vertical"
+    android:padding="@dimen/spacing_md">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_xxl"
+        android:text="@string/permissions_title"
+        style="@style/TextDisplay" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_sm"
+        android:text="@string/permissions_subtitle"
+        style="@style/TextBodyMedium" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/spacing_xl">
+
+        <!-- Location Permission Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="@dimen/spacing_md">
+            <ImageView
+                android:id="@+id/iconLocation"
+                android:layout_width="@dimen/dimen_icon_large"
+                android:layout_height="@dimen/dimen_icon_large"
+                android:layout_marginEnd="@dimen/spacing_md"
+                android:contentDescription="@string/permission_location_label" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/permission_location_label"
+                    style="@style/TextHeadline" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/permission_location_desc"
+                    style="@style/TextCaption" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/statusLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/permission_required"
+                style="@style/TextBadge"
+                android:textColor="@color/color_primary" />
+        </LinearLayout>
+
+        <!-- Notifications Permission Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="@dimen/spacing_md">
+            <ImageView
+                android:id="@+id/iconNotification"
+                android:layout_width="@dimen/dimen_icon_large"
+                android:layout_height="@dimen/dimen_icon_large"
+                android:layout_marginEnd="@dimen/spacing_md"
+                android:contentDescription="@string/permission_notification_label" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/permission_notification_label"
+                    style="@style/TextHeadline" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/permission_notification_desc"
+                    style="@style/TextCaption" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/statusNotification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/permission_required"
+                style="@style/TextBadge"
+                android:textColor="@color/color_primary" />
+        </LinearLayout>
+
+        <!-- Camera Permission Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="@dimen/spacing_md">
+            <ImageView
+                android:id="@+id/iconCamera"
+                android:layout_width="@dimen/dimen_icon_large"
+                android:layout_height="@dimen/dimen_icon_large"
+                android:layout_marginEnd="@dimen/spacing_md"
+                android:contentDescription="@string/permission_camera_label" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/permission_camera_label"
+                    style="@style/TextHeadline" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/permission_camera_desc"
+                    style="@style/TextCaption" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/statusCamera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/permission_optional"
+                style="@style/TextBadge"
+                android:textColor="@color/color_accent_info" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnGrant"
+        style="@style/PrimaryButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_sm"
+        android:text="@string/btn_grant_permissions" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSkipCamera"
+        style="@style/TextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_lg"
+        android:text="@string/btn_skip_camera"
+        android:visibility="gone" />
+</LinearLayout>

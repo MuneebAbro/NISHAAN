@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingVertical="@dimen/spacing_sm">
+
+    <!-- Timeline dot + line -->
+    <LinearLayout
+        android:layout_width="@dimen/spacing_xl"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/timelineDot"
+            android:layout_width="@dimen/dimen_timeline_dot"
+            android:layout_height="@dimen/dimen_timeline_dot"
+            android:layout_marginTop="@dimen/spacing_xs" />
+
+        <View
+            android:id="@+id/timelineLine"
+            android:layout_width="@dimen/dimen_timeline_line_width"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="?attr/colorOutlineVariant" />
+    </LinearLayout>
+
+    <!-- Trace content -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/spacing_sm">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/agentNameBadge"
+                style="@style/TextBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/dimen_badge_padding_h"
+                android:paddingVertical="@dimen/dimen_badge_padding_v" />
+
+            <TextView
+                android:id="@+id/timestampText"
+                style="@style/TextMono"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_sm" />
+
+            <TextView
+                android:id="@+id/confidenceText"
+                style="@style/TextMono"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_sm" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/actionText"
+            style="@style/TextBodyMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_xs"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/reasoningText"
+            style="@style/TextBodyMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_xs" />
+    </LinearLayout>
+</LinearLayout>

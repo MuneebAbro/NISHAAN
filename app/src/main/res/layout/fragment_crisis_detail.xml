@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/android:colorBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_md">
+
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_xxl"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/crisisTypeIcon"
+                android:layout_width="@dimen/dimen_icon_large"
+                android:layout_height="@dimen/dimen_icon_large"
+                android:layout_marginEnd="@dimen/spacing_md"
+                android:contentDescription="@null" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/crisisTitle"
+                    style="@style/TextDisplay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/crisisTypeLabel"
+                    style="@style/TextBodyMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Severity + Confidence + Time -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_md"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/severityBadge"
+                style="@style/TextBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/dimen_badge_padding_h"
+                android:paddingVertical="@dimen/dimen_badge_padding_v" />
+
+            <TextView
+                android:id="@+id/confidenceText"
+                style="@style/TextMono"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_md" />
+
+            <TextView
+                android:id="@+id/timeAgoText"
+                style="@style/TextCaption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_md" />
+        </LinearLayout>
+
+        <!-- Description -->
+        <TextView
+            android:id="@+id/descriptionText"
+            style="@style/TextBodyLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_lg" />
+
+        <!-- Agencies Section -->
+        <TextView
+            style="@style/TextHeadline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_lg"
+            android:text="@string/crisis_detail_agencies" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/agencyChipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_sm" />
+
+        <!-- Missing Persons -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/missingPersonsCard"
+            style="@style/NishaanCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_lg"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:id="@+id/missingCountText"
+                style="@style/TextBodyMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@android:drawable/ic_menu_more"
+                android:padding="@dimen/spacing_md" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Agent Trace Preview Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_lg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/TextHeadline"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/crisis_detail_agent_trace" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnViewFullTrace"
+                style="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/crisis_detail_view_full_trace" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tracePreviewContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="@dimen/spacing_xl" />
+    </LinearLayout>
+</ScrollView>

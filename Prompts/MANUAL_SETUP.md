@@ -59,15 +59,11 @@ service cloud.firestore {
 1. Go to [Google Cloud Console](https://console.cloud.google.com/)
 2. Enable **Maps SDK for Android**
 3. Create an API key (restrict to Android apps + your SHA-1)
-4. Add the key to `AndroidManifest.xml`:
+4. Open `local.properties` in the root of your project
+5. Add your key at the bottom like this:
+   `MAPS_API_KEY=YOUR_MAPS_API_KEY_HERE`
 
-```xml
-<meta-data
-    android:name="com.google.android.geo.API_KEY"
-    android:value="YOUR_MAPS_API_KEY_HERE" />
-```
-
-The placeholder `YOUR_MAPS_API_KEY_HERE` is already in the manifest — just replace the value.
+*(The app is now configured to securely read this file and inject it during the build process, keeping your key safe from Git)*
 
 ---
 
@@ -77,16 +73,42 @@ The placeholder `YOUR_MAPS_API_KEY_HERE` is already in the manifest — just rep
 2. Get a Gemini API key
 3. Add to `agent-scripts/shared/` config (created later)
 
+
 ---
 
-## 4. Seed Firestore with Test Data
+## 4. Add SHA-1 Fingerprint (Fixes DEVELOPER_ERROR)
 
-For the hackathon demo, you need sample data in Firestore. Antigravity can generate a seeding script, or you can manually add documents to:
-- `crises` — 3-5 sample crisis documents
-- `agent_traces` — Sample agent decision logs
-- `signals` — Sample signal documents
+The `GoogleApiManager DEVELOPER_ERROR` in logcat means your debug SHA-1 isn't registered:
 
-Ask Antigravity: "Generate a Firestore seeding script"
+1. Get your debug SHA-1:
+```bash
+cd d:\Nishaan
+.\gradlew.bat signingReport
+```
+2. Copy the `SHA1:` value from the `debug` variant
+3. Go to Firebase Console → Project Settings → Your Android app → **Add fingerprint**
+4. Paste the SHA-1 and save
+5. **Re-download `google-services.json`** and replace the one in `app/`
+
+---
+
+## 5. Seed Firestore with Test Data
+
+A seeding script is ready at `d:\Nishaan\seed_firestore.js`. To use it:
+
+**Option A — Node.js script (recommended):**
+```bash
+cd d:\Nishaan
+npm install firebase-admin
+# Download service account key from Firebase Console → Project Settings → Service Accounts → Generate New Private Key
+# Save as d:\Nishaan\serviceAccountKey.json
+node seed_firestore.js
+```
+
+**Option B — Manual via Firebase Console:**
+1. Go to Firestore → Create collection `crises`
+2. Add a document with fields: `crisis_type` (string: "FLOOD"), `severity` (string: "CRITICAL"), `confidence` (number: 91), `status` (string: "CONFIRMED"), `title_en` (string: "Flash Flood — Gulshan"), `description_en` (string), `created_at` (timestamp), `updated_at` (timestamp)
+3. Create collection `agent_traces` with fields: `agent_name`, `crisis_id` (use the crisis doc ID), `action`, `reasoning_summary`, `timestamp`
 
 ---
 
@@ -107,11 +129,11 @@ Ask Antigravity: "Generate a Firestore seeding script"
 
 ## Checklist
 
-- [ ] `google-services.json` placed in `app/`
-- [ ] Google Maps API key added to manifest
-- [ ] Firebase Auth methods enabled
-- [ ] Firestore database created
-- [ ] Firebase Storage enabled
-- [ ] Test data seeded in Firestore
-- [ ] App builds successfully
-- [ ] App runs on device/emulator
+- [yes] `google-services.json` placed in `app/`
+- [yes] Google Maps API key added to manifest
+- [yes] Firebase Auth methods enabled
+- [yes] Firestore database created
+- [yes] Firebase Storage enabled
+- [yes] Test data seeded in Firestore
+- [yes] App builds successfully
+- [yes] App runs on device/emulator
