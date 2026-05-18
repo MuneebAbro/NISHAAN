@@ -43,6 +43,17 @@
     <string name="auth_error_empty_password">Please enter your password</string>
     <string name="auth_error_invalid_credentials">Invalid email or password</string>
     <string name="auth_error_generic">Sign in failed. Please try again.</string>
+    <string name="auth_signup_title">Complete Your Profile</string>
+    <string name="auth_signup_subtitle">CNIC and photo are required to report missing persons</string>
+    <string name="auth_display_name_label">Full Name</string>
+    <string name="auth_cnic_label">CNIC Number (xxxxx-xxxxxxx-x)</string>
+    <string name="auth_cnic_error">Please enter a valid CNIC</string>
+    <string name="auth_photo_required">Profile photo is required</string>
+    <string name="btn_complete_signup">Complete Signup</string>
+    <string name="missing_mark_found_proof_title">Upload Proof</string>
+    <string name="missing_mark_found_proof_desc">Please upload a photo of the person found as proof.</string>
+    <string name="missing_error_not_verified">Only verified users with CNIC and profile photo can mark as found.</string>
+    <string name="btn_call_reporter">Call Reporter</string>
     <string name="nav_map">Map</string>
     <string name="nav_alerts">Alerts</string>
     <string name="nav_missing">Missing</string>
@@ -131,7 +142,9 @@
     <string name="profile_my_reports">My Reports</string>
     <string name="profile_see_all">See all</string>
     <string name="profile_create_account_banner">Create an account to submit missing person reports</string>
+    <string name="profile_language_select">Change Language / زبان تبدیل کریں</string>
     <string name="btn_sign_out">Sign Out</string>
+    <string name="profile_app_settings">App Settings</string>
     <string name="profile_sign_out_confirm">Sign out of NISHAAN?</string>
     <string name="guest_banner_report">Sign in to submit a report</string>
     <string name="loading">Loading…</string>

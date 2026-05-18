@@ -6,8 +6,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.maximus.nishaan.NishaanApplication
 import com.maximus.nishaan.R
 import com.maximus.nishaan.databinding.FragmentAuthBinding
+import kotlinx.coroutines.launch
+import androidx.lifecycle.lifecycleScope
 
 /**
  * Auth screen — Sign In (email/password) or Continue as Guest (anonymous).
@@ -103,7 +106,36 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
     }
 
     private fun navigateToHome() {
-        findNavController().navigate(R.id.action_auth_to_home)
+        val user = auth.currentUser
+        if (user == null || user.isAnonymous) {
+            if (isAdded && findNavController().currentDestination?.id == R.id.authFragment) {
+                findNavController().navigate(R.id.action_auth_to_home)
+            }
+            return
+        }
+
+        val app = requireActivity().application as NishaanApplication
+        lifecycleScope.launch {
+            val result = app.appContainer.userRepository.getUserProfile(user.uid)
+            if (!isAdded) return@launch
+
+            result.fold(
+                onSuccess = { profile ->
+                    if (findNavController().currentDestination?.id == R.id.authFragment) {
+                        if (profile != null && profile.isVerified) {
+                            findNavController().navigate(R.id.action_auth_to_home)
+                        } else {
+                            findNavController().navigate(R.id.action_auth_to_signup)
+                        }
+                    }
+                },
+                onFailure = {
+                    if (findNavController().currentDestination?.id == R.id.authFragment) {
+                        findNavController().navigate(R.id.action_auth_to_signup)
+                    }
+                }
+            )
+        }
     }
 
     override fun onDestroyView() {

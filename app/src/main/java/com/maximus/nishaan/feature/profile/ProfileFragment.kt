@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.maximus.nishaan.NishaanApplication
@@ -29,10 +30,32 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         // Display user info
         val auth = FirebaseAuth.getInstance()
         val user = auth.currentUser
+        val app = requireActivity().application as NishaanApplication
+
         if (user != null && !user.isAnonymous) {
-            binding.userName.text = user.displayName ?: "User"
-            binding.userEmail.text = user.email ?: ""
             binding.createAccountBanner.visibility = View.GONE
+            viewLifecycleOwner.lifecycleScope.launch {
+                val result = app.appContainer.userRepository.getUserProfile(user.uid)
+                result.onSuccess { profile ->
+                    if (profile != null) {
+                        binding.userName.text = profile.displayName
+                        binding.userEmail.text = profile.email
+                        if (profile.cnic != null) {
+                            binding.userCnic.text = "CNIC: ${profile.cnic}"
+                            binding.userCnic.visibility = View.VISIBLE
+                        }
+                        if (profile.photoUrl != null) {
+                            Glide.with(this@ProfileFragment)
+                                .load(profile.photoUrl)
+                                .circleCrop()
+                                .into(binding.profileImage)
+                        }
+                    } else {
+                        binding.userName.text = user.displayName ?: "User"
+                        binding.userEmail.text = user.email ?: ""
+                    }
+                }
+            }
         } else {
             binding.userName.text = getString(R.string.profile_guest_label)
             binding.userEmail.text = "Guest Mode"
@@ -40,7 +63,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
 
         // My Reports — show user's submitted missing person reports
-        val app = requireActivity().application as NishaanApplication
         val reportsAdapter = MissingPersonAdapter { /* No click action for own reports */ }
         binding.myReportsRecycler.adapter = reportsAdapter
 
@@ -57,6 +79,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         binding.btnSeeAllReports.setOnClickListener {
             findNavController().navigate(R.id.missingHubFragment)
+        }
+
+        binding.btnChangeLanguage.setOnClickListener {
+            findNavController().navigate(R.id.languageSelectFragment)
         }
 
         // Sign out

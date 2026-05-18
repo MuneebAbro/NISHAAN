@@ -14,6 +14,6 @@ interface MissingPersonRepository {
     /** Submits a new missing person report. */
     suspend fun submitReport(person: MissingPerson, photoBytes: ByteArray?): Result<String>
 
-    /** Marks a missing person as found. */
-    suspend fun markAsFound(reportId: String): Result<Unit>
+    /** Marks a missing person as found with proof. */
+    suspend fun markAsFound(reportId: String, proofUrl: String? = null, verifiedByUid: String? = null): Result<Unit>
 }

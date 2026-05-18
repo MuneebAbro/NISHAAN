@@ -74,6 +74,22 @@
             app:destination="@id/homeDashboardFragment"
             app:popUpTo="@id/authFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_auth_to_signup"
+            app:destination="@id/signupFragment" />
+    </fragment>
+
+    <!-- Signup -->
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="com.maximus.nishaan.feature.auth.SignupFragment"
+        android:label="Complete Profile"
+        tools:layout="@layout/fragment_signup">
+        <action
+            android:id="@+id/action_signup_to_home"
+            app:destination="@id/homeDashboardFragment"
+            app:popUpTo="@id/authFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <!-- Home Dashboard (root destination) -->

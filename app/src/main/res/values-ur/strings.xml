@@ -34,6 +34,17 @@
     <string name="btn_continue_guest">مہمان کے طور پر جاری رکھیں</string>
     <string name="btn_create_account">اکاؤنٹ بنائیں</string>
     <string name="auth_error_generic">سائن ان ناکام۔ دوبارہ کوشش کریں۔</string>
+    <string name="auth_signup_title">اپنی پروفائل مکمل کریں</string>
+    <string name="auth_signup_subtitle">لاپتہ افراد کی رپورٹ کے لیے شناختی کارڈ اور تصویر ضروری ہے</string>
+    <string name="auth_display_name_label">پورا نام</string>
+    <string name="auth_cnic_label">شناختی کارڈ نمبر (xxxxx-xxxxxxx-x)</string>
+    <string name="auth_cnic_error">درست شناختی کارڈ نمبر درج کریں</string>
+    <string name="auth_photo_required">پروفائل فوٹو ضروری ہے</string>
+    <string name="btn_complete_signup">سائن اپ مکمل کریں</string>
+    <string name="missing_mark_found_proof_title">ثبوت اپ لوڈ کریں</string>
+    <string name="missing_mark_found_proof_desc">براہ کرم ملنے والے شخص کی تصویر بطور ثبوت اپ لوڈ کریں۔</string>
+    <string name="missing_error_not_verified">صرف وہ صارفین جو شناختی کارڈ اور پروفائل فوٹو سے تصدیق شدہ ہیں، ملنے کی اطلاع دے سکتے ہیں۔</string>
+    <string name="btn_call_reporter">رپورٹر کو کال کریں</string>
     <string name="nav_map">نقشہ</string>
     <string name="nav_alerts">الرٹس</string>
     <string name="nav_missing">لاپتہ</string>
@@ -69,6 +80,8 @@
     <string name="alerts_empty">ابھی کوئی الرٹ نہیں۔ محفوظ رہیں۔</string>
     <string name="profile_title">پروفائل</string>
     <string name="profile_guest_label">مہمان اکاؤنٹ</string>
+    <string name="profile_app_settings">ایپ سیٹنگز</string>
+    <string name="profile_language_select">زبان تبدیل کریں</string>
     <string name="btn_sign_out">سائن آؤٹ</string>
     <string name="loading">لوڈ ہو رہا ہے…</string>
     <string name="error_generic">کچھ غلط ہو گیا۔ دوبارہ کوشش کریں۔</string>

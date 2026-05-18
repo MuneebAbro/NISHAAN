@@ -75,10 +75,17 @@ class MissingPersonRepositoryImpl(
         Result.success(reportId)
     } catch (e: Exception) { Result.failure(e) }
 
-    override suspend fun markAsFound(reportId: String): Result<Unit> = try {
+    override suspend fun markAsFound(reportId: String, proofUrl: String?, verifiedByUid: String?): Result<Unit> = try {
+        val updateData = mutableMapOf<String, Any>(
+            "status" to "FOUND",
+            "updated_at" to Timestamp.now()
+        )
+        proofUrl?.let { updateData["found_proof_url"] = it }
+        verifiedByUid?.let { updateData["found_verified_by"] = it }
+
         firestore.collection(Constants.COLLECTION_MISSING_PERSONS)
             .document(reportId)
-            .update(mapOf("status" to "FOUND", "updated_at" to Timestamp.now()))
+            .update(updateData)
             .await()
         Result.success(Unit)
     } catch (e: Exception) { Result.failure(e) }

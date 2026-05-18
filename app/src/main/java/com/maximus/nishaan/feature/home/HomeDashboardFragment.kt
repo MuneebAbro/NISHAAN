@@ -79,26 +79,6 @@ class HomeDashboardFragment : Fragment(R.layout.fragment_home_dashboard) {
         binding.fabReportMissing.setOnClickListener {
             findNavController().navigate(R.id.action_home_to_reportMissing)
         }
-
-        // Bottom Navigation
-        binding.bottomNav.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_map -> true
-                R.id.nav_alerts -> {
-                    findNavController().navigate(R.id.alertsFragment)
-                    true
-                }
-                R.id.nav_missing -> {
-                    findNavController().navigate(R.id.missingHubFragment)
-                    true
-                }
-                R.id.nav_profile -> {
-                    findNavController().navigate(R.id.profileFragment)
-                    true
-                }
-                else -> false
-            }
-        }
     }
 
     private fun configureMap(map: GoogleMap) {

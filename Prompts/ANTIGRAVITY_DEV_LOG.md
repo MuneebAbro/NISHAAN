@@ -255,4 +255,28 @@ Each entry follows:
 
 ---
 
+### 2026-05-18 — 03:00 PM PKT — Multi-Feature Update: Language, Navigation, Auth & Verification
+
+- **Task:** Implemented several user-requested features including Roman Urdu support, persistent navigation, enhanced authentication (CNIC/Photo), and verified "Mark Found" flow.
+- **Files Created:**
+    - `core/util/LocaleHelper.kt` — Utility to wrap context with selected locale (en, ur, ur-Latn).
+    - `domain/model/User.kt` — Data model for verified user profiles.
+    - `domain/repository/UserRepository.kt` / `UserRepositoryImpl.kt` — Repository for profile management using Firestore and Firebase Storage.
+    - `feature/auth/SignupFragment.kt` / `fragment_signup.xml` — New screen for collecting Name, CNIC, and Profile Picture.
+    - `res/values-ur-rLatn/strings.xml` — Full UI translations for Roman Urdu.
+- **Files Modified:**
+    - `MainActivity.kt` — Implemented locale switching in `attachBaseContext`, moved Bottom Nav setup here, added destination listener to show/hide nav.
+    - `activity_main.xml` — Moved `BottomNavigationView` here for persistence across fragments.
+    - `fragment_home_dashboard.xml` / `HomeDashboardFragment.kt` — Removed Bottom Nav logic (now handled by MainActivity).
+    - `res/menu/bottom_nav_menu.xml` — Updated item IDs to match navigation graph for auto-wiring.
+    - `res/values/strings.xml` / `res/values-ur/strings.xml` — Added strings for signup, verified found status, and Roman Urdu.
+    - `fragment_profile.xml` / `ProfileFragment.kt` — Added CNIC display, profile image loading (Glide), and "Change Language" setting.
+    - `AuthFragment.kt` — Updated login flow to check for profile verification and redirect to Signup if needed.
+    - `MissingPersonRepository.kt` / `MissingPersonRepositoryImpl.kt` — Updated `markAsFound` to accept proof URL and verifier UID.
+    - `fragment_missing_detail.xml` / `MissingDetailFragment.kt` — Added "Call Reporter" button (Intent.ACTION_DIAL) and updated "Mark Found" to require CNIC verification and proof image upload.
+    - `nav_graph.xml` — Added SignupFragment destination and actions.
+- **Outcome:** Major UX improvements completed. App now supports 3 languages (English, Urdu, Roman Urdu), has a persistent navigation bar, requires identity verification for reporting/marking found, and enables direct contact with reporters.
+
+---
+
 *This log will be updated with every subsequent Antigravity development session.*

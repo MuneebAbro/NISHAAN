@@ -7,9 +7,11 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.maximus.nishaan.data.repository.AgentTraceRepositoryImpl
 import com.maximus.nishaan.data.repository.CrisisRepositoryImpl
 import com.maximus.nishaan.data.repository.MissingPersonRepositoryImpl
+import com.maximus.nishaan.data.repository.UserRepositoryImpl
 import com.maximus.nishaan.domain.repository.AgentTraceRepository
 import com.maximus.nishaan.domain.repository.CrisisRepository
 import com.maximus.nishaan.domain.repository.MissingPersonRepository
+import com.maximus.nishaan.domain.repository.UserRepository
 
 /**
  * Manual dependency injection container.
@@ -27,4 +29,5 @@ class AppContainer(private val context: Context) {
     val crisisRepository: CrisisRepository by lazy { CrisisRepositoryImpl() }
     val agentTraceRepository: AgentTraceRepository by lazy { AgentTraceRepositoryImpl() }
     val missingPersonRepository: MissingPersonRepository by lazy { MissingPersonRepositoryImpl() }
+    val userRepository: UserRepository by lazy { UserRepositoryImpl() }
 }
