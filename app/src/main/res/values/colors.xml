@@ -4,53 +4,53 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!-- NISHAAN Dark Theme (Default) -->
-    <color name="color_background_dark">#0A0D12</color>
-    <color name="color_surface_dark">#12171F</color>
-    <color name="color_surface_variant_dark">#1C2330</color>
-    <color name="color_primary">#E63946</color>
-    <color name="color_primary_variant">#C1121F</color>
-    <color name="color_secondary">#F4A261</color>
-    <color name="color_accent_low">#2EC4B6</color>
-    <color name="color_accent_info">#4895EF</color>
-    <color name="color_on_background_dark">#E8EDF5</color>
-    <color name="color_on_surface_dark">#B0BAC9</color>
-    <color name="color_on_surface_muted_dark">#5A6478</color>
-    <color name="color_divider_dark">#1E2A3A</color>
-    <color name="color_map_overlay_dark">#CC0A0D12</color>
+    <!-- NISHAAN Dark Theme (Default — Tactical EOC Aesthetic) -->
+    <color name="color_background_dark">#050816</color>
+    <color name="color_surface_dark">#0B1220</color>
+    <color name="color_surface_variant_dark">#111827</color>
+    <color name="color_primary">#FF453A</color>
+    <color name="color_primary_variant">#D9382F</color>
+    <color name="color_secondary">#F59E0B</color>
+    <color name="color_accent_low">#10B981</color>
+    <color name="color_accent_info">#3B82F6</color>
+    <color name="color_on_background_dark">#F8FAFC</color>
+    <color name="color_on_surface_dark">#F8FAFC</color>
+    <color name="color_on_surface_muted_dark">#94A3B8</color>
+    <color name="color_divider_dark">#10FFFFFF</color>
+    <color name="color_map_overlay_dark">#CC050816</color>
 
-    <!-- NISHAAN Light Theme -->
-    <color name="color_background_light">#F0F4F8</color>
+    <!-- NISHAAN Light Theme (Harmonized with Light command dashboard) -->
+    <color name="color_background_light">#F8FAFC</color>
     <color name="color_surface_light">#FFFFFF</color>
-    <color name="color_surface_variant_light">#E8ECF0</color>
-    <color name="color_primary_light">#C1121F</color>
-    <color name="color_on_background_light">#0D1117</color>
-    <color name="color_on_surface_light">#3D4A5C</color>
-    <color name="color_on_surface_muted_light">#8894A6</color>
-    <color name="color_divider_light">#D4DAE2</color>
-    <color name="color_map_overlay_light">#CCF0F4F8</color>
+    <color name="color_surface_variant_light">#F1F5F9</color>
+    <color name="color_primary_light">#D9382F</color>
+    <color name="color_on_background_light">#0F172A</color>
+    <color name="color_on_surface_light">#334155</color>
+    <color name="color_on_surface_muted_light">#64748B</color>
+    <color name="color_divider_light">#E2E8F0</color>
+    <color name="color_map_overlay_light">#CCF8FAFC</color>
 
     <!-- Severity Colors (shared) -->
-    <color name="color_severity_critical">#E63946</color>
-    <color name="color_severity_high">#E63946</color>
-    <color name="color_severity_medium">#F4A261</color>
-    <color name="color_severity_low">#2EC4B6</color>
-    <color name="color_severity_monitoring">#4895EF</color>
+    <color name="color_severity_critical">#FF453A</color>
+    <color name="color_severity_high">#FF453A</color>
+    <color name="color_severity_medium">#F59E0B</color>
+    <color name="color_severity_low">#10B981</color>
+    <color name="color_severity_monitoring">#3B82F6</color>
 
     <!-- Severity Backgrounds (20% opacity) -->
-    <color name="color_severity_critical_bg">#33E63946</color>
-    <color name="color_severity_high_bg">#33E63946</color>
-    <color name="color_severity_medium_bg">#33F4A261</color>
-    <color name="color_severity_low_bg">#332EC4B6</color>
-    <color name="color_severity_monitoring_bg">#334895EF</color>
+    <color name="color_severity_critical_bg">#33FF453A</color>
+    <color name="color_severity_high_bg">#33FF453A</color>
+    <color name="color_severity_medium_bg">#33F59E0B</color>
+    <color name="color_severity_low_bg">#3310B981</color>
+    <color name="color_severity_monitoring_bg">#333B82F6</color>
 
     <!-- Agent Colors -->
-    <color name="color_agent_sentinel">#4895EF</color>
-    <color name="color_agent_analyst">#F4A261</color>
-    <color name="color_agent_commander">#E63946</color>
-    <color name="color_agent_matcher">#2EC4B6</color>
+    <color name="color_agent_sentinel">#3B82F6</color>
+    <color name="color_agent_analyst">#F59E0B</color>
+    <color name="color_agent_commander">#FF453A</color>
+    <color name="color_agent_matcher">#10B981</color>
 
     <!-- Geofence -->
-    <color name="color_geofence_stroke_40">#66E63946</color>
-    <color name="color_geofence_fill_10">#1AE63946</color>
+    <color name="color_geofence_stroke_40">#66FF453A</color>
+    <color name="color_geofence_fill_10">#1AFF453A</color>
 </resources>

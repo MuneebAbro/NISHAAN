@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/android:colorBackground">
@@ -8,22 +9,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/spacing_md">
+        android:paddingHorizontal="@dimen/spacing_md"
+        android:paddingBottom="@dimen/spacing_xl">
 
-        <!-- Header -->
+        <!-- Crisis Detail Title Header -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_xxl"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/spacing_sm">
 
             <ImageView
                 android:id="@+id/crisisTypeIcon"
-                android:layout_width="@dimen/dimen_icon_large"
-                android:layout_height="@dimen/dimen_icon_large"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_marginEnd="@dimen/spacing_md"
-                android:contentDescription="@null" />
+                android:contentDescription="@null"
+                app:tint="?attr/colorPrimary" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -35,116 +39,183 @@
                     android:id="@+id/crisisTitle"
                     style="@style/TextDisplay"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:letterSpacing="-0.02" />
 
                 <TextView
                     android:id="@+id/crisisTypeLabel"
-                    style="@style/TextBodyMedium"
+                    style="@style/TextCaption"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:letterSpacing="0.05"
+                    android:textColor="?attr/colorOnSurfaceVariant" />
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Severity + Confidence + Time -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?attr/colorOutlineVariant"
+            android:layout_marginBottom="@dimen/spacing_sm" />
+
+        <!-- Severity + Confidence + Time metadata pill container -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_md"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/spacing_md">
 
             <TextView
                 android:id="@+id/severityBadge"
                 style="@style/TextBadge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="@dimen/dimen_badge_padding_h"
-                android:paddingVertical="@dimen/dimen_badge_padding_v" />
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
+                android:textSize="9sp" />
 
             <TextView
                 android:id="@+id/confidenceText"
                 style="@style/TextMono"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_md" />
+                android:layout_marginStart="@dimen/spacing_md"
+                android:textSize="11sp" />
 
             <TextView
                 android:id="@+id/timeAgoText"
                 style="@style/TextCaption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_md" />
+                android:layout_marginStart="@dimen/spacing_md"
+                android:textSize="11sp" />
         </LinearLayout>
 
-        <!-- Description -->
-        <TextView
-            android:id="@+id/descriptionText"
-            style="@style/TextBodyLarge"
+        <!-- Briefing Description wrapped in structured layout -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/NishaanCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_lg" />
+            android:layout_marginBottom="@dimen/spacing_md"
+            app:cardCornerRadius="12dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="?attr/colorOutlineVariant"
+            app:cardElevation="0dp">
 
-        <!-- Agencies Section -->
+            <TextView
+                android:id="@+id/descriptionText"
+                style="@style/TextBodyMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:lineSpacingExtra="4dp"
+                android:textColor="?attr/colorOnSurface" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Dynamic dispatch chips -->
         <TextView
             style="@style/TextHeadline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_lg"
-            android:text="@string/crisis_detail_agencies" />
+            android:layout_marginTop="@dimen/spacing_sm"
+            android:text="@string/crisis_detail_agencies"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnBackground" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/agencyChipGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_sm" />
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="@dimen/spacing_md"
+            app:chipSpacingHorizontal="8dp"
+            app:chipSpacingVertical="8dp" />
 
-        <!-- Missing Persons -->
+        <!-- Linked Action Cards -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/missingPersonsCard"
             style="@style/NishaanCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_lg"
+            android:layout_marginBottom="@dimen/spacing_md"
+            app:cardCornerRadius="12dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="?attr/colorOutlineVariant"
+            app:cardBackgroundColor="?attr/colorSurfaceVariant"
+            app:cardElevation="0dp"
             android:clickable="true"
             android:focusable="true">
 
-            <TextView
-                android:id="@+id/missingCountText"
-                style="@style/TextBodyMedium"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@android:drawable/ic_menu_more"
-                android:padding="@dimen/spacing_md" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing_md">
+
+                <TextView
+                    android:id="@+id/missingCountText"
+                    style="@style/TextBodyMedium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorOnBackground" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@android:drawable/ic_menu_more"
+                    app:tint="?attr/colorPrimary"
+                    android:contentDescription="@null" />
+            </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Agent Trace Preview Section -->
+        <!-- Divider Line -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?attr/colorOutlineVariant"
+            android:layout_marginTop="@dimen/spacing_sm"
+            android:layout_marginBottom="@dimen/spacing_md" />
+
+        <!-- Agent Trace Sub-Panel -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_lg"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="4dp">
 
             <TextView
                 style="@style/TextHeadline"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/crisis_detail_agent_trace" />
+                android:text="@string/crisis_detail_agent_trace"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnBackground" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnViewFullTrace"
                 style="@style/TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/crisis_detail_view_full_trace" />
+                android:text="@string/crisis_detail_view_full_trace"
+                android:textSize="13sp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/tracePreviewContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="@dimen/spacing_xl" />
+            android:orientation="vertical" />
     </LinearLayout>
 </ScrollView>

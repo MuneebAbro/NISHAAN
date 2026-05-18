@@ -13,23 +13,23 @@
 
     <!-- Cards -->
     <dimen name="dimen_card_padding">16dp</dimen>
-    <dimen name="dimen_card_corner_radius">8dp</dimen>
-    <dimen name="dimen_card_elevation">2dp</dimen>
+    <dimen name="dimen_card_corner_radius">12dp</dimen>
+    <dimen name="dimen_card_elevation">0dp</dimen>
     <dimen name="dimen_card_stroke_width">1dp</dimen>
     <dimen name="dimen_card_alert_stripe_width">4dp</dimen>
 
     <!-- Buttons -->
-    <dimen name="dimen_button_height">52dp</dimen>
-    <dimen name="dimen_button_corner_radius">6dp</dimen>
+    <dimen name="dimen_button_height">54dp</dimen>
+    <dimen name="dimen_button_corner_radius">12dp</dimen>
     <dimen name="dimen_button_outline_stroke">1.5dp</dimen>
 
     <!-- Inputs -->
-    <dimen name="dimen_input_corner_radius">6dp</dimen>
+    <dimen name="dimen_input_corner_radius">12dp</dimen>
 
     <!-- Severity Badge -->
-    <dimen name="dimen_badge_corner_radius">4dp</dimen>
-    <dimen name="dimen_badge_padding_h">8dp</dimen>
-    <dimen name="dimen_badge_padding_v">4dp</dimen>
+    <dimen name="dimen_badge_corner_radius">6dp</dimen>
+    <dimen name="dimen_badge_padding_h">12dp</dimen>
+    <dimen name="dimen_badge_padding_v">6dp</dimen>
 
     <!-- Icons -->
     <dimen name="dimen_icon_default">24dp</dimen>

@@ -22,8 +22,11 @@
         android:background="?attr/colorSurface"
         android:visibility="gone"
         app:itemActiveIndicatorStyle="@null"
-        app:itemIconTint="@color/color_primary"
-        app:itemTextColor="@color/color_primary"
+        app:itemIconTint="@color/nav_item_color"
+        app:itemTextColor="@color/nav_item_color"
+        app:itemIconSize="22dp"
+        app:labelVisibilityMode="labeled"
+        app:elevation="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_nav_menu" />
 

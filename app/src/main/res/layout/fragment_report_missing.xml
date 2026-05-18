@@ -6,36 +6,47 @@
     android:background="?attr/android:colorBackground"
     android:orientation="vertical">
 
-    <!-- Title -->
-    <TextView
-        style="@style/TextDisplay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="@dimen/spacing_md"
-        android:paddingTop="@dimen/spacing_xxl"
-        android:text="@string/report_missing_title" />
-
-    <!-- Step indicator -->
+    <!-- Form Header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="@dimen/spacing_md">
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/spacing_md"
+        android:paddingTop="@dimen/spacing_xxl"
+        android:paddingBottom="@dimen/spacing_md">
 
+        <TextView
+            style="@style/TextDisplay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/report_missing_title"
+            android:textSize="22sp" />
+
+        <!-- Fine segmented layout text indicator -->
         <TextView
             android:id="@+id/stepIndicator"
             style="@style/TextCaption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:letterSpacing="0.05"
+            android:textColor="?attr/colorPrimary" />
     </LinearLayout>
 
-    <!-- Step content area -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?attr/colorOutlineVariant" />
+
+    <!-- Step content scroll area -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:paddingTop="@dimen/spacing_sm">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -50,85 +61,118 @@
                 android:orientation="vertical"
                 android:visibility="visible">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/nameLayout"
-                    style="@style/NishaanInputLayout"
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/NishaanCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/spacing_md"
-                    android:hint="@string/report_name_label">
+                    app:cardCornerRadius="14dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardElevation="0dp">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/nameInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/ageLayout"
-                    style="@style/NishaanInputLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/spacing_md"
-                    android:hint="@string/report_age_label">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ageInput"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="number" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:orientation="vertical"
+                        android:padding="@dimen/spacing_md">
 
-                <com.google.android.material.button.MaterialButtonToggleGroup
-                    android:id="@+id/genderToggle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/spacing_md"
-                    app:selectionRequired="true"
-                    app:singleSelection="true">
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/nameLayout"
+                            style="@style/NishaanInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/spacing_md"
+                            android:hint="@string/report_name_label">
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnMale"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/report_gender_male" />
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/nameInput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="?attr/colorOnSurface" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnFemale"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/report_gender_female" />
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/ageLayout"
+                            style="@style/NishaanInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/spacing_md"
+                            android:hint="@string/report_age_label">
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnOther"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/report_gender_other" />
-                </com.google.android.material.button.MaterialButtonToggleGroup>
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ageInput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="number"
+                                android:textColor="?attr/colorOnSurface" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/descriptionLayout"
-                    style="@style/NishaanInputLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/report_description_label"
-                    app:counterEnabled="true"
-                    app:counterMaxLength="500">
+                        <TextView
+                            style="@style/TextCaption"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6dp"
+                            android:text="GENDER / جنس"
+                            android:textStyle="bold"
+                            android:letterSpacing="0.05"
+                            android:textColor="?attr/colorOnSurfaceVariant" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/descriptionInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textMultiLine"
-                        android:maxLength="500"
-                        android:minLines="3" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.button.MaterialButtonToggleGroup
+                            android:id="@+id/genderToggle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/spacing_md"
+                            app:selectionRequired="true"
+                            app:singleSelection="true">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnMale"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/report_gender_male"
+                                android:textSize="13sp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnFemale"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/report_gender_female"
+                                android:textSize="13sp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnOther"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/report_gender_other"
+                                android:textSize="13sp" />
+                        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/descriptionLayout"
+                            style="@style/NishaanInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/report_description_label"
+                            app:counterEnabled="true"
+                            app:counterMaxLength="500">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/descriptionInput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textMultiLine"
+                                android:maxLength="500"
+                                android:minLines="3"
+                                android:textColor="?attr/colorOnSurface" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
             <!-- Step 2: Location & Photo -->
@@ -139,58 +183,107 @@
                 android:orientation="vertical"
                 android:visibility="gone">
 
-                <TextView
-                    style="@style/TextHeadline"
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/NishaanCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/spacing_sm"
-                    android:text="@string/report_last_seen_label" />
+                    app:cardCornerRadius="14dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardElevation="0dp">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/addressLayout"
-                    style="@style/NishaanInputLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/spacing_lg"
-                    android:hint="@string/report_type_address">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/addressInput"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    style="@style/TextHeadline"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/spacing_sm"
-                    android:text="@string/report_photo_label" />
-
-                <FrameLayout
-                    android:id="@+id/photoTapZone"
-                    android:layout_width="match_parent"
-                    android:layout_height="160dp"
-                    android:background="?attr/colorSurfaceVariant"
-                    android:clickable="true"
-                    android:focusable="true">
-
-                    <TextView
-                        android:id="@+id/photoPlaceholder"
-                        style="@style/TextBodyMedium"
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/report_photo_tap" />
+                        android:orientation="vertical"
+                        android:padding="@dimen/spacing_md">
 
-                    <ImageView
-                        android:id="@+id/photoPreview"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:contentDescription="@null"
-                        android:scaleType="centerCrop"
-                        android:visibility="gone" />
-                </FrameLayout>
+                        <TextView
+                            style="@style/TextHeadline"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/spacing_sm"
+                            android:text="@string/report_last_seen_label"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/addressLayout"
+                            style="@style/NishaanInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/spacing_lg"
+                            android:hint="@string/report_type_address">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/addressInput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="?attr/colorOnSurface" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            style="@style/TextHeadline"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/spacing_sm"
+                            android:text="@string/report_photo_label"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <!-- Premium dashed/highlight card upload target -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/photoTapZone"
+                            android:layout_width="match_parent"
+                            android:layout_height="180dp"
+                            android:clickable="true"
+                            android:focusable="true"
+                            app:cardCornerRadius="10dp"
+                            app:strokeWidth="1dp"
+                            app:strokeColor="?attr/colorOutlineVariant"
+                            app:cardBackgroundColor="?attr/colorSurface"
+                            app:cardElevation="0dp">
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <LinearLayout
+                                    android:id="@+id/photoPlaceholderContainer"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:layout_width="32dp"
+                                        android:layout_height="32dp"
+                                        android:src="@android:drawable/ic_menu_camera"
+                                        app:tint="?attr/colorOnSurfaceVariant"
+                                        android:layout_marginBottom="8dp"
+                                        android:contentDescription="@null" />
+
+                                    <TextView
+                                        android:id="@+id/photoPlaceholder"
+                                        style="@style/TextBodyMedium"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/report_photo_tap"
+                                        android:textColor="?attr/colorOnSurfaceVariant" />
+                                </LinearLayout>
+
+                                <ImageView
+                                    android:id="@+id/photoPreview"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:contentDescription="@null"
+                                    android:scaleType="centerCrop"
+                                    android:visibility="gone" />
+                            </FrameLayout>
+                        </com.google.android.material.card.MaterialCardView>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
             <!-- Step 3: Contact Info -->
@@ -201,52 +294,90 @@
                 android:orientation="vertical"
                 android:visibility="gone">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/phoneLayout"
-                    style="@style/NishaanInputLayout"
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/NishaanCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/spacing_md"
-                    android:hint="@string/report_phone_label">
+                    app:cardCornerRadius="14dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardElevation="0dp">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/phoneInput"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="phone" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:orientation="vertical"
+                        android:padding="@dimen/spacing_md">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/relationshipLayout"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/spacing_lg"
-                    android:hint="@string/report_relationship_label">
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/phoneLayout"
+                            style="@style/NishaanInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/spacing_md"
+                            android:hint="@string/report_phone_label">
 
-                    <AutoCompleteTextView
-                        android:id="@+id/relationshipDropdown"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="none" />
-                </com.google.android.material.textfield.TextInputLayout>
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/phoneInput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="phone"
+                                android:textColor="?attr/colorOnSurface" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.checkbox.MaterialCheckBox
-                    android:id="@+id/confirmCheckbox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/spacing_md"
-                    android:text="@string/report_confirm_checkbox" />
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/relationshipLayout"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/spacing_lg"
+                            android:hint="@string/report_relationship_label"
+                            app:boxBackgroundColor="?attr/colorSurface"
+                            app:boxCornerRadiusTopStart="@dimen/dimen_input_corner_radius"
+                            app:boxCornerRadiusTopEnd="@dimen/dimen_input_corner_radius"
+                            app:boxCornerRadiusBottomStart="@dimen/dimen_input_corner_radius"
+                            app:boxCornerRadiusBottomEnd="@dimen/dimen_input_corner_radius">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/relationshipDropdown"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="none"
+                                android:textColor="?attr/colorOnSurface" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Divider line -->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="?attr/colorOutlineVariant"
+                            android:layout_marginBottom="@dimen/spacing_md" />
+
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            android:id="@+id/confirmCheckbox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/report_confirm_checkbox"
+                            android:textColor="?attr/colorOnSurface" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
         </FrameLayout>
     </ScrollView>
+
+    <!-- Divider line -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?attr/colorOutlineVariant" />
 
     <!-- Bottom Buttons -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="@dimen/spacing_md">
+        android:padding="@dimen/spacing_md"
+        android:background="?attr/android:colorBackground">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnBack"
@@ -267,19 +398,31 @@
             android:text="@string/btn_next" />
     </LinearLayout>
 
-    <!-- Loading overlay -->
+    <!-- Loading overlay: translucent dark backdrop -->
     <FrameLayout
         android:id="@+id/loadingOverlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#CC0A0D12"
+        android:background="@color/color_map_overlay_dark"
         android:clickable="true"
         android:focusable="true"
         android:visibility="gone">
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            app:cardCornerRadius="16dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="?attr/colorOutlineVariant"
+            app:cardBackgroundColor="?attr/colorSurfaceVariant"
+            app:cardElevation="0dp">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminateTint="@color/color_primary" />
+        </com.google.android.material.card.MaterialCardView>
     </FrameLayout>
 </LinearLayout>

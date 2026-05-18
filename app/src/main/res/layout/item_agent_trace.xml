@@ -1,81 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingVertical="@dimen/spacing_sm">
+    android:paddingVertical="@dimen/spacing_xs">
 
-    <!-- Timeline dot + line -->
+    <!-- Sleek timeline dot and thin line -->
     <LinearLayout
-        android:layout_width="@dimen/spacing_xl"
+        android:layout_width="24dp"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <View
             android:id="@+id/timelineDot"
-            android:layout_width="@dimen/dimen_timeline_dot"
-            android:layout_height="@dimen/dimen_timeline_dot"
-            android:layout_marginTop="@dimen/spacing_xs" />
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_marginTop="16dp" />
 
         <View
             android:id="@+id/timelineLine"
-            android:layout_width="@dimen/dimen_timeline_line_width"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_width="1.5dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="4dp"
             android:background="?attr/colorOutlineVariant" />
     </LinearLayout>
 
-    <!-- Trace content -->
-    <LinearLayout
+    <!-- Trace content wrapped in a premium tactical intelligence card -->
+    <com.google.android.material.card.MaterialCardView
+        style="@style/NishaanCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="vertical"
-        android:paddingStart="@dimen/spacing_sm">
+        android:layout_marginStart="@dimen/spacing_sm"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="10dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="?attr/colorOutlineVariant"
+        app:cardElevation="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_md">
 
-            <TextView
-                android:id="@+id/agentNameBadge"
-                style="@style/TextBadge"
-                android:layout_width="wrap_content"
+            <!-- Meta row: Agent, Timestamp and Confidence -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="@dimen/dimen_badge_padding_h"
-                android:paddingVertical="@dimen/dimen_badge_padding_v" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/timestampText"
-                style="@style/TextMono"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_sm" />
+                <TextView
+                    android:id="@+id/agentNameBadge"
+                    style="@style/TextBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="3dp"
+                    android:textSize="9sp" />
 
+                <TextView
+                    android:id="@+id/timestampText"
+                    style="@style/TextMono"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_md"
+                    android:textSize="11sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/confidenceText"
+                    style="@style/TextMono"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_primary" />
+            </LinearLayout>
+
+            <!-- Action Description -->
             <TextView
-                android:id="@+id/confidenceText"
-                style="@style/TextMono"
-                android:layout_width="wrap_content"
+                android:id="@+id/actionText"
+                style="@style/TextBodyMedium"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_sm" />
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:textColor="?attr/colorOnBackground" />
+
+            <!-- Reasoning Feed Log -->
+            <TextView
+                android:id="@+id/reasoningText"
+                style="@style/TextBodyMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textSize="13sp"
+                android:lineSpacingExtra="2dp"
+                android:textColor="?attr/colorOnSurfaceVariant" />
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/actionText"
-            style="@style/TextBodyMedium"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xs"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/reasoningText"
-            style="@style/TextBodyMedium"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xs" />
-    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

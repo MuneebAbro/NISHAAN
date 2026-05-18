@@ -3,43 +3,59 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/android:colorBackground">
+    android:background="?attr/android:colorBackground"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/spacing_lg">
+        android:paddingHorizontal="@dimen/spacing_xl"
+        android:paddingVertical="@dimen/spacing_xxl">
 
         <TextView
             style="@style/TextDisplay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xxl"
-            android:text="@string/auth_signup_title" />
+            android:layout_marginTop="20dp"
+            android:text="@string/auth_signup_title"
+            android:textSize="22sp"
+            android:letterSpacing="-0.02" />
 
         <TextView
             style="@style/TextBodyMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xs"
+            android:layout_marginTop="4dp"
             android:text="@string/auth_signup_subtitle"
-            android:textColor="?android:attr/textColorSecondary" />
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="13sp" />
 
-        <!-- Profile Photo -->
+        <!-- Profile Photo circular double-bordered card -->
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/spacing_xl">
+            android:layout_marginTop="@dimen/spacing_xl"
+            android:layout_marginBottom="@dimen/spacing_lg">
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/profileImage"
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:background="?attr/colorSurfaceVariant"
-                android:scaleType="centerCrop"
-                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
+                app:cardCornerRadius="60dp"
+                app:strokeWidth="1.5dp"
+                app:strokeColor="?attr/colorPrimary"
+                app:cardBackgroundColor="?attr/colorSurface"
+                app:cardElevation="0dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/profileImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/colorSurfaceVariant"
+                    android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
+            </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/btnAddPhoto"
@@ -48,43 +64,68 @@
                 android:layout_gravity="bottom|end"
                 android:contentDescription="Add Photo"
                 app:fabCustomSize="40dp"
+                app:backgroundTint="?attr/colorPrimary"
+                app:tint="?attr/colorOnPrimary"
                 app:srcCompat="@android:drawable/ic_menu_camera" />
         </FrameLayout>
 
-        <!-- Form -->
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/NishaanInputLayout"
+        <!-- Form Card Container -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/NishaanCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xl"
-            android:hint="@string/auth_display_name_label">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/nameInput"
+            android:layout_marginBottom="@dimen/spacing_lg"
+            app:cardCornerRadius="14dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="?attr/colorOutlineVariant"
+            app:cardElevation="0dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_md">
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/NishaanInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_md"
-            android:hint="@string/auth_cnic_label">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/cnicInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLength="15" />
-        </com.google.android.material.textfield.TextInputLayout>
+                <!-- Display Name -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/NishaanInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_md"
+                    android:hint="@string/auth_display_name_label">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/nameInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="14sp"
+                        android:inputType="textPersonName" />
+                </com.google.android.material.textfield.TextInputLayout>
 
+                <!-- CNIC -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/NishaanInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/auth_cnic_label">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/cnicInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="14sp"
+                        android:inputType="number"
+                        android:maxLength="15" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Sign Up button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnComplete"
             style="@style/PrimaryButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xl"
             android:text="@string/btn_complete_signup" />
 
         <ProgressBar
@@ -93,6 +134,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/spacing_md"
+            android:indeterminateTint="@color/color_primary"
             android:visibility="gone" />
 
     </LinearLayout>

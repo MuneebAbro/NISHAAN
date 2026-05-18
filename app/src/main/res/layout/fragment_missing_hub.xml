@@ -6,15 +6,42 @@
     android:background="?attr/android:colorBackground"
     android:orientation="vertical">
 
-    <TextView
+    <!-- Header Section -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:paddingHorizontal="@dimen/spacing_md"
         android:paddingTop="@dimen/spacing_xxl"
-        android:text="@string/missing_hub_title"
-        style="@style/TextDisplay" />
+        android:paddingBottom="@dimen/spacing_md"
+        android:background="?attr/android:colorBackground">
 
-    <!-- Search bar -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/missing_hub_title"
+            android:textSize="22sp"
+            android:letterSpacing="-0.02"
+            style="@style/TextDisplay" />
+
+        <TextView
+            style="@style/TextCaption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Real-time Missing Persons Database"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textAllCaps="true"
+            android:letterSpacing="0.05"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?attr/colorOutlineVariant" />
+
+    <!-- Search Input Area -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/searchLayout"
         style="@style/NishaanInputLayout"
@@ -22,31 +49,53 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/spacing_md"
         android:layout_marginTop="@dimen/spacing_md"
-        android:hint="@string/missing_hub_search">
+        android:layout_marginBottom="@dimen/spacing_sm"
+        android:hint="@string/missing_hub_search"
+        app:startIconDrawable="@android:drawable/ic_menu_search"
+        app:startIconTint="?attr/colorOnSurfaceVariant">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/searchInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="14sp"
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Tabs -->
+    <!-- Sleek Tactical Tabs -->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_sm"
+        android:background="?attr/android:colorBackground"
         app:tabTextColor="?attr/colorOnSurfaceVariant"
         app:tabSelectedTextColor="?attr/colorPrimary"
-        app:tabIndicatorColor="@color/color_primary">
-        <com.google.android.material.tabs.TabItem android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:text="@string/missing_hub_tab_all" />
-        <com.google.android.material.tabs.TabItem android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:text="@string/missing_hub_tab_by_crisis" />
-        <com.google.android.material.tabs.TabItem android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:text="@string/missing_hub_tab_unlinked" />
+        app:tabIndicatorColor="@color/color_primary"
+        app:tabIndicatorHeight="3dp"
+        app:tabRippleColor="@android:color/transparent">
+        <com.google.android.material.tabs.TabItem 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:text="@string/missing_hub_tab_all" />
+        <com.google.android.material.tabs.TabItem 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:text="@string/missing_hub_tab_by_crisis" />
+        <com.google.android.material.tabs.TabItem 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:text="@string/missing_hub_tab_unlinked" />
     </com.google.android.material.tabs.TabLayout>
 
+    <!-- Divider under tabs -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?attr/colorOutlineVariant"
+        android:layout_marginBottom="2dp" />
+
+    <!-- RecyclerView List -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/missingRecycler"
         android:layout_width="match_parent"
@@ -55,9 +104,10 @@
         android:clipToPadding="false"
         android:paddingHorizontal="@dimen/spacing_md"
         android:paddingTop="@dimen/spacing_sm"
+        android:paddingBottom="@dimen/spacing_lg"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-    <!-- Empty state -->
+    <!-- Highly polished Empty State Panel -->
     <LinearLayout
         android:id="@+id/emptyState"
         android:layout_width="match_parent"
@@ -65,11 +115,24 @@
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical"
+        android:padding="@dimen/spacing_xl"
         android:visibility="gone">
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@android:drawable/ic_menu_search"
+            app:tint="?attr/colorOnSurfaceVariant"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@null" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/alerts_empty"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="14sp"
+            android:textStyle="bold"
             style="@style/TextBodyMedium" />
     </LinearLayout>
 </LinearLayout>

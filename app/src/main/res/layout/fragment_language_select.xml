@@ -5,78 +5,113 @@
     android:layout_height="match_parent"
     android:background="?attr/android:colorBackground"
     android:orientation="vertical"
-    android:padding="@dimen/spacing_md">
+    android:paddingHorizontal="@dimen/spacing_xl"
+    android:paddingVertical="@dimen/spacing_xxl">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_xxl"
+        android:layout_marginTop="40dp"
         android:gravity="center"
         android:text="@string/language_select_title"
+        android:textSize="22sp"
+        android:letterSpacing="-0.02"
         style="@style/TextDisplay" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="Choose your preferred language for operations / زبان کا انتخاب کریں"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:textSize="12sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:orientation="vertical"
-        android:paddingVertical="@dimen/spacing_lg">
+        android:orientation="vertical">
 
+        <!-- English Option Card -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardEnglish"
             style="@style/NishaanCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_md"
+            app:cardCornerRadius="14dp"
+            app:strokeWidth="1.5dp"
+            app:strokeColor="?attr/colorOutlineVariant"
+            app:cardElevation="0dp"
             android:clickable="true"
             android:focusable="true">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="@dimen/spacing_md">
+                android:padding="@dimen/spacing_lg">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/language_english"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorOnSurface"
                     style="@style/TextHeadline" />
+
                 <ImageView
                     android:id="@+id/checkEnglish"
-                    android:layout_width="@dimen/dimen_icon_default"
-                    android:layout_height="@dimen/dimen_icon_default"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
                     android:src="@android:drawable/checkbox_on_background"
+                    app:tint="?attr/colorPrimary"
                     android:visibility="gone"
                     android:contentDescription="@null" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
+        <!-- Urdu Option Card -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardUrdu"
             style="@style/NishaanCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:cardCornerRadius="14dp"
+            app:strokeWidth="1.5dp"
+            app:strokeColor="?attr/colorOutlineVariant"
+            app:cardElevation="0dp"
             android:clickable="true"
             android:focusable="true">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="@dimen/spacing_md">
+                android:padding="@dimen/spacing_lg">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/language_urdu"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorOnSurface"
                     style="@style/TextHeadline" />
+
                 <ImageView
                     android:id="@+id/checkUrdu"
-                    android:layout_width="@dimen/dimen_icon_default"
-                    android:layout_height="@dimen/dimen_icon_default"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
                     android:src="@android:drawable/checkbox_on_background"
+                    app:tint="?attr/colorPrimary"
                     android:visibility="gone"
                     android:contentDescription="@null" />
             </LinearLayout>
@@ -88,7 +123,7 @@
         style="@style/PrimaryButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/spacing_lg"
+        android:layout_marginBottom="20dp"
         android:enabled="false"
         android:text="@string/btn_continue" />
 </LinearLayout>

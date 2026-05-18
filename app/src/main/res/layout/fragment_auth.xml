@@ -11,58 +11,96 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:padding="@dimen/spacing_md">
+        android:paddingHorizontal="@dimen/spacing_xl"
+        android:paddingVertical="@dimen/spacing_xxl">
 
-        <!-- Logo -->
+        <!-- Urdu emblem glowing capsule header -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="48dp"
+            app:strokeWidth="1.5dp"
+            app:strokeColor="?attr/colorPrimary"
+            app:cardBackgroundColor="?attr/colorSurface"
+            app:cardElevation="0dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/app_name_urdu"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorPrimary"
+                android:contentDescription="@null" />
+        </com.google.android.material.card.MaterialCardView>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xxl"
-            android:text="@string/app_name_urdu"
-            android:textSize="36sp"
-            android:textStyle="bold"
-            android:textColor="?attr/colorPrimary" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xl"
+            android:layout_marginTop="@dimen/spacing_lg"
             android:layout_marginBottom="@dimen/spacing_xl"
             android:text="@string/auth_title"
+            android:textSize="22sp"
+            android:letterSpacing="-0.02"
             style="@style/TextDisplay" />
 
-        <!-- Email -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/emailLayout"
-            style="@style/NishaanInputLayout"
+        <!-- Form Card Container -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/NishaanCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_md"
-            android:hint="@string/auth_email_label">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/emailInput"
+            app:cardCornerRadius="14dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="?attr/colorOutlineVariant"
+            app:cardElevation="0dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_md">
 
-        <!-- Password -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/passwordLayout"
-            style="@style/NishaanInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_sm"
-            android:hint="@string/auth_password_label"
-            app:endIconMode="password_toggle">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/passwordInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword" />
-        </com.google.android.material.textfield.TextInputLayout>
+                <!-- Email -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/emailLayout"
+                    style="@style/NishaanInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_md"
+                    android:hint="@string/auth_email_label">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/emailInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="14sp"
+                        android:inputType="textEmailAddress" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Error -->
+                <!-- Password -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/passwordLayout"
+                    style="@style/NishaanInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/auth_password_label"
+                    app:endIconMode="password_toggle"
+                    app:endIconTint="?attr/colorOnSurfaceVariant">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/passwordInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="14sp"
+                        android:inputType="textPassword" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Error Panel -->
         <TextView
             android:id="@+id/errorText"
             android:layout_width="match_parent"
@@ -70,6 +108,8 @@
             android:layout_marginBottom="@dimen/spacing_md"
             android:textColor="@color/color_primary"
             android:visibility="gone"
+            android:textStyle="bold"
+            android:textSize="12sp"
             style="@style/TextCaption" />
 
         <!-- Sign In Button -->
@@ -80,13 +120,35 @@
             android:layout_height="wrap_content"
             android:text="@string/btn_sign_in" />
 
-        <!-- Divider -->
-        <TextView
-            android:layout_width="wrap_content"
+        <!-- Divider line -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/spacing_md"
-            android:text="@string/auth_divider"
-            style="@style/TextCaption" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginVertical="@dimen/spacing_md">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="?attr/colorOutlineVariant" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_sm"
+                android:text="@string/auth_divider"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="10sp"
+                style="@style/TextCaption" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="?attr/colorOutlineVariant" />
+        </LinearLayout>
 
         <!-- Guest Button -->
         <com.google.android.material.button.MaterialButton
@@ -96,13 +158,14 @@
             android:layout_height="wrap_content"
             android:text="@string/btn_continue_guest" />
 
-        <!-- Create Account -->
+        <!-- Create Account Link -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnCreateAccount"
             style="@style/TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_lg"
-            android:text="@string/btn_create_account" />
+            android:text="@string/btn_create_account"
+            android:textSize="13sp" />
     </LinearLayout>
 </ScrollView>

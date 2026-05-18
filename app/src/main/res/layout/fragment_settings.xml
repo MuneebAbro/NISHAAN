@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/spacing_md">
+        android:paddingHorizontal="@dimen/spacing_md"
+        android:paddingBottom="@dimen/spacing_xl">
 
         <!-- Header / Toolbar -->
         <LinearLayout
@@ -17,12 +18,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_xl"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/spacing_sm">
 
             <ImageButton
                 android:id="@+id/btnBack"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/btn_back"
                 android:src="@android:drawable/ic_menu_revert"
@@ -32,49 +34,70 @@
                 style="@style/TextDisplay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_md"
-                android:text="@string/profile_app_settings" />
+                android:layout_marginStart="@dimen/spacing_sm"
+                android:text="@string/profile_app_settings"
+                android:textSize="22sp"
+                android:letterSpacing="-0.02" />
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?attr/colorOutlineVariant"
+            android:layout_marginBottom="@dimen/spacing_sm" />
 
         <!-- Theme Selection Section -->
         <TextView
             style="@style/TextHeadline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xl"
-            android:text="@string/settings_theme_title" />
+            android:layout_marginTop="@dimen/spacing_sm"
+            android:text="@string/settings_theme_title"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnBackground" />
 
         <com.google.android.material.card.MaterialCardView
             style="@style/NishaanCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_sm">
+            android:layout_marginTop="6dp"
+            app:cardCornerRadius="12dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="?attr/colorOutlineVariant"
+            app:cardElevation="0dp">
 
             <RadioGroup
                 android:id="@+id/radioGroupTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/spacing_md">
+                android:padding="@dimen/spacing_sm">
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radioThemeLight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
                     android:text="@string/settings_theme_light" />
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radioThemeDark"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_sm"
+                    android:layout_marginTop="4dp"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
                     android:text="@string/settings_theme_dark" />
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radioThemeSystem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_sm"
+                    android:layout_marginTop="4dp"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
                     android:text="@string/settings_theme_system" />
             </RadioGroup>
         </com.google.android.material.card.MaterialCardView>
@@ -84,14 +107,21 @@
             style="@style/TextHeadline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xl"
-            android:text="@string/profile_notification_prefs" />
+            android:layout_marginTop="@dimen/spacing_md"
+            android:text="@string/profile_notification_prefs"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnBackground" />
 
         <com.google.android.material.card.MaterialCardView
             style="@style/NishaanCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_sm">
+            android:layout_marginTop="6dp"
+            app:cardCornerRadius="12dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="?attr/colorOutlineVariant"
+            app:cardElevation="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -104,30 +134,38 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
                     android:text="@string/profile_pref_critical" />
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/switchMedium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_sm"
+                    android:layout_marginTop="8dp"
                     android:checked="true"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
                     android:text="@string/profile_pref_medium" />
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/switchLow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_sm"
+                    android:layout_marginTop="8dp"
                     android:checked="false"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
                     android:text="@string/profile_pref_low" />
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/switchMissing"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_sm"
+                    android:layout_marginTop="8dp"
                     android:checked="true"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
                     android:text="@string/profile_pref_missing" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -137,25 +175,28 @@
             style="@style/TextHeadline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xl"
-            android:text="App Language" />
+            android:layout_marginTop="@dimen/spacing_md"
+            android:text="App Language"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnBackground" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnChangeLanguage"
             style="@style/SecondaryButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_sm"
+            android:layout_marginTop="6dp"
             android:text="@string/profile_language_select"
             app:icon="@android:drawable/ic_menu_sort_alphabetically" />
 
-        <!-- Sign Out -->
+        <!-- Sign Out Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSignOut"
             style="@style/SecondaryButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xl"
+            android:layout_marginTop="@dimen/spacing_lg"
             android:layout_marginBottom="@dimen/spacing_xxl"
             android:text="@string/btn_sign_out"
             app:icon="@android:drawable/ic_lock_power_off" />

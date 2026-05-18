@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/android:colorBackground"
     android:orientation="vertical"
-    android:padding="@dimen/spacing_md">
+    android:paddingHorizontal="@dimen/spacing_xl"
+    android:paddingVertical="@dimen/spacing_xxl">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_xxl"
+        android:layout_marginTop="40dp"
         android:text="@string/permissions_title"
+        android:textSize="22sp"
+        android:letterSpacing="-0.02"
         style="@style/TextDisplay" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_sm"
+        android:layout_marginTop="6dp"
         android:text="@string/permissions_subtitle"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:textSize="13sp"
         style="@style/TextBodyMedium" />
 
     <LinearLayout
@@ -25,118 +31,192 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:paddingTop="@dimen/spacing_xl">
+        android:gravity="center_vertical">
 
-        <!-- Location Permission Row -->
-        <LinearLayout
+        <!-- Location Permission Card -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/NishaanCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:padding="@dimen/spacing_md">
-            <ImageView
-                android:id="@+id/iconLocation"
-                android:layout_width="@dimen/dimen_icon_large"
-                android:layout_height="@dimen/dimen_icon_large"
-                android:layout_marginEnd="@dimen/spacing_md"
-                android:contentDescription="@string/permission_location_label" />
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/permission_location_label"
-                    style="@style/TextHeadline" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/permission_location_desc"
-                    style="@style/TextCaption" />
-            </LinearLayout>
-            <TextView
-                android:id="@+id/statusLocation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/permission_required"
-                style="@style/TextBadge"
-                android:textColor="@color/color_primary" />
-        </LinearLayout>
+            android:layout_marginBottom="@dimen/spacing_md"
+            app:cardCornerRadius="12dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="?attr/colorOutlineVariant"
+            app:cardElevation="0dp">
 
-        <!-- Notifications Permission Row -->
-        <LinearLayout
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing_md">
+
+                <ImageView
+                    android:id="@+id/iconLocation"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginEnd="@dimen/spacing_md"
+                    app:tint="?attr/colorPrimary"
+                    android:contentDescription="@string/permission_location_label" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/permission_location_label"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnSurface"
+                        style="@style/TextHeadline" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/permission_location_desc"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textSize="11sp"
+                        style="@style/TextCaption" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/statusLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/permission_required"
+                    android:textSize="9sp"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="3dp"
+                    style="@style/TextBadge"
+                    android:textColor="@color/color_primary" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Notifications Permission Card -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/NishaanCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:padding="@dimen/spacing_md">
-            <ImageView
-                android:id="@+id/iconNotification"
-                android:layout_width="@dimen/dimen_icon_large"
-                android:layout_height="@dimen/dimen_icon_large"
-                android:layout_marginEnd="@dimen/spacing_md"
-                android:contentDescription="@string/permission_notification_label" />
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/permission_notification_label"
-                    style="@style/TextHeadline" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/permission_notification_desc"
-                    style="@style/TextCaption" />
-            </LinearLayout>
-            <TextView
-                android:id="@+id/statusNotification"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/permission_required"
-                style="@style/TextBadge"
-                android:textColor="@color/color_primary" />
-        </LinearLayout>
+            android:layout_marginBottom="@dimen/spacing_md"
+            app:cardCornerRadius="12dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="?attr/colorOutlineVariant"
+            app:cardElevation="0dp">
 
-        <!-- Camera Permission Row -->
-        <LinearLayout
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing_md">
+
+                <ImageView
+                    android:id="@+id/iconNotification"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginEnd="@dimen/spacing_md"
+                    app:tint="?attr/colorPrimary"
+                    android:contentDescription="@string/permission_notification_label" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/permission_notification_label"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnSurface"
+                        style="@style/TextHeadline" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/permission_notification_desc"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textSize="11sp"
+                        style="@style/TextCaption" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/statusNotification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/permission_required"
+                    android:textSize="9sp"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="3dp"
+                    style="@style/TextBadge"
+                    android:textColor="@color/color_primary" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Camera Permission Card -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/NishaanCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:padding="@dimen/spacing_md">
-            <ImageView
-                android:id="@+id/iconCamera"
-                android:layout_width="@dimen/dimen_icon_large"
-                android:layout_height="@dimen/dimen_icon_large"
-                android:layout_marginEnd="@dimen/spacing_md"
-                android:contentDescription="@string/permission_camera_label" />
+            app:cardCornerRadius="12dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="?attr/colorOutlineVariant"
+            app:cardElevation="0dp">
+
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing_md">
+
+                <ImageView
+                    android:id="@+id/iconCamera"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginEnd="@dimen/spacing_md"
+                    app:tint="?attr/colorPrimary"
+                    android:contentDescription="@string/permission_camera_label" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/permission_camera_label"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnSurface"
+                        style="@style/TextHeadline" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/permission_camera_desc"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textSize="11sp"
+                        style="@style/TextCaption" />
+                </LinearLayout>
+
                 <TextView
+                    android:id="@+id/statusCamera"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/permission_camera_label"
-                    style="@style/TextHeadline" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/permission_camera_desc"
-                    style="@style/TextCaption" />
+                    android:text="@string/permission_optional"
+                    android:textSize="9sp"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="3dp"
+                    style="@style/TextBadge"
+                    android:textColor="@color/color_accent_info" />
             </LinearLayout>
-            <TextView
-                android:id="@+id/statusCamera"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/permission_optional"
-                style="@style/TextBadge"
-                android:textColor="@color/color_accent_info" />
-        </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
@@ -144,7 +224,7 @@
         style="@style/PrimaryButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/spacing_sm"
+        android:layout_marginBottom="12dp"
         android:text="@string/btn_grant_permissions" />
 
     <com.google.android.material.button.MaterialButton
@@ -152,7 +232,7 @@
         style="@style/TextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/spacing_lg"
+        android:layout_marginBottom="20dp"
         android:text="@string/btn_skip_camera"
         android:visibility="gone" />
 </LinearLayout>

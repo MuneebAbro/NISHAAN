@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/android:colorBackground"
@@ -7,22 +8,35 @@
     android:orientation="vertical"
     android:padding="@dimen/spacing_xl">
 
-    <!-- Animated checkmark -->
-    <TextView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:gravity="center"
-        android:text="✓"
-        android:textSize="48sp"
-        android:textColor="@color/color_accent_low"
-        android:background="@android:color/transparent" />
+    <!-- Glowing Success Icon Container -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        app:cardCornerRadius="48dp"
+        app:strokeWidth="1.5dp"
+        app:strokeColor="@color/color_accent_low"
+        app:cardBackgroundColor="@color/color_severity_low_bg"
+        app:cardElevation="0dp"
+        android:layout_marginBottom="@dimen/spacing_lg">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="✓"
+            android:textSize="38sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_accent_low"
+            android:contentDescription="@null" />
+
+    </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_lg"
         android:gravity="center"
         android:text="@string/confirmation_title"
+        android:textSize="24sp"
         style="@style/TextDisplay" />
 
     <TextView
@@ -31,15 +45,32 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_md"
         android:gravity="center"
+        android:textSize="15sp"
+        android:textColor="?attr/colorOnSurface"
         style="@style/TextBodyLarge" />
 
-    <TextView
-        android:id="@+id/reportIdText"
-        android:layout_width="match_parent"
+    <!-- Report ID Monospace Info Badge -->
+    <com.google.android.material.card.MaterialCardView
+        style="@style/NishaanCard"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_lg"
-        android:gravity="center"
-        style="@style/TextMono" />
+        app:cardCornerRadius="8dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="?attr/colorOutlineVariant"
+        app:cardBackgroundColor="?attr/colorSurfaceVariant">
+
+        <TextView
+            android:id="@+id/reportIdText"
+            style="@style/TextMono"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/spacing_md"
+            android:paddingVertical="@dimen/spacing_sm"
+            android:textColor="?attr/colorOnBackground"
+            android:textSize="13sp" />
+
+    </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnBackToHome"

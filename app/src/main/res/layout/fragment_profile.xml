@@ -9,21 +9,54 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/spacing_md">
+        android:paddingHorizontal="@dimen/spacing_md"
+        android:paddingBottom="@dimen/spacing_xl">
 
-        <TextView
-            style="@style/TextDisplay"
+        <!-- Title Section -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xxl"
-            android:text="@string/profile_title" />
+            android:orientation="vertical"
+            android:paddingTop="@dimen/spacing_xxl"
+            android:paddingBottom="@dimen/spacing_md">
+
+            <TextView
+                style="@style/TextDisplay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/profile_title"
+                android:textSize="22sp"
+                android:letterSpacing="-0.02" />
+
+            <TextView
+                style="@style/TextCaption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Operational Officer Dashboard"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textAllCaps="true"
+                android:letterSpacing="0.05"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?attr/colorOutlineVariant"
+            android:layout_marginBottom="@dimen/spacing_sm" />
 
         <!-- User Info Card -->
         <com.google.android.material.card.MaterialCardView
             style="@style/NishaanCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_lg">
+            android:layout_marginTop="@dimen/spacing_sm"
+            app:cardCornerRadius="14dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="?attr/colorOutlineVariant"
+            app:cardElevation="0dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -31,15 +64,24 @@
                 android:orientation="horizontal"
                 android:padding="@dimen/spacing_md">
 
-                <!-- Avatar placeholder -->
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/profileImage"
-                    android:layout_width="@dimen/dimen_icon_avatar"
-                    android:layout_height="@dimen/dimen_icon_avatar"
+                <!-- Avatar placeholder card container -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_marginEnd="@dimen/spacing_md"
-                    android:background="?attr/colorSurfaceVariant"
-                    android:scaleType="centerCrop"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
+                    app:cardCornerRadius="30dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardElevation="0dp">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/profileImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="?attr/colorSurfaceVariant"
+                        android:scaleType="centerCrop"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
+                </com.google.android.material.card.MaterialCardView>
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -52,6 +94,9 @@
                         style="@style/TextHeadline"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnSurface"
                         android:text="@string/profile_guest_label" />
 
                     <TextView
@@ -59,13 +104,19 @@
                         style="@style/TextCaption"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textSize="12sp"
+                        android:textColor="?attr/colorOnSurfaceVariant"
                         android:text="Guest Mode" />
 
                     <TextView
                         android:id="@+id/userCnic"
-                        style="@style/TextCaption"
+                        style="@style/TextMono"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textSize="11sp"
+                        android:textColor="?attr/colorPrimary"
                         android:visibility="gone" />
                 </LinearLayout>
             </LinearLayout>
@@ -78,56 +129,90 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_md"
+            app:cardCornerRadius="12dp"
+            app:strokeWidth="1.5dp"
+            app:strokeColor="@color/color_accent_info"
+            app:cardBackgroundColor="@color/color_severity_low_bg"
+            app:cardElevation="0dp"
             android:clickable="true"
             android:focusable="true">
-            <TextView
-                style="@style/TextBodyMedium"
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@android:drawable/ic_menu_more"
-                android:padding="@dimen/spacing_md"
-                android:text="@string/profile_create_account_banner"
-                android:textColor="@color/color_accent_info" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing_md">
+
+                <TextView
+                    style="@style/TextBodyMedium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/profile_create_account_banner"
+                    android:textColor="@color/color_accent_info"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@android:drawable/ic_menu_more"
+                    app:tint="@color/color_accent_info"
+                    android:contentDescription="@null" />
+            </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Settings -->
+        <!-- Settings Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSettings"
             style="@style/SecondaryButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xl"
+            android:layout_marginTop="@dimen/spacing_lg"
             android:text="@string/profile_app_settings"
             app:icon="@android:drawable/ic_menu_preferences" />
+
+        <!-- Divider Line -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?attr/colorOutlineVariant"
+            android:layout_marginTop="@dimen/spacing_lg" />
 
         <!-- My Reports Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xl"
+            android:layout_marginTop="@dimen/spacing_lg"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="4dp">
 
             <TextView
                 style="@style/TextHeadline"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/profile_my_reports" />
+                android:text="@string/profile_my_reports"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnBackground" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSeeAllReports"
                 style="@style/TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/profile_see_all" />
+                android:text="@string/profile_see_all"
+                android:textSize="13sp" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/myReportsRecycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_sm"
+            android:layout_marginTop="4dp"
             android:nestedScrollingEnabled="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
     </LinearLayout>

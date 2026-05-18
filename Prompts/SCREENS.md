@@ -11,7 +11,7 @@
 
 ### UI Elements
 - Full-screen dark background (`color_background`)
-- NISHAAN logo (SVG vector) — centered, animated: fade in over 500ms
+- NISHAAN logo Foreground (`logo.png` scaled with dynamic background color `#1C7556`) — centered, animated: fade in over 500ms
 - Arabic/Urdu wordmark "نشان" below the logo — `text_headline`, `color_primary`
 - Tagline: "The Signal" — `text_caption`, `color_on_surface_muted`
 - No buttons, no inputs
@@ -62,16 +62,18 @@
 
 ### UI Elements
 - Title: "Choose Your Language / زبان منتخب کریں" (bilingual)
-- Three large selection cards (full width, stacked vertically):
+- Two large selection cards (full width, stacked vertically):
   - Card 1: "English" — subtitle: "English"
   - Card 2: "اردو" — subtitle: "Urdu"
-  - Card 3: "Roman Urdu" — subtitle: "Roman Urdu"
+- **Note:** Roman Urdu selection has been completely removed to prioritize a clean English/Urdu dual layout.
 - Each card: `NishaanCard` style, language name in `text_headline`, a checkmark icon on the right (hidden by default, shown when selected)
 - "Continue" primary button (bottom) — disabled until selection made
 
 ### Actions
 - Tap a card: mark it selected (checkmark visible, border highlights in `color_primary`), deselect others
-- Tap "Continue": save language to DataStore, navigate to `PermissionsFragment`
+- Tap "Continue": save language to DataStore
+  - If opened from Settings: refresh locale via `LocaleHelper.wrap`, pop back stack, and recreate MainActivity.
+  - If opened from Onboarding: navigate to `PermissionsFragment`.
 
 ---
 
@@ -111,13 +113,13 @@
 - "Sign In" primary button (full width)
 - Divider: "— or —"
 - "Continue as Guest" secondary outline button (full width)
-- "Create Account" text button (bottom center) — navigates to `RegisterFragment` (if implemented) or shows a snackbar: "Account creation coming soon — continue as guest for now"
+- "Create Account" text button (bottom center) — navigates to `SignupFragment`
 - Error message: inline below password field, `color_primary` (red), hidden by default
 
 ### Actions
 - Tap "Sign In": validate inputs (non-empty, valid email format) → call Firebase Auth `signInWithEmailAndPassword` → on success navigate to `HomeDashboardFragment` → on failure show inline error
 - Tap "Continue as Guest": call Firebase Auth `signInAnonymously` → navigate to `HomeDashboardFragment`
-- Loading state: disable all buttons, show spinner inside "Sign In" button
+- Loading state: disable all inputs/buttons, show spinner inside "Sign In" button
 
 ---
 
@@ -133,32 +135,35 @@
 - Right: Notification bell icon (badge count if unread alerts > 0)
 
 **Alert Banner (below top bar)**
-- Horizontal `RecyclerView` of `CrisisAlertCard` items
-- Shows top 5 most recent `CONFIRMED` or `ACTIVE` crises by severity
-- Each card: severity badge, crisis type icon, title, distance from user, time ago
-- If no active crises: banner hidden (View.GONE), not shown as empty state
+- Horizontal `RecyclerView` of `CrisisCard` items sorted by severity, then creation date.
+- Shows top 5 most recent active crises.
+- Each card: severity badge, crisis type icon, title, distance from user, time ago.
+- If no active crises: banner hidden (View.GONE).
+
+**Geofence Safety Status Card (top center, below Alert Banner)**
+- Premium dynamic card layout (`cardSafetyStatus`) displayed at the top to provide instant safety feedback and permissions shortcuts.
+- **Instant Load**: Card is visible immediately when `onViewCreated` starts, initializing in a disabled fallback state so users have instant visual feedback and clickability.
+- Displays three dynamic visual styles:
+  1. **Warning State (Red Danger Style)**: User is inside an active crisis geofence (`impactRadiusKm`). Shows red background, alert icon, and warning text: `"Warning: Inside Crisis Area! (Crisis Title)"`.
+  2. **Safe State (Green Safe Style)**: User is far from any active incidents. Shows green background, info icon, and reassuring text: `"You're Safe: No active crises nearby"`.
+  3. **Location Disabled Fallback State (Neutral Style)**: Location services disabled, permissions denied, or lastLocation is empty. Shows theme-safe surface colors, info icon, and text: `"Location disabled: Showing active crises across Pakistan"`.
+- **Subview-forwarded Clicks**: Card container, icon, and text all bind to a shared click listener:
+  * **Location Disabled**: Tap instantly launches the standard Android location permission popup prompt.
+  * **Location Enabled**: Tap animates the Google Map camera back to center on the user's live coordinates at a premium zoom level of `14f`.
 
 **Map (center, full remaining height)**
-- `MapView` (Google Maps SDK)
-- Dark map style applied
-- Crisis markers clustered when zoomed out
-- User location dot visible
-- Geofence circles around each active crisis
-- Tapping a marker shows an info window (crisis title + severity badge) → tap info window → `CrisisDetailFragment`
+- Google Maps SDK with custom sleek Dark theme.
+- **Dynamic Auto-Zooming Viewport**: Map builder dynamically bounds both the user location (if available) and all active crises into a single perfectly-fit camera frame on launch.
+- **Fallback Centering**: If location services are disabled, camera centers directly on the whole of Pakistan (`LatLng(30.3753, 69.3451)`) at wide zoom `5.5f` framing the entire country.
+- Crisis markers and impact geofence circles render on coordinates resolved by the backend agent (see backend coordinate lookup and dispersion).
+- Tapping a marker shows info window (crisis title + severity badge) → tap info window → navigates to `CrisisDetailFragment`.
 
 **FAB**
-- Extended: "Report Missing" label + `ic_person_add` icon
-- Position: bottom-right, above bottom nav
-- Tap → `ReportMissingFragment`
-- Collapses to icon-only when user scrolls the alert banner
+- Extended: "Report Missing" label + `ic_person_add` icon.
+- Tap → navigates to `ReportMissingFragment`.
 
 **Bottom Navigation**
-- Tabs: Map (home_filled icon) | Alerts (notification icon) | Missing (search_person icon) | Profile (account_circle icon)
-
-### Actions
-- Map loads crises from Firestore real-time listener (via ViewModel → UseCase → Repository)
-- Alert cards load same data, sorted by severity then time
-- FCM notification received while app open: refresh crisis list, show Snackbar "New alert: [crisis title]"
+- Tabs: Map (home_filled) | Alerts (notification) | Missing (search_person) | Profile (account_circle)
 
 ---
 
@@ -190,12 +195,12 @@
 
 **Section: Missing Persons**
 - Label: "[N] missing persons linked to this crisis"
-- Tap row → `MissingPersonsHubFragment` filtered to this crisis
+- Tap row → `MissingHubFragment` filtered to this crisis
 
 **Section: Agent Trace (Preview)**
 - Shows last 3 trace entries from `agent_traces` (most recent first)
 - Each entry: agent color dot + agent name + action + timestamp
-- "View Full Agent Trace →" text button → `AgentTraceViewFragment`
+- "View Full Agent Trace →" text button → `AgentTraceFragment`
 
 **Back navigation:** system back / toolbar back arrow → pop back stack
 
@@ -204,7 +209,7 @@
 ## Screen 8: ReportMissingScreen
 
 **File:** `fragment_report_missing.xml` / `ReportMissingFragment.kt`
-**Multi-step form, 3 steps shown via ViewPager2 or step-by-step visibility toggle**
+**Multi-step form, 3 steps shown via Step-by-step layout transition**
 
 ### Step 1: Personal Details
 - Input: Full Name (required) — `TextInputLayout`, label "Full Name / پورا نام"
@@ -277,7 +282,7 @@
 - Search bar (top, always visible): filters by name in real-time (client-side on loaded list)
 
 ### Actions
-- Tap card → `MissingPersonDetailFragment`
+- Tap card → `MissingDetailFragment`
 - Pull to refresh → re-fetches from Firestore
 
 ---
@@ -309,7 +314,7 @@
 - Subtitle: "Real-time AI decision log"
 - `RecyclerView` of `AgentTraceItem` (item_agent_trace.xml):
   - Vertical timeline layout — connecting line between items
-  - Agent color dot (left, colored by agent — see `UI_GUIDE.md`)
+  - Agent color dot (left, colored by agent)
   - Agent name badge: `SENTINEL` | `ANALYST` | `COMMANDER` | `MATCHER`
   - Timestamp: `text_mono`, e.g. "14:32:07"
   - Action label: `text_body_medium`, bold
@@ -330,19 +335,33 @@
 
 ### UI Elements
 - Title: "Alerts"
-- `RecyclerView` of received FCM alerts (pulled from local Room cache)
+- `RecyclerView` of active crises real-time listener (sorted by severity then date).
 - Each row: crisis type icon (colored by severity) | title | location | "X km away" | time ago
-- Unread alerts: slightly brighter background (`color_surface_variant`)
-- Read alerts: standard `color_surface`
 - Empty state (no alerts yet): `EmptyStateView` with signal icon + "No alerts yet. Stay safe."
 
 ### Actions
 - Tap row → `CrisisDetailFragment` for that crisis_id
-- Mark all as read: "Mark all read" action in overflow menu
 
 ---
 
-## Screen 14: ProfileScreen
+## Screen 14: SettingsScreen
+
+**File:** `fragment_settings.xml` / `SettingsFragment.kt`
+**Opened from:** ProfileScreen Settings navigation click
+
+### UI Elements
+- Title: "Settings"
+- Subtitle: "Application preferences and configuration"
+- Section: App Settings (language preference change button)
+- **Sign Out Button**: Premium, destructive-styled primary button (`btnSignOut`) positioned at the bottom of the Settings interface.
+
+### Actions
+- Tap Language Settings → opens `LanguageSelectFragment` to update app-wide language locale dynamically.
+- Tap **Sign Out**: Shows confirmation dialog `"Sign out of NISHAAN?"` → Yes → calls Firebase `signOut()` → clears MainActivity back stack and redirects user directly back to `AuthFragment`.
+
+---
+
+## Screen 15: ProfileScreen
 
 **File:** `fragment_profile.xml` / `ProfileFragment.kt`
 
@@ -350,15 +369,16 @@
 - Avatar (initials-based generated avatar — no profile photo feature)
 - Display name (editable via inline tap → text field)
 - Email (non-editable, grayed out for anonymous: "Guest Account")
-- Language preference: current language chip, tap → opens `LanguageSelectFragment` as bottom sheet
+- Language preference: current language chip, tap → opens settings
 - Section: Notification Preferences
   - Toggle rows: Critical Alerts | Medium Alerts | Low Alerts | Missing Person Matches
   - Each toggle writes to Firestore `users/{uid}.notification_prefs`
 - Section: My Reports
   - List of user's submitted missing person reports (up to 5 shown, "See all" link → full list)
 - "Create Account" banner (if guest, top of screen, dismissible)
-- "Sign Out" destructive text button (bottom)
+- **Settings Icon**: Positioned at the top right of the profile interface. Tap → navigates to `SettingsFragment`.
+- **Note**: The "Sign Out" button has been completely removed from this screen and moved inside Screen 14 (SettingsScreen).
 
 ### Actions
-- Sign Out → confirmation dialog "Sign out of NISHAAN?" → Yes → Firebase `signOut()` → navigate to `AuthFragment`, clear back stack
-- Guest "Create Account" tap → `AuthFragment` (registration mode, if built) or Snackbar message
+- Tap Settings → navigates to `SettingsFragment`.
+- Guest "Create Account" tap → redirects back to `AuthFragment` (registration mode) or displays a helpful Snackbar.
