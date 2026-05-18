@@ -1,12 +1,21 @@
 package com.maximus.nishaan.feature.home
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.pm.PackageManager
+import android.content.res.ColorStateList
+import android.location.Location
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
@@ -27,6 +36,7 @@ import kotlinx.coroutines.launch
  * Home Dashboard — the root destination.
  * Shows real-time crisis alert banner from Firestore, Google Maps with crisis markers,
  * bottom nav, and FAB for reporting missing persons.
+ * Detects current location and alerts the user if they are inside any crisis areas.
  */
 class HomeDashboardFragment : Fragment(R.layout.fragment_home_dashboard) {
 
@@ -35,10 +45,32 @@ class HomeDashboardFragment : Fragment(R.layout.fragment_home_dashboard) {
     private lateinit var crisisAdapter: CrisisCardAdapter
     private var googleMap: GoogleMap? = null
     private var latestCrises: List<Crisis> = emptyList()
+    
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var userLocation: LatLng? = null
+
+    private val locationPermissionRequest = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        val fineLocationGranted = permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false
+        val coarseLocationGranted = permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false
+        if (fineLocationGranted || coarseLocationGranted) {
+            enableMyLocationOnMapAndCheckSafety()
+        } else {
+            android.util.Log.d("HomeDashboardFragment", "Location permissions denied. Centering on whole Pakistan.")
+            centerCameraOnPakistan()
+            updateSafetyStatusCard(null)
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentHomeDashboardBinding.bind(view)
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+
+        // Show initial safety card state immediately so it is visible and clickable right away
+        updateSafetyStatusCard(null)
 
         // Setup crisis alert banner
         crisisAdapter = CrisisCardAdapter { crisis -> navigateToCrisisDetail(crisis) }
@@ -52,6 +84,8 @@ class HomeDashboardFragment : Fragment(R.layout.fragment_home_dashboard) {
         mapFragment?.getMapAsync { map ->
             googleMap = map
             configureMap(map)
+            // Check permissions and position map camera
+            checkLocationPermissions()
             // If crises loaded before map was ready, plot them now
             if (latestCrises.isNotEmpty()) plotCrisesOnMap(latestCrises)
         }
@@ -72,8 +106,27 @@ class HomeDashboardFragment : Fragment(R.layout.fragment_home_dashboard) {
 
                     latestCrises = sorted
                     googleMap?.let { plotCrisesOnMap(sorted) }
+
+                    // Recheck safety status if user location is already set
+                    userLocation?.let { checkUserSafetyStatus(it, sorted) }
                 }
         }
+
+        // Safety Status Card and Subview Click Listeners
+        val safetyCardClickListener = View.OnClickListener {
+            val userLoc = userLocation
+            if (userLoc == null) {
+                android.util.Log.d("HomeDashboardFragment", "Safety status clicked while location is disabled. Requesting permissions.")
+                checkLocationPermissions()
+            } else {
+                android.util.Log.d("HomeDashboardFragment", "Safety status clicked. Centering camera on user location: $userLoc")
+                googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(userLoc, 14f))
+            }
+        }
+        
+        binding.cardSafetyStatus.setOnClickListener(safetyCardClickListener)
+        binding.txtSafetyStatus.setOnClickListener(safetyCardClickListener)
+        binding.imgSafetyStatusIcon.setOnClickListener(safetyCardClickListener)
 
         // FAB → Report Missing
         binding.fabReportMissing.setOnClickListener {
@@ -101,21 +154,156 @@ class HomeDashboardFragment : Fragment(R.layout.fragment_home_dashboard) {
             android.util.Log.e("HomeDashboardFragment", "configureMap: Failed to apply map style. Error: ${e.message}", e)
         }
 
-        // Default camera: Karachi, Pakistan
-        val karachi = LatLng(24.8607, 67.0011)
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(karachi, 11f))
         map.uiSettings.isZoomControlsEnabled = true
         map.uiSettings.isMyLocationButtonEnabled = false
         map.uiSettings.isCompassEnabled = false
+    }
+
+    private fun checkLocationPermissions() {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            enableMyLocationOnMapAndCheckSafety()
+        } else {
+            locationPermissionRequest.launch(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            )
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun enableMyLocationOnMapAndCheckSafety() {
+        val map = googleMap ?: return
+        try {
+            map.isMyLocationEnabled = true
+            map.uiSettings.isMyLocationButtonEnabled = true
+        } catch (e: Exception) {
+            android.util.Log.e("HomeDashboardFragment", "Error enabling isMyLocationEnabled: ${e.message}", e)
+        }
+
+        android.util.Log.d("HomeDashboardFragment", "enableMyLocationOnMapAndCheckSafety: Fetching user's last location")
+        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+            if (location != null) {
+                val userLatLng = LatLng(location.latitude, location.longitude)
+                android.util.Log.d("HomeDashboardFragment", "User location fetched successfully: $userLatLng")
+                
+                userLocation = userLatLng
+                // Center map camera on user's location
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 12f))
+                
+                // Plot crises (which will now encompass user's location inside bounds builder)
+                plotCrisesOnMap(latestCrises)
+                
+                checkUserSafetyStatus(userLatLng, latestCrises)
+            } else {
+                android.util.Log.d("HomeDashboardFragment", "lastLocation returned null. Centering on whole Pakistan.")
+                centerCameraOnPakistan()
+                updateSafetyStatusCard(null)
+            }
+        }.addOnFailureListener { e ->
+            android.util.Log.e("HomeDashboardFragment", "Failed to get lastLocation. Error: ${e.message}", e)
+            centerCameraOnPakistan()
+            updateSafetyStatusCard(null)
+        }
+    }
+
+    private fun centerCameraOnPakistan() {
+        val map = googleMap ?: return
+        android.util.Log.d("HomeDashboardFragment", "centerCameraOnPakistan: Animating camera to whole Pakistan")
+        val pakistan = LatLng(30.3753, 69.3451)
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(pakistan, 5.5f))
+    }
+
+    private fun checkUserSafetyStatus(userLatLng: LatLng, crises: List<Crisis>) {
+        if (_binding == null) return
+
+        var activeDangerCrisis: Crisis? = null
+
+        for (crisis in crises) {
+            val crisisLatLng = LatLng(crisis.centroidLat, crisis.centroidLng)
+            val results = FloatArray(1)
+            Location.distanceBetween(
+                userLatLng.latitude, userLatLng.longitude,
+                crisisLatLng.latitude, crisisLatLng.longitude,
+                results
+            )
+            val distanceInMeters = results[0]
+            val radiusInMeters = crisis.impactRadiusKm * 1000.0
+
+            android.util.Log.d("HomeDashboardFragment", "checkUserSafetyStatus: Distance to ${crisis.titleEn} is ${distanceInMeters}m (Radius: ${radiusInMeters}m)")
+
+            if (distanceInMeters <= radiusInMeters) {
+                activeDangerCrisis = crisis
+                break
+            }
+        }
+
+        updateSafetyStatusCard(activeDangerCrisis, userLatLng)
+    }
+
+    private fun updateSafetyStatusCard(dangerCrisis: Crisis?, userLatLng: LatLng? = null) {
+        val binding = _binding ?: return
+        
+        binding.cardSafetyStatus.visibility = View.VISIBLE
+        
+        if (userLatLng == null) {
+            // Location disabled / unavailable
+            val typedValueBackground = TypedValue()
+            val typedValueText = TypedValue()
+            requireContext().theme.resolveAttribute(com.google.android.material.R.attr.colorSurface, typedValueBackground, true)
+            requireContext().theme.resolveAttribute(com.google.android.material.R.attr.colorOnSurface, typedValueText, true)
+
+            binding.cardSafetyStatus.setCardBackgroundColor(typedValueBackground.data)
+            binding.cardSafetyStatus.strokeColor = ContextCompat.getColor(requireContext(), R.color.color_divider_dark)
+            binding.imgSafetyStatusIcon.setImageResource(android.R.drawable.ic_dialog_info)
+            binding.imgSafetyStatusIcon.imageTintList = ColorStateList.valueOf(typedValueText.data)
+            binding.txtSafetyStatus.text = "Location disabled"
+            binding.txtSafetyStatus.setTextColor(typedValueText.data)
+            return
+        }
+        
+        if (dangerCrisis != null) {
+            // Warning: Inside Crisis Area!
+            binding.cardSafetyStatus.setCardBackgroundColor(
+                ContextCompat.getColor(requireContext(), R.color.color_severity_critical_bg)
+            )
+            binding.cardSafetyStatus.strokeColor = ContextCompat.getColor(requireContext(), R.color.color_severity_critical)
+            binding.imgSafetyStatusIcon.setImageResource(android.R.drawable.ic_dialog_alert)
+            binding.imgSafetyStatusIcon.imageTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(requireContext(), R.color.color_severity_critical)
+            )
+            binding.txtSafetyStatus.text = "Warning: Inside Crisis Area! (${dangerCrisis.titleEn})"
+            binding.txtSafetyStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_severity_critical))
+        } else {
+            // Safe: No active crises nearby
+            binding.cardSafetyStatus.setCardBackgroundColor(
+                ContextCompat.getColor(requireContext(), R.color.color_severity_low_bg)
+            )
+            binding.cardSafetyStatus.strokeColor = ContextCompat.getColor(requireContext(), R.color.color_severity_low)
+            binding.imgSafetyStatusIcon.setImageResource(android.R.drawable.ic_dialog_info)
+            binding.imgSafetyStatusIcon.imageTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(requireContext(), R.color.color_severity_low)
+            )
+            binding.txtSafetyStatus.text = "You're Safe: No active crises nearby"
+            binding.txtSafetyStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_severity_low))
+        }
     }
 
     private fun plotCrisesOnMap(crises: List<Crisis>) {
         val map = googleMap ?: return
         map.clear()
 
-        if (crises.isEmpty()) return
-
         val boundsBuilder = LatLngBounds.builder()
+        var hasPoints = false
 
         crises.forEach { crisis ->
             val position = LatLng(crisis.centroidLat, crisis.centroidLng)
@@ -143,18 +331,22 @@ class HomeDashboardFragment : Fragment(R.layout.fragment_home_dashboard) {
             )
 
             boundsBuilder.include(position)
+            hasPoints = true
         }
 
-        // Zoom to fit all markers with padding
-        try {
-            val bounds = boundsBuilder.build()
-            map.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100))
-        } catch (_: Exception) {
-            // Single point — just zoom to it
-            val first = crises.first()
-            map.animateCamera(
-                CameraUpdateFactory.newLatLngZoom(LatLng(first.centroidLat, first.centroidLng), 12f)
-            )
+        userLocation?.let {
+            boundsBuilder.include(it)
+            hasPoints = true
+        }
+
+        if (hasPoints) {
+            try {
+                val bounds = boundsBuilder.build()
+                map.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100))
+            } catch (_: Exception) {
+                val center = userLocation ?: LatLng(crises.first().centroidLat, crises.first().centroidLng)
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(center, 12f))
+            }
         }
     }
 

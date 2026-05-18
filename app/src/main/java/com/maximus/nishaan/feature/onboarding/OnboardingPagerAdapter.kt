@@ -14,9 +14,9 @@ class OnboardingPagerAdapter : RecyclerView.Adapter<OnboardingPagerAdapter.Slide
     data class Slide(val titleRes: Int, val bodyRes: Int, val iconRes: Int)
 
     private val slides = listOf(
-        Slide(R.string.onboarding_slide_1_title, R.string.onboarding_slide_1_body, R.drawable.ic_launcher_foreground),
-        Slide(R.string.onboarding_slide_2_title, R.string.onboarding_slide_2_body, R.drawable.ic_launcher_foreground),
-        Slide(R.string.onboarding_slide_3_title, R.string.onboarding_slide_3_body, R.drawable.ic_launcher_foreground)
+        Slide(R.string.onboarding_slide_1_title, R.string.onboarding_slide_1_body, R.mipmap.ic_launcher_foreground),
+        Slide(R.string.onboarding_slide_2_title, R.string.onboarding_slide_2_body, R.mipmap.ic_launcher_foreground),
+        Slide(R.string.onboarding_slide_3_title, R.string.onboarding_slide_3_body, R.mipmap.ic_launcher_foreground)
     )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SlideViewHolder {

@@ -366,5 +366,69 @@ Each entry follows:
 
 ---
 
+### 2026-05-19 — 03:20 AM PKT — Brand Identity Alignment: App Logo Branding
+
+- **Task:** Updated the launcher adaptive icon with the provided custom logo foreground PNG and a solid color background matching the brand's primary theme color.
+- **Files Modified:**
+  - `res/drawable/ic_launcher_background.xml` — Overwrote with a solid color vector filled with `#1C7556`.
+  - `res/drawable/ic_launcher_foreground.png` [NEW] — Copied the `logo.png` resource from raw drawables to act as the primary adaptive foreground image.
+- **Files Deleted:**
+  - `res/drawable/ic_launcher_foreground.xml` [DELETE] — Evicted default XML vector robot icon to prevent compilation conflicts.
+- **Outcome:** Adaptive launcher icon now displays the brand-new premium logo correctly styled with a solid `#1C7556` background color. Gradle compilation successful.
+
+---
+
+### 2026-05-19 — 03:25 AM PKT — Hotfix: Crisp App Logo & Resolution Blurriness Fix
+
+- **Problem:** Because `ic_launcher_foreground.png` was initially copied directly to the base `res/drawable` directory, it was treated as a medium-density (`mdpi`) asset. Modern high-resolution devices (xxhdpi/xxxhdpi) upscaled the asset, introducing pixelation and blurriness.
+- **Fixes Applied:**
+  - `res/mipmap-hdpi/`, `res/mipmap-xhdpi/`, `res/mipmap-xxhdpi/`, `res/mipmap-xxxhdpi/` — Copied the high-resolution brand logo as `ic_launcher_foreground.png` to high-density mipmap buckets. Placed inside high-density directories, Android launcher scales the asset DOWN instead of UP, guaranteeing razor-sharp, pixel-perfect rendering.
+  - `res/drawable/ic_launcher_foreground.png` [DELETE] — Deleted to keep drawable resources clean.
+  - `res/mipmap-anydpi-v26/ic_launcher.xml` & `ic_launcher_round.xml` — Updated adaptive declarations to reference `@mipmap/ic_launcher_foreground` for razor-sharp visual presence.
+  - `OnboardingPagerAdapter.kt` — Updated onboarding page references to use `R.mipmap.ic_launcher_foreground` for razor-sharp onboarding illustrations.
+- **Outcome:** The app logo is absolutely crisp, razor-sharp, and visually stunning across all screens and device resolutions. Gradle compilation successful.
+
+---
+
+### 2026-05-19 — 04:00 AM PKT — Real-time User Location & Safety Status Intelligence
+
+- **Task:** Integrated real-time user location tracking on the dashboard map, with dynamic geofence safety warning banners.
+- **Files Modified:**
+  - `res/layout/fragment_home_dashboard.xml` — Inserted `cardSafetyStatus` (a premium `MaterialCardView`) below the horizontal alert recycler.
+  - `feature/home/HomeDashboardFragment.kt` —
+    - Configured `FusedLocationProviderClient` to query user coordinates upon map loaded.
+    - Added an inline permission launcher to seamlessly prompt for location access on first screen load.
+    - Implemented a geofence checking algorithm comparing user location against active crisis centers using `Location.distanceBetween`.
+    - Styled status card dynamically to show warning card (Red styling with warning icon) if inside any crisis geofence, and checkmark card (Green styling with info icon) if safe.
+    - Added Pakistan centering fallback (`LatLng(30.3753, 69.3451)` at zoom `5.5f`) with theme-safe status card colors if location services are disabled.
+    - Enhanced map auto-zooming bounds builder to dynamically frame both the user's location and active crises into one single, perfectly framed map viewport.
+- **Outcome:** Primary map dashboard is now fully location-aware and dynamically warns the user if they enter any danger zones. Gradle compilation successful.
+
+---
+
+### 2026-05-19 — 04:05 AM PKT — Instant Safety Card Load & Multi-Subview Click Triggers
+
+- **Task:** Fixed click registration delay/issues by initializing safety status visibility instantly on view created and routing taps across all card subviews.
+- **Files Modified:**
+  - `feature/home/HomeDashboardFragment.kt` — 
+    - Initialized the safety status card immediately in `onViewCreated` using `updateSafetyStatusCard(null)`. This guarantees the card is instantly visible and interactive at launch, removing any dependency on map async loading completion.
+    - Registered a shared click listener on `cardSafetyStatus`, `txtSafetyStatus`, and `imgSafetyStatusIcon` to guarantee that taps capture successfully no matter what inner elements are touched:
+      - **Location Disabled**: Tap triggers `checkLocationPermissions()`, launching the standard Android location permission request popup dialog.
+      - **Location Enabled**: Tap animates the Google Map camera back to the user's live coordinates at a premium close-up zoom of `14f` for instant reframing.
+- **Outcome:** Primary dashboard safety status is fully responsive and interactive instantly upon screen launch. Gradle compilation successful.
+
+---
+
+### 2026-05-19 — 04:10 AM PKT — Spatial Crisis Mapping: Neighborhood Coordinate Resolution & Dispersion Fix
+
+- **Task:** Fixed coordinate grouping where all active crises stacked perfectly on top of each other.
+- **Files Modified:**
+  - `d:\nishaan-agent\firestore\writer.py` — 
+    - Replaced the hardcoded single coordinate `(24.8607, 67.0011)` with an accurate coordinate lookup map (`neighborhood_coords`) mapping Karachi's major neighborhoods (`Gulshan`, `Saddar`, `Korangi`, `Lyari`, `DHA`, `Clifton`, `Orangi`, `Malir`, `Kemari`, `Nazimabad`) to their actual geographical midpoints.
+    - Added a subtle random offset (`random.uniform(-0.006, 0.006)`) to latitude and longitude to disperse multiple markers within the same neighborhood and prevent stacked geofences.
+- **Outcome:** Android client successfully renders distinct markers and geofences for each active crisis. Build successful.
+
+---
+
 *This log will be updated with every subsequent Antigravity development session.*
 
