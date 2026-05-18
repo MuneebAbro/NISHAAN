@@ -1,6 +1,7 @@
 import os
 import firebase_admin
 from firebase_admin import credentials, firestore
+from google.cloud.firestore_v1.base_query import FieldFilter
 
 class FirestoreWriter:
     def __init__(self):
@@ -118,3 +119,56 @@ class FirestoreWriter:
             self.db.collection('alerts').add(alert_data)
         except Exception as e:
             print(f"Error writing alert to Firestore: {e}")
+
+    def get_active_crises(self):
+        if not self.db:
+            return []
+        try:
+            crises_ref = self.db.collection('crises').where(filter=FieldFilter('status', '==', 'ACTIVE')).stream()
+            active_crises = []
+            for doc in crises_ref:
+                c_data = doc.to_dict()
+                c_data['id'] = doc.id
+                active_crises.append(c_data)
+            return active_crises
+        except Exception as e:
+            print(f"Error getting active crises: {e}")
+            return []
+
+    def get_unlinked_missing_persons(self):
+        if not self.db:
+            return []
+        try:
+            # We query for reports that are SEARCHING or have no linked_crisis_id
+            # Note: Firestore might require composite index if we do multiple clauses, 
+            # so we fetch all 'SEARCHING' and filter in memory
+            persons_ref = self.db.collection('missing_persons').where(filter=FieldFilter('status', '==', 'SEARCHING')).stream()
+            unlinked = []
+            for doc in persons_ref:
+                p_data = doc.to_dict()
+                if not p_data.get('linked_crisis_id'):
+                    p_data['id'] = doc.id
+                    unlinked.append(p_data)
+            return unlinked
+        except Exception as e:
+            print(f"Error getting unlinked missing persons: {e}")
+            return []
+
+    def link_missing_person(self, person_id, crisis_id):
+        if not self.db:
+            return
+        try:
+            person_ref = self.db.collection('missing_persons').document(person_id)
+            person_ref.update({
+                'linked_crisis_id': crisis_id,
+                'status': 'LINKED',
+                'updated_at': firestore.SERVER_TIMESTAMP
+            })
+            
+            # Increment missing persons count in crisis
+            crisis_ref = self.db.collection('crises').document(crisis_id)
+            crisis_ref.update({
+                'missing_persons_count': firestore.Increment(1)
+            })
+        except Exception as e:
+            print(f"Error linking missing person: {e}")

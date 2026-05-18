@@ -279,4 +279,17 @@ Each entry follows:
 
 ---
 
+### 2026-05-18 — 04:26 PM PKT — Automated Missing Person Linking & Real Location
+
+- **Task:** 
+  1. Updated the Python autonomous agent (`nishaan-agent`) to automatically detect unlinked missing persons and link them to nearby active crises using Haversine distance calculations.
+  2. Updated the Android app's Report Missing form to stop using hardcoded coordinates and instead request location permissions to fetch the real GPS location of the reporter before submission.
+- **Files Modified:**
+  - `nishaan-agent/firestore/writer.py` — Added methods to fetch active crises and unlinked missing persons, plus a method to link them and increment the crisis count.
+  - `nishaan-agent/main.py` — Added `haversine_distance` calculation and `process_unlinked_missing_persons()` hook at the end of the agent loop.
+  - `app/src/main/java/com/maximus/nishaan/feature/missing/ReportMissingFragment.kt` — Implemented `FusedLocationProviderClient`, added permission launcher for `ACCESS_FINE_LOCATION`, and tied submission to real coordinates.
+- **Outcome:** The agent now accurately and autonomously links missing persons to crises based on location proximity without human intervention. The Android app now enforces location permissions ensuring missing persons are reported with actual coordinates.
+
+---
+
 *This log will be updated with every subsequent Antigravity development session.*

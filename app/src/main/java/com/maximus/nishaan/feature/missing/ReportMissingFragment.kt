@@ -1,5 +1,8 @@
 package com.maximus.nishaan.feature.missing
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -7,9 +10,12 @@ import android.view.View
 import android.widget.ArrayAdapter
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -32,6 +38,19 @@ class ReportMissingFragment : Fragment(R.layout.fragment_report_missing) {
     private val binding get() = _binding!!
     private var currentStep = 1
     private var selectedPhotoBytes: ByteArray? = null
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+    private val locationPermissionRequest = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        val fineLocationGranted = permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false
+        val coarseLocationGranted = permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false
+        if (fineLocationGranted || coarseLocationGranted) {
+            fetchLocationAndSubmit()
+        } else {
+            Snackbar.make(binding.root, "Location permission is required for accurate reporting", Snackbar.LENGTH_LONG).show()
+        }
+    }
 
     // Camera launcher — takes a photo and returns a thumbnail bitmap
     private val cameraLauncher = registerForActivityResult(
@@ -72,6 +91,8 @@ class ReportMissingFragment : Fragment(R.layout.fragment_report_missing) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentReportMissingBinding.bind(view)
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
         setupRelationshipDropdown()
         updateStepUI()
@@ -192,8 +213,39 @@ class ReportMissingFragment : Fragment(R.layout.fragment_report_missing) {
     }
 
     private fun submitReport() {
-        binding.loadingOverlay.visibility = View.VISIBLE
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            fetchLocationAndSubmit()
+        } else {
+            locationPermissionRequest.launch(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            )
+        }
+    }
 
+    @SuppressLint("MissingPermission")
+    private fun fetchLocationAndSubmit() {
+        binding.loadingOverlay.visibility = View.VISIBLE
+        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+            val lat = location?.latitude ?: 24.8607
+            val lng = location?.longitude ?: 67.0011
+            performSubmission(lat, lng)
+        }.addOnFailureListener {
+            performSubmission(24.8607, 67.0011)
+        }
+    }
+
+    private fun performSubmission(lat: Double, lng: Double) {
         val gender = when (binding.genderToggle.checkedButtonId) {
             R.id.btnMale -> "male"
             R.id.btnFemale -> "female"
@@ -209,8 +261,8 @@ class ReportMissingFragment : Fragment(R.layout.fragment_report_missing) {
             personAge = binding.ageInput.text?.toString()?.toIntOrNull() ?: 0,
             personGender = gender,
             description = binding.descriptionInput.text?.toString()?.trim().orEmpty(),
-            lastSeenLat = 24.8607,
-            lastSeenLng = 67.0011,
+            lastSeenLat = lat,
+            lastSeenLng = lng,
             lastSeenAddress = binding.addressInput.text?.toString()?.trim().orEmpty(),
             photoUrl = null,
             linkedCrisisId = null,

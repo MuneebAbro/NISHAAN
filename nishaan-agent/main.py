@@ -1,6 +1,7 @@
 import time
 import schedule
 import logging
+import math
 from datetime import datetime, timezone, timedelta
 from dotenv import load_dotenv
 
@@ -38,6 +39,65 @@ def log_trace(step, action, reasoning, confidence=None, crisis_id=None, input_da
             "inputData": input_data or {},
             "outputData": output_data or {}
         })
+
+def haversine_distance(lat1, lon1, lat2, lon2):
+    R = 6371.0 # Earth radius in km
+    
+    dlat = math.radians(lat2 - lat1)
+    dlon = math.radians(lon2 - lon1)
+    
+    a = (math.sin(dlat / 2)**2) + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * (math.sin(dlon / 2)**2)
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+    
+    return R * c
+
+def process_unlinked_missing_persons():
+    active_crises = writer.get_active_crises()
+    if not active_crises:
+        return
+        
+    unlinked_persons = writer.get_unlinked_missing_persons()
+    if not unlinked_persons:
+        return
+        
+    for person in unlinked_persons:
+        loc = person.get('last_seen_location')
+        if not loc:
+            continue
+            
+        person_lat = loc.latitude
+        person_lon = loc.longitude
+        
+        # Find closest crisis within impact radius
+        closest_crisis = None
+        min_distance = float('inf')
+        
+        for crisis in active_crises:
+            c_loc = crisis.get('centroid')
+            if not c_loc:
+                continue
+                
+            c_lat = c_loc.latitude
+            c_lon = c_loc.longitude
+            radius = crisis.get('impact_radius_km', 5.0)
+            
+            dist = haversine_distance(person_lat, person_lon, c_lat, c_lon)
+            if dist <= radius and dist < min_distance:
+                min_distance = dist
+                closest_crisis = crisis
+                
+        if closest_crisis:
+            crisis_id = closest_crisis['id']
+            person_id = person['id']
+            writer.link_missing_person(person_id, crisis_id)
+            
+            log_trace(
+                step=7,
+                action="MISSING_PERSON_LINKED",
+                reasoning=f"Linked missing person {person.get('person_name', 'Unknown')} to crisis {closest_crisis.get('title_en', crisis_id)} (distance: {min_distance:.2f}km).",
+                crisis_id=crisis_id,
+                input_data={"person_id": person_id, "distance": min_distance}
+            )
 
 def agent_loop():
     global cycle_count
@@ -149,6 +209,9 @@ def agent_loop():
                 reasoning=f"crises/{crisis_id} written. Alerts generated.",
                 crisis_id=crisis_id
             )
+            
+    # After processing all signals and new crises, link unlinked missing persons to active crises
+    process_unlinked_missing_persons()
 
 if __name__ == "__main__":
     print("Starting NISHAAN Autonomous Agent Loop...")
