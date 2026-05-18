@@ -15,7 +15,6 @@
     <string name="language_select_title">Choose Your Language\nزبان منتخب کریں</string>
     <string name="language_english">English</string>
     <string name="language_urdu">اردو</string>
-    <string name="language_roman_urdu">Roman Urdu</string>
     <string name="btn_continue">Continue</string>
     <string name="permissions_title">Permissions Required</string>
     <string name="permissions_subtitle">NISHAAN needs these to protect you</string>
@@ -149,4 +148,8 @@
     <string name="guest_banner_report">Sign in to submit a report</string>
     <string name="loading">Loading…</string>
     <string name="error_generic">Something went wrong. Please try again.</string>
+    <string name="settings_theme_title">App Theme</string>
+    <string name="settings_theme_light">Light Mode</string>
+    <string name="settings_theme_dark">Dark Mode</string>
+    <string name="settings_theme_system">System Default</string>
 </resources>

@@ -11,8 +11,17 @@ class UserRepositoryImpl : UserRepository {
 
     private val firestore = FirebaseFirestore.getInstance()
     private val storage = FirebaseStorage.getInstance()
+    
+    // In-memory cache for user profile
+    private var cachedUserProfile: User? = null
 
     override suspend fun getUserProfile(uid: String): Result<User?> {
+        // Return cached profile if it exists and matches the requested uid
+        val cached = cachedUserProfile
+        if (cached != null && cached.uid == uid) {
+            return Result.success(cached)
+        }
+
         return try {
             val doc = firestore.collection("users").document(uid).get().await()
             if (doc.exists()) {
@@ -24,6 +33,7 @@ class UserRepositoryImpl : UserRepository {
                     photoUrl = doc.getString("photoUrl"),
                     isVerified = doc.getBoolean("isVerified") ?: false
                 )
+                cachedUserProfile = user // Cache the retrieved profile
                 Result.success(user)
             } else {
                 Result.success(null)
@@ -44,6 +54,7 @@ class UserRepositoryImpl : UserRepository {
                 "isVerified" to (user.cnic != null && user.photoUrl != null)
             )
             firestore.collection("users").document(user.uid).set(data).await()
+            cachedUserProfile = user // Cache the newly saved profile
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)
@@ -59,5 +70,9 @@ class UserRepositoryImpl : UserRepository {
         } catch (e: Exception) {
             Result.failure(e)
         }
+    }
+
+    override fun clearCache() {
+        cachedUserProfile = null
     }
 }

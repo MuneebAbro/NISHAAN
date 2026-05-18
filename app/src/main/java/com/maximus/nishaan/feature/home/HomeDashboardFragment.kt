@@ -82,11 +82,23 @@ class HomeDashboardFragment : Fragment(R.layout.fragment_home_dashboard) {
     }
 
     private fun configureMap(map: GoogleMap) {
-        // Dark mode map style
+        val uiMode = resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK
+        val isNightMode = uiMode == android.content.res.Configuration.UI_MODE_NIGHT_YES
+        
+        android.util.Log.d("HomeDashboardFragment", "configureMap: Initializing map. uiMode=$uiMode, isNightMode=$isNightMode")
+        
         try {
-            map.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.map_style_dark))
-        } catch (_: Exception) {
-            // Fallback to default style if resource missing
+            if (isNightMode) {
+                android.util.Log.d("HomeDashboardFragment", "configureMap: Applying dark mode map style (map_style_dark)")
+                val success = map.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.map_style_dark))
+                android.util.Log.d("HomeDashboardFragment", "configureMap: Dark style setMapStyle success status = $success")
+            } else {
+                android.util.Log.d("HomeDashboardFragment", "configureMap: Applying standard light mode map style (null)")
+                val success = map.setMapStyle(null)
+                android.util.Log.d("HomeDashboardFragment", "configureMap: Light style setMapStyle success status = $success")
+            }
+        } catch (e: Exception) {
+            android.util.Log.e("HomeDashboardFragment", "configureMap: Failed to apply map style. Error: ${e.message}", e)
         }
 
         // Default camera: Karachi, Pakistan

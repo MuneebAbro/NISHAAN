@@ -90,59 +90,15 @@
                 android:textColor="@color/color_accent_info" />
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- App Settings -->
-        <TextView
-            style="@style/TextHeadline"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xl"
-            android:text="@string/profile_app_settings" />
-
+        <!-- Settings -->
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnChangeLanguage"
+            android:id="@+id/btnSettings"
             style="@style/SecondaryButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_sm"
-            android:text="@string/profile_language_select"
-            app:icon="@android:drawable/ic_menu_sort_alphabetically" />
-
-        <!-- Notification Preferences -->
-        <TextView
-            style="@style/TextHeadline"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_xl"
-            android:text="@string/profile_notification_prefs" />
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/switchCritical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_sm"
-            android:checked="true"
-            android:text="@string/profile_pref_critical" />
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/switchMedium"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/profile_pref_medium" />
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/switchLow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:text="@string/profile_pref_low" />
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/switchMissing"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/profile_pref_missing" />
+            android:text="@string/profile_app_settings"
+            app:icon="@android:drawable/ic_menu_preferences" />
 
         <!-- My Reports Section -->
         <LinearLayout
@@ -174,15 +130,5 @@
             android:layout_marginTop="@dimen/spacing_sm"
             android:nestedScrollingEnabled="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-        <!-- Sign Out -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSignOut"
-            style="@style/SecondaryButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xl"
-            android:layout_marginBottom="@dimen/spacing_xl"
-            android:text="@string/btn_sign_out" />
     </LinearLayout>
 </ScrollView>

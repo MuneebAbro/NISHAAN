@@ -37,7 +37,22 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        // Load and apply theme mode from DataStore
+        val app = application as NishaanApplication
+        val themeMode = runBlocking {
+            app.appContainer.dataStore.data
+                .map { it[stringPreferencesKey("app_theme")] ?: "system" }
+                .first()
+        }
+        applyTheme(themeMode)
+
         WindowCompat.setDecorFitsSystemWindows(window, false)
+        
+        // Dynamically adjust status bar icons to be dark in Light Mode and light in Dark Mode
+        val isNightMode = (resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK) == android.content.res.Configuration.UI_MODE_NIGHT_YES
+        WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = !isNightMode
+
         setContentView(R.layout.activity_main)
 
         val navHostFragment = supportFragmentManager
@@ -53,6 +68,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.onboardingFragment,
                 R.id.languageSelectFragment,
                 R.id.permissionsFragment,
+                R.id.settingsFragment,
                 R.id.authFragment -> {
                     bottomNav.visibility = View.GONE
                 }
@@ -61,5 +77,14 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun applyTheme(themeMode: String) {
+        val mode = when (themeMode) {
+            "light" -> androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
+            "dark" -> androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
+            else -> androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+        }
+        androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(mode)
     }
 }

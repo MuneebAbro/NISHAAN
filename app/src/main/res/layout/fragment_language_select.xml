@@ -58,7 +58,6 @@
             style="@style/NishaanCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_md"
             android:clickable="true"
             android:focusable="true">
             <LinearLayout
@@ -75,35 +74,6 @@
                     style="@style/TextHeadline" />
                 <ImageView
                     android:id="@+id/checkUrdu"
-                    android:layout_width="@dimen/dimen_icon_default"
-                    android:layout_height="@dimen/dimen_icon_default"
-                    android:src="@android:drawable/checkbox_on_background"
-                    android:visibility="gone"
-                    android:contentDescription="@null" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardRomanUrdu"
-            style="@style/NishaanCard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="@dimen/spacing_md">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/language_roman_urdu"
-                    style="@style/TextHeadline" />
-                <ImageView
-                    android:id="@+id/checkRomanUrdu"
                     android:layout_width="@dimen/dimen_icon_default"
                     android:layout_height="@dimen/dimen_icon_default"
                     android:src="@android:drawable/checkbox_on_background"

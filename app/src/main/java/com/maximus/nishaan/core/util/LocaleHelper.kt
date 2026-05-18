@@ -9,7 +9,6 @@ object LocaleHelper {
     fun wrap(context: Context, language: String): Context {
         val locale = when (language) {
             "ur" -> Locale("ur")
-            "roman_ur" -> Locale("ur", "rLatn")
             else -> Locale("en")
         }
         

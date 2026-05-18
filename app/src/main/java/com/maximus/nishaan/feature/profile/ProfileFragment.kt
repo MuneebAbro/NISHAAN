@@ -81,20 +81,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             findNavController().navigate(R.id.missingHubFragment)
         }
 
-        binding.btnChangeLanguage.setOnClickListener {
-            findNavController().navigate(R.id.languageSelectFragment)
-        }
-
-        // Sign out
-        binding.btnSignOut.setOnClickListener {
-            MaterialAlertDialogBuilder(requireContext())
-                .setMessage(R.string.profile_sign_out_confirm)
-                .setPositiveButton(R.string.btn_yes) { _, _ ->
-                    auth.signOut()
-                    findNavController().navigate(R.id.action_profile_to_auth)
-                }
-                .setNegativeButton(R.string.btn_no, null)
-                .show()
+        binding.btnSettings.setOnClickListener {
+            findNavController().navigate(R.id.action_profile_to_settings)
         }
     }
 
