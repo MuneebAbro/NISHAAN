@@ -65,7 +65,11 @@ class AgentTraceAdapter : ListAdapter<AgentTrace, AgentTraceAdapter.TraceViewHol
             }
 
             // Action + reasoning
-            binding.actionText.text = trace.action.replace("_", " ")
+            binding.actionText.text = when (trace.action) {
+                "VERIFICATION_ADJUSTED" -> "👥 " + trace.action.replace("_", " ")
+                "WITNESS_CORROBORATED" -> "🔍 " + trace.action.replace("_", " ")
+                else -> trace.action.replace("_", " ")
+            }
             binding.reasoningText.text = trace.reasoningSummary
         }
 

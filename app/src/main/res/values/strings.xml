@@ -152,4 +152,6 @@
     <string name="settings_theme_light">Light Mode</string>
     <string name="settings_theme_dark">Dark Mode</string>
     <string name="settings_theme_system">System Default</string>
+    <string name="verify_tally_format">Yes: %1$d | No: %2$d | Not Sure: %3$d</string>
+    <string name="verify_user_response_format">You verified: %1$s</string>
 </resources>

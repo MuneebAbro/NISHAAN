@@ -109,8 +109,9 @@ class MissingPersonRepositoryImpl(
             linkedCrisisId = data["linked_crisis_id"] as? String,
             status = try { MissingPersonStatus.valueOf(data["status"] as? String ?: "SEARCHING") } catch (_: Exception) { MissingPersonStatus.SEARCHING },
             matchScore = (data["match_score"] as? Number)?.toDouble(),
-            submittedAt = (data["timestamp"] as? Timestamp)?.toDate()?.time ?: 0L,
-            updatedAt = (data["updated_at"] as? Timestamp)?.toDate()?.time ?: 0L
+            submittedAt = (data["timestamp"] as? Timestamp)?.toDate()?.time ?: (data["submitted_at"] as? Timestamp)?.toDate()?.time ?: 0L,
+            updatedAt = (data["updated_at"] as? Timestamp)?.toDate()?.time ?: 0L,
+            witnessReportsCount = (data["witness_reports_count"] as? Number)?.toInt() ?: 0
         )
     }
 }

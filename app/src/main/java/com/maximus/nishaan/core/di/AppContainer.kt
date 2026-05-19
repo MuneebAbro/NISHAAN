@@ -30,4 +30,7 @@ class AppContainer(private val context: Context) {
     val agentTraceRepository: AgentTraceRepository by lazy { AgentTraceRepositoryImpl() }
     val missingPersonRepository: MissingPersonRepository by lazy { MissingPersonRepositoryImpl() }
     val userRepository: UserRepository by lazy { UserRepositoryImpl() }
+    val witnessReportRepository: com.maximus.nishaan.domain.repository.WitnessReportRepository by lazy {
+        com.maximus.nishaan.data.repository.WitnessReportRepositoryImpl(com.google.firebase.firestore.FirebaseFirestore.getInstance())
+    }
 }

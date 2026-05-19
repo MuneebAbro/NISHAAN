@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/color_surface_dark"
+    android:padding="24dp">
+
+    <!-- Drag Handle -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:background="@color/color_divider_dark" />
+
+    <!-- Header Section with Pulse Dot -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
+
+        <View
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:background="@drawable/circle_pulse_green"
+            android:backgroundTint="@color/color_ops_blue" />
+
+        <TextView
+            style="@style/TextDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="Crowd Verification"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/dialogCrisisTitle"
+        style="@style/TextBodyMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SENTINEL has flagged a potential crisis. Help verify this situation."
+        android:textColor="@color/color_on_surface_dark"
+        android:textSize="14sp"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Button Options -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDialogYes"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:text="Yes, I verify this is real"
+        android:textColor="@color/color_severity_low"
+        app:strokeColor="@color/color_severity_low"
+        app:strokeWidth="1dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDialogNo"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:text="No, this is a false alarm"
+        android:textColor="@color/color_severity_critical"
+        app:strokeColor="@color/color_severity_critical"
+        app:strokeWidth="1dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDialogUnsure"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Unsure / Not nearby"
+        android:textColor="@color/color_chalk"
+        app:strokeColor="@color/color_divider_dark"
+        app:strokeWidth="1dp" />
+
+</LinearLayout>

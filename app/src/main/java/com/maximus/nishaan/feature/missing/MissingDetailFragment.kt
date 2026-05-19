@@ -80,6 +80,33 @@ class MissingDetailFragment : Fragment(R.layout.fragment_missing_detail) {
             binding.personPhoto.visibility = View.GONE
         }
 
+        // Feature 5: Real-time witness sightings count observer
+        viewLifecycleOwner.lifecycleScope.launch {
+            app.appContainer.witnessReportRepository.observeWitnessReportsCount(person.reportId)
+                .collect { count ->
+                    binding.txtWitnessCount.text = "👥 $count reported"
+                }
+        }
+
+        // Setup Sighting Sighting button click
+        binding.btnReportSighting.setOnClickListener {
+            val bottomSheet = WitnessReportBottomSheet.newInstance()
+            bottomSheet.setOnSubmitListener { report ->
+                viewLifecycleOwner.lifecycleScope.launch {
+                    val submitResult = app.appContainer.witnessReportRepository.submitWitnessReport(person.reportId, report)
+                    submitResult.fold(
+                        onSuccess = {
+                            Snackbar.make(binding.root, "Witness sighting submitted successfully!", Snackbar.LENGTH_LONG).show()
+                        },
+                        onFailure = { error ->
+                            Snackbar.make(binding.root, "Failed to submit report: ${error.localizedMessage}", Snackbar.LENGTH_LONG).show()
+                        }
+                    )
+                }
+            }
+            bottomSheet.show(childFragmentManager, WitnessReportBottomSheet.TAG)
+        }
+
         // MATCHER status
         binding.matcherStatusText.text = getString(R.string.missing_detail_matcher_status, person.status.name)
 

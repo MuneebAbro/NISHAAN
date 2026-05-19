@@ -21,7 +21,8 @@ data class MissingPerson(
     val status: MissingPersonStatus,
     val matchScore: Double?,
     val submittedAt: Long,
-    val updatedAt: Long
+    val updatedAt: Long,
+    val witnessReportsCount: Int = 0
 )
 
 enum class MissingPersonStatus {

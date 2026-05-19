@@ -430,5 +430,34 @@ Each entry follows:
 
 ---
 
+### 2026-05-19 — 07:15 PM PKT — Hackathon Feature Pack (Features 1 - 5)
+
+- **Task:** Implemented all 5 user-requested hackathon features across the Android client and Python backend.
+- **Features Implemented:**
+  1. **Crowd-Sourced Signal Verification (Feature 1)**: Added Firebase firestore verifications subcollection. Mocked simulation trigger button in `CrisisDetailFragment`.
+  2. **Real-Time Crisis Timeline / Pulse Feed (Feature 2)**: Dynamic pulse feed tab in `CrisisDetailFragment` showing real-time timeline events (e.g. Signal Fusion, Classification, Dispatch, Sim, Verification).
+  3. **Predicted Spread / Impact Radius Forecast (Feature 3)**: LLM spread forecast logic in python agent using Groq. Visualized as dashed outer circle forecasts dynamically on `HomeDashboardFragment` map and overview fragment.
+  4. **Safe Route Planner (Feature 4)**: Vector-field and Bezier path calculations in `SafeRouteManager` avoiding danger zones. Map drawing of route polylines and safe flags, with safe route banner and loading indicators.
+  5. **Anonymous Witness Mode (Feature 5)**: Created `WitnessReport` repository and data model. Implemented slide-up `WitnessReportBottomSheet` for sighting details. Back-end `MATCHER` using Groq compares sightings and adds trace logs.
+- **Files Modified:**
+  - `app/src/main/java/com/maximus/nishaan/core/di/AppContainer.kt` — Registered repositories and DI logic.
+  - `app/src/main/java/com/maximus/nishaan/domain/model/MissingPerson.kt` — Added `witnessReportsCount`.
+  - `app/src/main/java/com/maximus/nishaan/data/repository/MissingPersonRepositoryImpl.kt` — Updated parser to handle `witness_reports_count`.
+  - `app/src/main/res/layout/fragment_missing_detail.xml` — Designed witness stats card and "Report Sighting" button.
+  - `app/src/main/java/com/maximus/nishaan/feature/missing/MissingDetailFragment.kt` — Observed witness count and launched reporting sheet.
+  - `app/src/main/java/com/maximus/nishaan/feature/agenttrace/AgentTraceAdapter.kt` — Added 🔍 icon for `WITNESS_CORROBORATED` trace actions.
+  - `nishaan-agent/firestore/writer.py` — Updated to write spread forecasts, support active missing persons, and witness sighting database functions.
+  - `nishaan-agent/api/run.py` — Added AI-based witness similarity matcher (`MATCHER`) loop and timeline events.
+- **Files Created:**
+  - `app/src/main/java/com/maximus/nishaan/domain/model/WitnessReport.kt`
+  - `app/src/main/java/com/maximus/nishaan/domain/repository/WitnessReportRepository.kt`
+  - `app/src/main/java/com/maximus/nishaan/data/repository/WitnessReportRepositoryImpl.kt`
+  - `app/src/main/res/layout/dialog_witness_report.xml`
+  - `app/src/main/java/com/maximus/nishaan/feature/missing/WitnessReportBottomSheet.kt`
+  - `app/src/main/java/com/maximus/nishaan/core/maps/SafeRouteManager.kt`
+- **Outcome:** All 5 features implemented successfully end-to-end. App and backend compile and build with zero errors.
+
+---
+
 *This log will be updated with every subsequent Antigravity development session.*
 

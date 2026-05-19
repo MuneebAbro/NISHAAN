@@ -49,6 +49,11 @@ class HomeDashboardFragment : Fragment(R.layout.fragment_home_dashboard) {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var userLocation: LatLng? = null
 
+    private var activePolyline: com.google.android.gms.maps.model.Polyline? = null
+    private var safeDestinationMarker: com.google.android.gms.maps.model.Marker? = null
+    private var activeRoutePoints: List<LatLng>? = null
+    private var activeSafeDestination: LatLng? = null
+
     private val locationPermissionRequest = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
@@ -125,6 +130,70 @@ class HomeDashboardFragment : Fragment(R.layout.fragment_home_dashboard) {
         }
         binding.safetyStatusRow.setOnClickListener(safetyClickListener)
         binding.txtSafetyStatus.setOnClickListener(safetyClickListener)
+
+        // Feature 4: Safe Route FAB click setup
+        binding.fabSafeRoute.setOnClickListener {
+            val userLoc = userLocation
+            if (userLoc == null) {
+                android.widget.Toast.makeText(requireContext(), "Location required to calculate safe route", android.widget.Toast.LENGTH_SHORT).show()
+                checkLocationPermissions()
+                return@setOnClickListener
+            }
+
+            // Check if user is actually in a danger zone
+            val isInDanger = latestCrises.any { crisis ->
+                val crisisLatLng = LatLng(crisis.centroidLat, crisis.centroidLng)
+                val results = FloatArray(1)
+                Location.distanceBetween(
+                    userLoc.latitude, userLoc.longitude,
+                    crisisLatLng.latitude, crisisLatLng.longitude,
+                    results
+                )
+                results[0] <= crisis.impactRadiusKm * 1000.0
+            }
+
+            if (!isInDanger) {
+                android.widget.Toast.makeText(requireContext(), "You are already in a safe area / آپ پہلے ہی محفوظ علاقے میں ہیں", android.widget.Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+
+            binding.chipSafeRouteLoading.visibility = View.VISIBLE
+            viewLifecycleOwner.lifecycleScope.launch {
+                kotlinx.coroutines.delay(1000) // Simulating network/Directions API delay
+                
+                val destination = com.maximus.nishaan.core.maps.SafeRouteManager.calculateSafeDestination(userLoc, latestCrises)
+                val routePoints = com.maximus.nishaan.core.maps.SafeRouteManager.generateSafeRoutePoints(userLoc, destination, latestCrises)
+                
+                activeRoutePoints = routePoints
+                activeSafeDestination = destination
+                
+                plotCrisesOnMap(latestCrises)
+                
+                binding.chipSafeRouteLoading.visibility = View.GONE
+                binding.bannerSafeRoute.visibility = View.VISIBLE
+                
+                try {
+                    val bounds = com.google.android.gms.maps.model.LatLngBounds.Builder()
+                        .include(userLoc)
+                        .include(destination)
+                        .build()
+                    googleMap?.animateCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngBounds(bounds, 120))
+                } catch (e: Exception) {
+                    googleMap?.animateCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(destination, 13f))
+                }
+            }
+        }
+
+        binding.btnDismissSafeRoute.setOnClickListener {
+            activeRoutePoints = null
+            activeSafeDestination = null
+            activePolyline?.remove()
+            activePolyline = null
+            safeDestinationMarker?.remove()
+            safeDestinationMarker = null
+            binding.bannerSafeRoute.visibility = View.GONE
+            plotCrisesOnMap(latestCrises)
+        }
 
         // FAB → Report Missing
         binding.fabReportMissing.setOnClickListener {
@@ -261,6 +330,7 @@ class HomeDashboardFragment : Fragment(R.layout.fragment_home_dashboard) {
             binding.txtSafetyStatus.setTextColor(
                 ContextCompat.getColor(requireContext(), R.color.color_chalk)
             )
+            binding.fabSafeRoute.visibility = View.GONE
             return
         }
 
@@ -274,6 +344,7 @@ class HomeDashboardFragment : Fragment(R.layout.fragment_home_dashboard) {
             binding.txtSafetyStatus.setTextColor(
                 ContextCompat.getColor(requireContext(), R.color.color_severity_critical)
             )
+            binding.fabSafeRoute.visibility = View.VISIBLE
         } else {
             // Safe
             binding.viewStatusDot.setBackgroundResource(R.drawable.circle_pulse_green)
@@ -284,6 +355,7 @@ class HomeDashboardFragment : Fragment(R.layout.fragment_home_dashboard) {
             binding.txtSafetyStatus.setTextColor(
                 ContextCompat.getColor(requireContext(), R.color.color_severity_low)
             )
+            binding.fabSafeRoute.visibility = View.GONE
         }
     }
 
@@ -319,6 +391,21 @@ class HomeDashboardFragment : Fragment(R.layout.fragment_home_dashboard) {
                     .strokeWidth(4f)
             )
 
+            // Add predicted spread circle (Feature 3)
+            crisis.spreadPrediction?.let { prediction ->
+                val strokeColor = ContextCompat.getColor(requireContext(), R.color.color_severity_monitoring)
+                val fillColor = ContextCompat.getColor(requireContext(), R.color.color_severity_monitoring_bg)
+                map.addCircle(
+                    CircleOptions()
+                        .center(position)
+                        .radius(prediction.predictedRadiusKm * 1000) // km → meters
+                        .strokeColor(strokeColor)
+                        .fillColor(fillColor)
+                        .strokeWidth(3f)
+                        .strokePattern(listOf(com.google.android.gms.maps.model.Dash(20f), com.google.android.gms.maps.model.Gap(10f)))
+                )
+            }
+
             boundsBuilder.include(position)
             hasPoints = true
         }
@@ -336,6 +423,25 @@ class HomeDashboardFragment : Fragment(R.layout.fragment_home_dashboard) {
                 val center = userLocation ?: LatLng(crises.first().centroidLat, crises.first().centroidLng)
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(center, 12f))
             }
+        }
+
+        // Re-draw active safe route if available (Feature 4)
+        val route = activeRoutePoints
+        val dest = activeSafeDestination
+        if (route != null && dest != null) {
+            val polylineOptions = com.google.android.gms.maps.model.PolylineOptions()
+                .addAll(route)
+                .color(android.graphics.Color.parseColor("#2E7D32"))
+                .width(12f)
+            activePolyline = map.addPolyline(polylineOptions)
+
+            safeDestinationMarker = map.addMarker(
+                com.google.android.gms.maps.model.MarkerOptions()
+                    .position(dest)
+                    .title("Safe Evacuation Zone")
+                    .snippet("Evacuate to this coordinated shelter.")
+                    .icon(com.google.android.gms.maps.model.BitmapDescriptorFactory.defaultMarker(com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_GREEN))
+            )
         }
     }
 

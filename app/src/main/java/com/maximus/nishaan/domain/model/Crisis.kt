@@ -22,7 +22,12 @@ data class Crisis(
     val missingPersonsCount: Int,
     val analystReasoning: String,
     val createdAt: Long,
-    val updatedAt: Long
+    val updatedAt: Long,
+    val verificationYes: Int = 0,
+    val verificationNo: Int = 0,
+    val verificationUnsure: Int = 0,
+    val confidenceModifier: Float = 0f,
+    val spreadPrediction: SpreadPrediction? = null
 )
 
 enum class CrisisType {

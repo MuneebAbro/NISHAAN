@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="24dp"
+    android:background="?attr/colorSurface">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Report Sighting / عینی شاہد رپورٹ"
+        style="@style/TextHeadline"
+        android:textSize="18sp"
+        android:fontFamily="@font/poppins_bold"
+        android:textColor="?attr/colorOnSurface"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Sighting Time Selector -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSelectTime"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Select Sighting Time / وقت منتخب کریں"
+        android:textColor="?attr/colorOnSurface"
+        app:icon="@android:drawable/ic_menu_today"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Neighborhood Spinner -->
+    <TextView
+        android:id="@+id/labelNeighborhood"
+        style="@style/TextCaption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="NEIGHBORHOOD / علاقہ"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/btnSelectTime"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinnerNeighborhood"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintTop_toBottomOf="@id/labelNeighborhood"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Visual Details Input -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputLayoutVisualDetails"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Visual Details (Clothing, height) / حلیہ تفصیلات"
+        app:layout_constraintTop_toBottomOf="@id/spinnerNeighborhood"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etVisualDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:minLines="3"
+            android:gravity="top|start" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Anonymous Checkbox -->
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/cbAnonymous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Submit Anonymously / گمنام رپورٹ"
+        app:layout_constraintTop_toBottomOf="@id/inputLayoutVisualDetails"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Contact Info Input -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputLayoutContact"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="Contact Info (Optional) / رابطہ نمبر"
+        app:layout_constraintTop_toBottomOf="@id/cbAnonymous"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textShortMessage" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Submit Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSubmitReport"
+        style="@style/PrimaryButton"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_marginTop="24dp"
+        android:text="Submit Witness Report"
+        app:layout_constraintTop_toBottomOf="@id/inputLayoutContact"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

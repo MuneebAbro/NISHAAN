@@ -71,7 +71,114 @@ class CrisisRepositoryImpl(
             missingPersonsCount = (data["missing_persons_count"] as? Number)?.toInt() ?: 0,
             analystReasoning = data["analyst_reasoning"] as? String ?: "",
             createdAt = (data["created_at"] as? com.google.firebase.Timestamp)?.toDate()?.time ?: 0L,
-            updatedAt = (data["updated_at"] as? com.google.firebase.Timestamp)?.toDate()?.time ?: 0L
+            updatedAt = (data["updated_at"] as? com.google.firebase.Timestamp)?.toDate()?.time ?: 0L,
+            verificationYes = (data["verification_yes"] as? Number)?.toInt() ?: 0,
+            verificationNo = (data["verification_no"] as? Number)?.toInt() ?: 0,
+            verificationUnsure = (data["verification_unsure"] as? Number)?.toInt() ?: 0,
+            confidenceModifier = (data["confidence_modifier"] as? Number)?.toFloat() ?: 0f,
+            spreadPrediction = (data["spread_prediction"] as? Map<*, *>)?.let {
+                com.maximus.nishaan.domain.model.SpreadPrediction(
+                    predictedRadiusKm = (it["predicted_radius_km"] as? Number)?.toDouble() ?: 1.0,
+                    direction = it["direction"] as? String ?: "STATIONARY",
+                    confidence = (it["confidence"] as? Number)?.toInt() ?: 0,
+                    reasoningEn = it["reasoning_en"] as? String ?: "",
+                    reasoningUr = it["reasoning_ur"] as? String ?: ""
+                )
+            }
         )
+    }
+
+    override fun observeVerifications(crisisId: String): Flow<List<com.maximus.nishaan.domain.model.Verification>> = callbackFlow {
+        val listener = firestore.collection(Constants.COLLECTION_CRISES)
+            .document(crisisId)
+            .collection("verifications")
+            .addSnapshotListener { snapshot, error ->
+                if (error != null) {
+                    trySend(emptyList())
+                    return@addSnapshotListener
+                }
+                val verifs = snapshot?.documents?.mapNotNull { doc ->
+                    val uid = doc.getString("uid") ?: doc.id
+                    val response = doc.getString("response") ?: return@mapNotNull null
+                    val timestamp = (doc.get("timestamp") as? com.google.firebase.Timestamp)?.toDate()?.time ?: 0L
+                    val anonymous = doc.getBoolean("anonymous") ?: false
+                    com.maximus.nishaan.domain.model.Verification(uid, response, timestamp, anonymous)
+                }.orEmpty()
+                trySend(verifs)
+            }
+        awaitClose { listener.remove() }
+    }
+
+    override suspend fun submitVerification(crisisId: String, verification: com.maximus.nishaan.domain.model.Verification): Result<Unit> = try {
+        val crisisRef = firestore.collection(Constants.COLLECTION_CRISES).document(crisisId)
+        val verificationRef = crisisRef.collection("verifications").document(verification.uid)
+        
+        firestore.runTransaction { transaction ->
+            val existingVoteDoc = transaction.get(verificationRef)
+            val oldResponse = existingVoteDoc.getString("response")
+            
+            if (oldResponse == verification.response) {
+                return@runTransaction
+            }
+            
+            val verificationData = mapOf(
+                "uid" to verification.uid,
+                "response" to verification.response,
+                "timestamp" to com.google.firebase.firestore.FieldValue.serverTimestamp(),
+                "anonymous" to verification.anonymous
+            )
+            transaction.set(verificationRef, verificationData)
+            
+            val crisisSnapshot = transaction.get(crisisRef)
+            if (crisisSnapshot.exists()) {
+                val updates = mutableMapOf<String, Any>()
+                
+                if (oldResponse != null) {
+                    val oldField = when (oldResponse) {
+                        "YES" -> "verification_yes"
+                        "NO" -> "verification_no"
+                        else -> "verification_unsure"
+                    }
+                    val currentVal = (crisisSnapshot.getLong(oldField) ?: 0L)
+                    updates[oldField] = maxOf(0L, currentVal - 1)
+                }
+                
+                val newField = when (verification.response) {
+                    "YES" -> "verification_yes"
+                    "NO" -> "verification_no"
+                    else -> "verification_unsure"
+                }
+                val currentVal = (crisisSnapshot.getLong(newField) ?: 0L)
+                updates[newField] = currentVal + 1
+                
+                transaction.update(crisisRef, updates)
+            }
+        }.await()
+        Result.success(Unit)
+    } catch (e: Exception) {
+        Result.failure(e)
+    }
+
+    override fun observeTimeline(crisisId: String): Flow<List<com.maximus.nishaan.domain.model.TimelineEvent>> = callbackFlow {
+        val listener = firestore.collection(Constants.COLLECTION_CRISES)
+            .document(crisisId)
+            .collection("timeline")
+            .orderBy("timestamp", com.google.firebase.firestore.Query.Direction.DESCENDING)
+            .addSnapshotListener { snapshot, error ->
+                if (error != null) {
+                    trySend(emptyList())
+                    return@addSnapshotListener
+                }
+                val events = snapshot?.documents?.mapNotNull { doc ->
+                    val eventId = doc.id
+                    val title = doc.getString("title") ?: ""
+                    val description = doc.getString("description") ?: ""
+                    val timestamp = (doc.get("timestamp") as? com.google.firebase.Timestamp)?.toDate()?.time ?: 0L
+                    val type = doc.getString("type") ?: "SYSTEM"
+                    com.maximus.nishaan.domain.model.TimelineEvent(eventId, title, description, timestamp, type)
+                }.orEmpty()
+                trySend(events)
+            }
+        awaitClose { listener.remove() }
     }
 }

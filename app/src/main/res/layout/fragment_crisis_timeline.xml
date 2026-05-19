@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/android:colorBackground">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/timelineRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingHorizontal="@dimen/spacing_md"
+        android:paddingVertical="@dimen/spacing_md"
+        tools:listitem="@layout/item_timeline_event" />
+
+    <TextView
+        android:id="@+id/timelineEmptyText"
+        style="@style/TextBodyMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="No timeline events recorded yet."
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:visibility="gone" />
+
+</FrameLayout>

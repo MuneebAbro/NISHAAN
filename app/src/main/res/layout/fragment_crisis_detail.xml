@@ -1,22 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="?attr/android:colorBackground">
 
+    <!-- Premium Toolbar supporting navigation back and overflow menu -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/android:colorBackground"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:title="Crisis Details"
+        app:titleTextColor="?attr/colorOnBackground"
+        app:menu="@menu/menu_crisis_detail" />
+
+    <!-- Static Header card so vital information stays visible during tab swiping -->
     <LinearLayout
+        android:id="@+id/headerContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingHorizontal="@dimen/spacing_md"
-        android:paddingBottom="@dimen/spacing_xl">
+        android:paddingBottom="@dimen/spacing_sm">
 
         <!-- Crisis Detail Title Header -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xxl"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingBottom="@dimen/spacing_sm">
@@ -68,7 +81,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:layout_marginBottom="@dimen/spacing_md">
+            android:layout_marginBottom="@dimen/spacing_sm">
 
             <TextView
                 android:id="@+id/severityBadge"
@@ -95,127 +108,25 @@
                 android:layout_marginStart="@dimen/spacing_md"
                 android:textSize="11sp" />
         </LinearLayout>
-
-        <!-- Briefing Description wrapped in structured layout -->
-        <com.google.android.material.card.MaterialCardView
-            style="@style/NishaanCard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_md"
-            app:cardCornerRadius="12dp"
-            app:strokeWidth="1dp"
-            app:strokeColor="?attr/colorOutlineVariant"
-            app:cardElevation="0dp">
-
-            <TextView
-                android:id="@+id/descriptionText"
-                style="@style/TextBodyMedium"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:lineSpacingExtra="4dp"
-                android:textColor="?attr/colorOnSurface" />
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Dynamic dispatch chips -->
-        <TextView
-            style="@style/TextHeadline"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_sm"
-            android:text="@string/crisis_detail_agencies"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:textColor="?attr/colorOnBackground" />
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/agencyChipGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="@dimen/spacing_md"
-            app:chipSpacingHorizontal="8dp"
-            app:chipSpacingVertical="8dp" />
-
-        <!-- Linked Action Cards -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/missingPersonsCard"
-            style="@style/NishaanCard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_md"
-            app:cardCornerRadius="12dp"
-            app:strokeWidth="1dp"
-            app:strokeColor="?attr/colorOutlineVariant"
-            app:cardBackgroundColor="?attr/colorSurfaceVariant"
-            app:cardElevation="0dp"
-            android:clickable="true"
-            android:focusable="true">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="@dimen/spacing_md">
-
-                <TextView
-                    android:id="@+id/missingCountText"
-                    style="@style/TextBodyMedium"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textStyle="bold"
-                    android:textColor="?attr/colorOnBackground" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@android:drawable/ic_menu_more"
-                    app:tint="?attr/colorPrimary"
-                    android:contentDescription="@null" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Divider Line -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?attr/colorOutlineVariant"
-            android:layout_marginTop="@dimen/spacing_sm"
-            android:layout_marginBottom="@dimen/spacing_md" />
-
-        <!-- Agent Trace Sub-Panel -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingBottom="4dp">
-
-            <TextView
-                style="@style/TextHeadline"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/crisis_detail_agent_trace"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:textColor="?attr/colorOnBackground" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnViewFullTrace"
-                style="@style/TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/crisis_detail_view_full_trace"
-                android:textSize="13sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/tracePreviewContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
     </LinearLayout>
-</ScrollView>
+
+    <!-- Tab Layout -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/android:colorBackground"
+        app:tabTextColor="?attr/colorOnSurfaceVariant"
+        app:tabSelectedTextColor="?attr/colorPrimary"
+        app:tabIndicatorColor="?attr/colorPrimary"
+        app:tabMode="fixed"
+        app:tabGravity="fill" />
+
+    <!-- ViewPager2 for Overview and Timeline tabs -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+</LinearLayout>
