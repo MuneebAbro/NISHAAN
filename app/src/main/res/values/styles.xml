@@ -1,62 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Typography Styles (Confining emergency/tactical dashboard hierarchy) -->
+    <!-- ================================================================
+         TYPOGRAPHY — Type scale matching design system
+         Poppins is the global app font, set via theme and all styles.
+         ================================================================ -->
+
     <style name="TextDisplay">
-        <item name="android:textSize">30sp</item>
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textSize">28sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">?attr/colorOnBackground</item>
         <item name="android:letterSpacing">-0.02</item>
     </style>
+
     <style name="TextHeadline">
+        <item name="android:fontFamily">@font/poppins</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:textFontWeight">600</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textColor">?attr/colorOnBackground</item>
         <item name="android:letterSpacing">-0.01</item>
     </style>
-    <style name="TextBodyLarge">
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">?attr/colorOnBackground</item>
-        <item name="android:letterSpacing">0.0</item>
-    </style>
-    <style name="TextBodyMedium">
+
+    <style name="TextSubhead">
+        <item name="android:fontFamily">@font/poppins</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">?attr/colorOnSurface</item>
         <item name="android:letterSpacing">0.0</item>
     </style>
+
+    <style name="TextBodyLarge">
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">?attr/colorOnBackground</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+
+    <style name="TextBodyMedium">
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+
     <style name="TextCaption">
+        <item name="android:fontFamily">@font/poppins</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
         <item name="android:letterSpacing">0.01</item>
     </style>
+
+    <!-- Data text — Agent IDs, timestamps, confidence scores -->
     <style name="TextMono">
-        <item name="android:textSize">13sp</item>
-        <item name="android:fontFamily">monospace</item>
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
-        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:letterSpacing">0.04</item>
     </style>
+
+    <style name="TextTimestamp">
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+
     <style name="TextBadge">
+        <item name="android:fontFamily">@font/poppins</item>
         <item name="android:textSize">10sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:letterSpacing">0.05</item>
+        <item name="android:letterSpacing">0.08</item>
     </style>
 
-    <!-- Card Styles (Flat layered surfaces with micro-borders instead of shadows) -->
+    <!-- ================================================================
+         CARD STYLES
+         ================================================================ -->
     <style name="NishaanCard" parent="Widget.Material3.CardView.Filled">
-        <item name="cardBackgroundColor">?attr/colorSurfaceVariant</item>
+        <item name="cardBackgroundColor">@color/color_card_dark</item>
         <item name="cardCornerRadius">@dimen/dimen_card_corner_radius</item>
         <item name="cardElevation">0dp</item>
         <item name="strokeWidth">@dimen/dimen_card_stroke_width</item>
         <item name="strokeColor">?attr/colorOutlineVariant</item>
         <item name="contentPadding">@dimen/dimen_card_padding</item>
     </style>
+
     <style name="NishaanCardAlert" parent="NishaanCard">
-        <item name="cardBackgroundColor">?attr/colorSurfaceVariant</item>
+        <item name="cardBackgroundColor">@color/color_elevated_dark</item>
     </style>
 
-    <!-- Button Styles (Modern high-contrast buttons) -->
+    <!-- ================================================================
+         BUTTON STYLES
+         ================================================================ -->
     <style name="PrimaryButton" parent="Widget.Material3.Button">
-        <item name="backgroundTint">@color/color_primary</item>
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="backgroundTint">@color/color_signal_red</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">bold</item>
@@ -65,31 +103,37 @@
         <item name="android:letterSpacing">0.02</item>
         <item name="elevation">0dp</item>
     </style>
+
     <style name="SecondaryButton" parent="Widget.Material3.Button.OutlinedButton">
-        <item name="strokeColor">@color/color_primary</item>
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="strokeColor">@color/color_signal_red</item>
         <item name="strokeWidth">@dimen/dimen_button_outline_stroke</item>
-        <item name="android:textColor">@color/color_primary</item>
+        <item name="android:textColor">@color/color_signal_red</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">bold</item>
         <item name="cornerRadius">@dimen/dimen_button_corner_radius</item>
         <item name="android:minHeight">@dimen/dimen_button_height</item>
         <item name="android:letterSpacing">0.02</item>
     </style>
+
     <style name="TextButton" parent="Widget.Material3.Button.TextButton">
-        <item name="android:textColor">@color/color_accent_info</item>
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textColor">@color/color_ops_blue</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <!-- Input Style (Sleek dark field outlines with generous curves) -->
+    <!-- ================================================================
+         INPUT STYLE
+         ================================================================ -->
     <style name="NishaanInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
         <item name="boxBackgroundColor">?attr/colorSurface</item>
-        <item name="boxStrokeColor">@color/color_primary</item>
+        <item name="boxStrokeColor">@color/color_signal_red</item>
         <item name="boxCornerRadiusTopStart">@dimen/dimen_input_corner_radius</item>
         <item name="boxCornerRadiusTopEnd">@dimen/dimen_input_corner_radius</item>
         <item name="boxCornerRadiusBottomStart">@dimen/dimen_input_corner_radius</item>
         <item name="boxCornerRadiusBottomEnd">@dimen/dimen_input_corner_radius</item>
         <item name="android:textColorHint">?attr/colorOnSurfaceVariant</item>
-        <item name="hintTextColor">@color/color_primary</item>
+        <item name="hintTextColor">@color/color_signal_red</item>
     </style>
 </resources>

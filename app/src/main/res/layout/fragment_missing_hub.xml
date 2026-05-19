@@ -1,138 +1,255 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--
+    NISHAAN — Missing Persons Hub (Redesigned)
+    Aesthetic: Premium command-center / glass-morphism
+    Key changes:
+      • Dark background with rounded glass-style header
+      • Summary stat row (Total · Active · Found) beneath title
+      • ic_missing icon inside a sleek pill search bar
+      • Polished tabs with refined styling
+      • Premium empty state with icon circle + descriptive text
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/android:colorBackground"
-    android:orientation="vertical">
+    android:background="@color/color_background_dark">
 
-    <!-- Header Section -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="@dimen/spacing_md"
-        android:paddingTop="@dimen/spacing_xxl"
-        android:paddingBottom="@dimen/spacing_md"
-        android:background="?attr/android:colorBackground">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
+        <!-- ═══════════════════════════════════════════
+             GLASS HEADER — bottom-rounded card
+             ═══════════════════════════════════════════ -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/missing_hub_title"
-            android:textSize="22sp"
-            android:letterSpacing="-0.02"
-            style="@style/TextDisplay" />
+            android:background="@drawable/bg_header_glass"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="52dp"
+            android:paddingBottom="20dp">
 
-        <TextView
-            style="@style/TextCaption"
+            <!-- Row 1: Title + Report Button -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextDisplay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/missing_hub_title"
+                        android:textColor="@color/color_on_background_dark"
+                        android:textSize="26sp" />
+
+                    <!-- Subtle section label -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/poppins"
+                        android:letterSpacing="0.06"
+                        android:text="SEARCH DATABASE"
+                        android:textColor="#55FFFFFF"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <!-- Report Missing — glass pill button -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btnReportMissing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    app:cardBackgroundColor="#1AFFFFFF"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="#26FFFFFF"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="14dp">
+
+                        <ImageView
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:layout_marginEnd="6dp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_add_person"
+                            app:tint="@color/color_signal_red_light" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins"
+                            android:text="Report"
+                            android:textColor="@color/color_signal_red_light"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+        <!-- ═══════════════════════════════════════════
+             SEARCH BAR — pill with ic_missing icon
+             ═══════════════════════════════════════════ -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Real-time Missing Persons Database"
-            android:textColor="?attr/colorOnSurfaceVariant"
-            android:textAllCaps="true"
-            android:letterSpacing="0.05"
-            android:textSize="10sp" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?attr/colorOutlineVariant" />
-
-    <!-- Search Input Area -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/searchLayout"
-        style="@style/NishaanInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/spacing_md"
-        android:layout_marginTop="@dimen/spacing_md"
-        android:layout_marginBottom="@dimen/spacing_sm"
-        android:hint="@string/missing_hub_search"
-        app:startIconDrawable="@android:drawable/ic_menu_search"
-        app:startIconTint="?attr/colorOnSurfaceVariant">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/searchInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="?attr/colorOnSurface"
-            android:textSize="14sp"
-            android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- Sleek Tactical Tabs -->
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/android:colorBackground"
-        app:tabTextColor="?attr/colorOnSurfaceVariant"
-        app:tabSelectedTextColor="?attr/colorPrimary"
-        app:tabIndicatorColor="@color/color_primary"
-        app:tabIndicatorHeight="3dp"
-        app:tabRippleColor="@android:color/transparent">
-        <com.google.android.material.tabs.TabItem 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
-            android:text="@string/missing_hub_tab_all" />
-        <com.google.android.material.tabs.TabItem 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
-            android:text="@string/missing_hub_tab_by_crisis" />
-        <com.google.android.material.tabs.TabItem 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
-            android:text="@string/missing_hub_tab_unlinked" />
-    </com.google.android.material.tabs.TabLayout>
-
-    <!-- Divider under tabs -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?attr/colorOutlineVariant"
-        android:layout_marginBottom="2dp" />
-
-    <!-- RecyclerView List -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/missingRecycler"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:clipToPadding="false"
-        android:paddingHorizontal="@dimen/spacing_md"
-        android:paddingTop="@dimen/spacing_sm"
-        android:paddingBottom="@dimen/spacing_lg"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-    <!-- Highly polished Empty State Panel -->
-    <LinearLayout
-        android:id="@+id/emptyState"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="@dimen/spacing_xl"
-        android:visibility="gone">
-
-        <ImageView
-            android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@android:drawable/ic_menu_search"
-            app:tint="?attr/colorOnSurfaceVariant"
-            android:layout_marginBottom="16dp"
-            android:contentDescription="@null" />
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="6dp"
+            android:background="@drawable/bg_search_pill"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="12dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_missing"
+                app:tint="#66FFFFFF" />
+
+            <EditText
+                android:id="@+id/searchInput"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/poppins"
+                android:hint="@string/missing_hub_search"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="@color/color_on_background_dark"
+                android:textColorHint="#55FFFFFF"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- ═══════════════════════════════════════════
+             TABS — sleek, pill-styled
+             ═══════════════════════════════════════════ -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/alerts_empty"
-            android:textColor="?attr/colorOnSurfaceVariant"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            style="@style/TextBodyMedium" />
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="4dp"
+            android:background="@android:color/transparent"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/color_signal_red"
+            app:tabIndicatorFullWidth="false"
+            app:tabIndicatorHeight="3dp"
+            app:tabMode="fixed"
+            app:tabRippleColor="@android:color/transparent"
+            app:tabSelectedTextColor="@color/color_on_background_dark"
+            app:tabTextColor="#55FFFFFF">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/missing_hub_tab_all" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/missing_hub_tab_by_crisis" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/missing_hub_tab_unlinked" />
+        </com.google.android.material.tabs.TabLayout>
+
+        <!-- Thin divider under tabs -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#0CFFFFFF" />
+
+        <!-- ═══════════════════════════════════════════
+             RECYCLER VIEW — person cards
+             ═══════════════════════════════════════════ -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/missingRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="24dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <!-- ═══════════════════════════════════════════
+             EMPTY STATE — polished with icon + text
+             ═══════════════════════════════════════════ -->
+        <LinearLayout
+            android:id="@+id/emptyState"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingHorizontal="48dp"
+            android:visibility="gone">
+
+            <!-- Icon circle -->
+            <FrameLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/bg_stat_chip">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_missing"
+                    app:tint="#44FFFFFF" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
+                android:text="No missing persons found"
+                android:textColor="@color/color_chalk"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
+                android:letterSpacing="0.02"
+                android:text="Reports will appear here as they\nare filed into the system."
+                android:textColor="#55FFFFFF"
+                android:textSize="12sp" />
+        </LinearLayout>
+
     </LinearLayout>
-</LinearLayout>
+
+</FrameLayout>

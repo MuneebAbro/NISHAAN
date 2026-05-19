@@ -1,5 +1,8 @@
 package com.maximus.nishaan.feature.alerts
 
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
+import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -12,7 +15,7 @@ import com.maximus.nishaan.databinding.ItemAlertBinding
 import com.maximus.nishaan.domain.model.Crisis
 import com.maximus.nishaan.domain.model.Severity
 
-/** Adapter for the Alerts list — shows crises as notification-style items. */
+/** Adapter for the Alerts list — shows crises as premium card-style items. */
 class AlertAdapter(
     private val onClick: (Crisis) -> Unit
 ) : ListAdapter<Crisis, AlertAdapter.AlertViewHolder>(AlertDiff) {
@@ -36,10 +39,28 @@ class AlertAdapter(
             val severityColor = ContextCompat.getColor(ctx, crisis.severity.toColorRes())
             val severityBg = ContextCompat.getColor(ctx, crisis.severity.toBgColorRes())
 
+            // Severity stripe
             binding.severityStripe.setBackgroundColor(severityColor)
+
+            // Severity badge
             binding.severityBadge.text = crisis.severity.name
             binding.severityBadge.setTextColor(severityColor)
-            binding.severityBadge.setBackgroundColor(severityBg)
+            val badgeBg = binding.severityBadge.background
+            if (badgeBg is GradientDrawable) {
+                badgeBg.setColor(severityBg)
+            } else {
+                binding.severityBadge.setBackgroundColor(severityBg)
+            }
+
+            // Severity icon circle — tint the circular background
+            val iconBgDrawable = binding.severityIconBg.background
+            if (iconBgDrawable is GradientDrawable) {
+                iconBgDrawable.setColor(severityBg)
+            }
+            // Tint the warning icon to match severity
+            binding.severityIcon.setColorFilter(severityColor, PorterDuff.Mode.SRC_IN)
+
+            // Text fields
             binding.crisisTypeText.text = crisis.crisisType.name.replace("_", " ")
             binding.timeAgoText.text = crisis.createdAt.toTimeAgo()
             binding.alertTitle.text = crisis.titleEn

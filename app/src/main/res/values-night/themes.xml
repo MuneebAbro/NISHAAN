@@ -1,16 +1,26 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Dark Theme (Default — Command Center aesthetic) -->
     <style name="Base.Theme.NISHAAN" parent="Theme.Material3.Dark.NoActionBar">
-        <item name="colorPrimary">@color/color_primary</item>
+        <!-- Brand colors -->
+        <item name="colorPrimary">@color/color_signal_red</item>
         <item name="colorOnPrimary">@color/white</item>
-        <item name="colorPrimaryContainer">@color/color_primary_variant</item>
+        <item name="colorPrimaryContainer">@color/color_signal_red_dark</item>
+        <item name="colorSecondary">@color/color_ember_amber</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorTertiary">@color/color_ops_blue</item>
+        <item name="colorOnTertiary">@color/white</item>
+        <!-- Surfaces -->
         <item name="android:colorBackground">@color/color_background_dark</item>
         <item name="colorOnBackground">@color/color_on_background_dark</item>
         <item name="colorSurface">@color/color_surface_dark</item>
         <item name="colorOnSurface">@color/color_on_surface_dark</item>
-        <item name="colorSurfaceVariant">@color/color_surface_variant_dark</item>
+        <item name="colorSurfaceVariant">@color/color_card_dark</item>
         <item name="colorOnSurfaceVariant">@color/color_on_surface_muted_dark</item>
         <item name="colorOutlineVariant">@color/color_divider_dark</item>
+        <!-- Typography — Poppins everywhere -->
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="fontFamily">@font/poppins</item>
+        <!-- System bars -->
         <item name="android:statusBarColor">@color/color_background_dark</item>
         <item name="android:navigationBarColor">@color/color_surface_dark</item>
     </style>

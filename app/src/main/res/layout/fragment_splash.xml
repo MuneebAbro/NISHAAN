@@ -2,41 +2,37 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/android:colorBackground">
+    android:background="@color/color_background_dark">
 
-    <LinearLayout
+    <!-- Subtle scan line accent at top -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="top"
+        android:layout_marginTop="80dp"
+        android:background="#0AFFFFFF" />
+
+    <!-- Centered Logo -->
+    <ImageView
+        android:id="@+id/logoImage"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:layout_gravity="center"
+        android:src="@drawable/nishaan_logo_light"
+        android:scaleType="fitCenter"
+        android:contentDescription="Nishaan Logo"
+        android:alpha="0" />
+
+    <!-- Bottom build label -->
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="36dp"
+        android:text="CRISIS INTELLIGENCE · RESPONSE OPERATIONS"
+        android:textSize="8sp"
+        android:letterSpacing="0.15"
+        android:textAllCaps="true"
+        android:textColor="#40FFFFFF" />
 
-        <!-- Logo placeholder — replace with ic_nishaan_logo vector -->
-        <TextView
-            android:id="@+id/logoText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textSize="40sp"
-            android:textStyle="bold"
-            android:textColor="?attr/colorPrimary"
-            android:alpha="0" />
-
-        <TextView
-            android:id="@+id/urduName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_sm"
-            android:text="@string/app_name_urdu"
-            style="@style/TextHeadline"
-            android:textColor="?attr/colorPrimary" />
-
-        <TextView
-            android:id="@+id/tagline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xs"
-            android:text="@string/splash_tagline"
-            style="@style/TextCaption" />
-    </LinearLayout>
 </FrameLayout>

@@ -4,53 +4,103 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!-- NISHAAN Dark Theme (Default — Tactical EOC Aesthetic) -->
-    <color name="color_background_dark">#050816</color>
-    <color name="color_surface_dark">#0B1220</color>
-    <color name="color_surface_variant_dark">#111827</color>
-    <color name="color_primary">#FF453A</color>
-    <color name="color_primary_variant">#D9382F</color>
-    <color name="color_secondary">#F59E0B</color>
-    <color name="color_accent_low">#10B981</color>
-    <color name="color_accent_info">#3B82F6</color>
-    <color name="color_on_background_dark">#F8FAFC</color>
-    <color name="color_on_surface_dark">#F8FAFC</color>
-    <color name="color_on_surface_muted_dark">#94A3B8</color>
-    <color name="color_divider_dark">#10FFFFFF</color>
-    <color name="color_map_overlay_dark">#CC050816</color>
+    <!-- ================================================================
+         NISHAAN COLOR SYSTEM — Design System v2
+         ================================================================ -->
 
-    <!-- NISHAAN Light Theme (Harmonized with Light command dashboard) -->
-    <color name="color_background_light">#F8FAFC</color>
+    <!-- Signal Red (Primary — Critical / COMMANDER) -->
+    <color name="color_signal_red">#C8001A</color>
+    <color name="color_signal_red_dark">#8B0012</color>
+    <color name="color_signal_red_light">#FF4D65</color>
+
+    <!-- Ember Amber (Secondary — High Alert / ANALYST) -->
+    <color name="color_ember_amber">#D4720A</color>
+    <color name="color_ember_amber_dark">#9B5200</color>
+    <color name="color_ember_amber_light">#FFB347</color>
+
+    <!-- Ops Blue (Accent Info — Intel / System / SENTINEL) -->
+    <color name="color_ops_blue">#1B52E8</color>
+    <color name="color_ops_blue_dark">#1239A8</color>
+    <color name="color_ops_blue_light">#5E8FFF</color>
+
+    <!-- Field Green (Accent Low — Resolved / Safe / MATCHER) -->
+    <color name="color_field_green">#1A7C3A</color>
+    <color name="color_field_green_dark">#0E5027</color>
+    <color name="color_field_green_light">#36C265</color>
+
+    <!-- Chalk (Secondary text) -->
+    <color name="color_chalk">#9BA8B8</color>
+
+    <!-- ================================================================
+         SURFACE HIERARCHY — Dark UI
+         ================================================================ -->
+    <color name="color_background_dark">#09090F</color>
+    <color name="color_surface_dark">#111119</color>
+    <color name="color_card_dark">#1A1A2A</color>
+    <color name="color_elevated_dark">#232336</color>
+    <color name="color_highlight_dark">#2D2D4A</color>
+
+    <!-- Semantic aliases (dark theme) -->
+    <color name="color_surface_variant_dark">#1A1A2A</color>
+    <color name="color_on_background_dark">#E8EAF2</color>
+    <color name="color_on_surface_dark">#C8CBD8</color>
+    <color name="color_on_surface_muted_dark">#9BA8B8</color>
+    <color name="color_divider_dark">#1EFFFFFF</color>
+    <color name="color_map_overlay_dark">#CC09090F</color>
+
+    <!-- Primary / Secondary aliases pointing to design system colors -->
+    <color name="color_primary">@color/color_signal_red</color>
+    <color name="color_primary_variant">@color/color_signal_red_dark</color>
+    <color name="color_secondary">@color/color_ember_amber</color>
+    <color name="color_accent_low">@color/color_field_green</color>
+    <color name="color_accent_info">@color/color_ops_blue</color>
+
+    <!-- ================================================================
+         LIGHT THEME (Harmonized)
+         ================================================================ -->
+    <color name="color_background_light">#F6F7FA</color>
     <color name="color_surface_light">#FFFFFF</color>
-    <color name="color_surface_variant_light">#F1F5F9</color>
-    <color name="color_primary_light">#D9382F</color>
-    <color name="color_on_background_light">#0F172A</color>
-    <color name="color_on_surface_light">#334155</color>
-    <color name="color_on_surface_muted_light">#64748B</color>
-    <color name="color_divider_light">#E2E8F0</color>
-    <color name="color_map_overlay_light">#CCF8FAFC</color>
+    <color name="color_surface_variant_light">#EDEEF4</color>
+    <color name="color_primary_light">@color/color_signal_red</color>
+    <color name="color_on_background_light">#0A0A14</color>
+    <color name="color_on_surface_light">#2A2A3E</color>
+    <color name="color_on_surface_muted_light">#6B7289</color>
+    <color name="color_divider_light">#E0E1EC</color>
+    <color name="color_map_overlay_light">#CCF6F7FA</color>
 
-    <!-- Severity Colors (shared) -->
-    <color name="color_severity_critical">#FF453A</color>
-    <color name="color_severity_high">#FF453A</color>
-    <color name="color_severity_medium">#F59E0B</color>
-    <color name="color_severity_low">#10B981</color>
-    <color name="color_severity_monitoring">#3B82F6</color>
+    <!-- ================================================================
+         SEVERITY ENCODING
+         ================================================================ -->
+    <color name="color_severity_critical">@color/color_signal_red</color>
+    <color name="color_severity_high">@color/color_ember_amber</color>
+    <color name="color_severity_medium">#E8B800</color>
+    <color name="color_severity_monitoring">@color/color_ops_blue</color>
+    <color name="color_severity_resolved">@color/color_field_green</color>
+    <color name="color_severity_inactive">#3A3A52</color>
 
     <!-- Severity Backgrounds (20% opacity) -->
-    <color name="color_severity_critical_bg">#33FF453A</color>
-    <color name="color_severity_high_bg">#33FF453A</color>
-    <color name="color_severity_medium_bg">#33F59E0B</color>
-    <color name="color_severity_low_bg">#3310B981</color>
-    <color name="color_severity_monitoring_bg">#333B82F6</color>
+    <color name="color_severity_critical_bg">#33C8001A</color>
+    <color name="color_severity_high_bg">#33D4720A</color>
+    <color name="color_severity_medium_bg">#33E8B800</color>
+    <color name="color_severity_monitoring_bg">#331B52E8</color>
+    <color name="color_severity_resolved_bg">#331A7C3A</color>
+    <color name="color_severity_inactive_bg">#333A3A52</color>
 
-    <!-- Agent Colors -->
-    <color name="color_agent_sentinel">#3B82F6</color>
-    <color name="color_agent_analyst">#F59E0B</color>
-    <color name="color_agent_commander">#FF453A</color>
-    <color name="color_agent_matcher">#10B981</color>
+    <!-- ================================================================
+         AGENT PIPELINE COLORS
+         ================================================================ -->
+    <color name="color_agent_sentinel">@color/color_ops_blue</color>
+    <color name="color_agent_analyst">@color/color_ember_amber</color>
+    <color name="color_agent_commander">@color/color_signal_red</color>
+    <color name="color_agent_matcher">@color/color_field_green</color>
 
-    <!-- Geofence -->
-    <color name="color_geofence_stroke_40">#66FF453A</color>
-    <color name="color_geofence_fill_10">#1AFF453A</color>
+    <!-- ================================================================
+         GEOFENCE
+         ================================================================ -->
+    <color name="color_geofence_stroke_40">#66C8001A</color>
+    <color name="color_geofence_fill_10">#1AC8001A</color>
+
+    <!-- Legacy aliases (keep for any layouts still referencing old names) -->
+    <color name="color_severity_low">@color/color_field_green</color>
+    <color name="color_severity_low_bg">#331A7C3A</color>
 </resources>

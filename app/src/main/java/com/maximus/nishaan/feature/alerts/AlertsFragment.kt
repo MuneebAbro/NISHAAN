@@ -9,12 +9,13 @@ import com.maximus.nishaan.NishaanApplication
 import com.maximus.nishaan.R
 import com.maximus.nishaan.databinding.FragmentAlertsListBinding
 import com.maximus.nishaan.domain.model.Crisis
+import com.maximus.nishaan.domain.model.Severity
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
 /**
- * Alerts List screen — shows all crisis events as notification-style list,
- * sorted by severity then recency.
+ * Alerts List screen — shows all crisis events as premium card-style items,
+ * sorted by severity then recency, with a summary stat header.
  */
 class AlertsFragment : Fragment(R.layout.fragment_alerts_list) {
 
@@ -42,14 +43,31 @@ class AlertsFragment : Fragment(R.layout.fragment_alerts_list) {
                             .thenByDescending { it.createdAt }
                     )
                     adapter.submitList(sorted)
+
+                    // Update stat chips
+                    updateStatChips(sorted)
+
+                    // Toggle empty/list visibility
                     binding.emptyState.visibility = if (sorted.isEmpty()) View.VISIBLE else View.GONE
                     binding.alertsRecycler.visibility = if (sorted.isEmpty()) View.GONE else View.VISIBLE
+                    binding.statChipsRow.visibility = if (sorted.isEmpty()) View.GONE else View.VISIBLE
                 }
         }
 
         binding.btnMarkAllRead.setOnClickListener {
             // TODO: Mark all as read in local DataStore/Room
         }
+    }
+
+    /** Populate the header stat chips with counts by severity. */
+    private fun updateStatChips(crises: List<Crisis>) {
+        val total = crises.size
+        val critical = crises.count { it.severity == Severity.CRITICAL }
+        val high = crises.count { it.severity == Severity.HIGH }
+
+        binding.txtStatTotal.text = total.toString()
+        binding.txtStatCritical.text = critical.toString()
+        binding.txtStatHigh.text = high.toString()
     }
 
     override fun onDestroyView() {

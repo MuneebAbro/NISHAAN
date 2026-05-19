@@ -1,51 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    NISHAAN — Missing Person Item (Redesigned)
+    • MaterialCardView with subtle border — zero elevation
+    • Left photo in rounded frame with overlay status indicator
+    • Name + status badge row with chevron
+    • Details + last seen with proper text hierarchy
+    • Severity stripe on right edge for visual scanning
+-->
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/NishaanCard"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/spacing_sm"
-    android:layout_marginVertical="6dp"
+    android:layout_marginBottom="10dp"
     android:clickable="true"
     android:focusable="true"
-    app:cardCornerRadius="14dp"
-    app:strokeWidth="1dp"
-    app:strokeColor="?attr/colorOutlineVariant"
-    app:cardElevation="0dp">
+    app:cardBackgroundColor="@color/color_card_dark"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/color_divider_dark"
+    app:strokeWidth="1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:padding="@dimen/spacing_md">
+        android:orientation="horizontal"
+        android:paddingHorizontal="14dp"
+        android:paddingVertical="14dp">
 
-        <!-- Photo Thumbnail in a beautiful rounded crop frame -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginEnd="@dimen/spacing_md"
-            app:cardCornerRadius="10dp"
-            app:strokeWidth="1dp"
-            app:strokeColor="?attr/colorOutlineVariant"
-            app:cardElevation="0dp">
+        <!-- ═══ Photo Frame with status dot overlay ═══ -->
+        <FrameLayout
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginEnd="14dp">
 
-            <ImageView
-                android:id="@+id/photoThumbnail"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:contentDescription="@null" />
-        </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/color_divider_dark"
+                app:strokeWidth="1dp">
 
+                <ImageView
+                    android:id="@+id/photoThumbnail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@null"
+                    android:scaleType="centerCrop" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Live status indicator dot (top-right) -->
+            <View
+                android:id="@+id/statusDot"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_gravity="top|end"
+                android:layout_marginTop="-2dp"
+                android:layout_marginEnd="-2dp"
+                android:background="@drawable/circle_pulse_green" />
+        </FrameLayout>
+
+        <!-- ═══ Content ═══ -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <!-- Top Row: Name and Status Badge -->
+            <!-- Row 1: Badge + Time -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -53,46 +78,84 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/personName"
-                    style="@style/TextHeadline"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:maxLines="1"
-                    android:ellipsize="end" />
-
-                <TextView
                     android:id="@+id/statusChip"
                     style="@style/TextBadge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="8dp"
+                    android:background="@drawable/bg_badge"
+                    android:paddingHorizontal="7dp"
                     android:paddingVertical="3dp"
-                    android:textSize="9sp" />
+                    android:textSize="9sp"
+                    tools:text="MISSING" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/lastSeenText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:textColor="#55FFFFFF"
+                    android:textSize="10sp"
+                    tools:text="2d ago" />
             </LinearLayout>
 
-            <!-- Details Row (Age, Gender, etc.) -->
+            <!-- Name -->
+            <TextView
+                android:id="@+id/personName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/poppins"
+                android:maxLines="1"
+                android:textColor="@color/color_on_background_dark"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                tools:text="Ahmed Khan" />
+
+            <!-- Details (Age, Gender, etc.) -->
             <TextView
                 android:id="@+id/personDetails"
-                style="@style/TextBodyMedium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:textSize="13sp"
-                android:textColor="?attr/colorOnSurfaceVariant" />
-
-            <!-- Last Seen Row -->
-            <TextView
-                android:id="@+id/lastSeenText"
-                style="@style/TextCaption"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:textSize="11sp"
-                android:textStyle="bold"
-                android:textColor="?attr/colorPrimary" />
+                android:layout_marginTop="3dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/color_chalk"
+                android:textSize="12sp"
+                android:fontFamily="@font/poppins"
+                tools:text="Male · 32 yrs · Karachi Central" />
         </LinearLayout>
+
+        <!-- ═══ Severity Stripe + Chevron ═══ -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingStart="10dp">
+
+            <View
+                android:id="@+id/severityStripe"
+                android:layout_width="3dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/color_signal_red" />
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="6dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_chevron_right"
+                app:tint="#44FFFFFF" />
+        </LinearLayout>
+
     </LinearLayout>
+
 </com.google.android.material.card.MaterialCardView>

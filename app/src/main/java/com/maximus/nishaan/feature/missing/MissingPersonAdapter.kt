@@ -37,32 +37,41 @@ class MissingPersonAdapter(
             binding.personName.text = person.personName
             binding.personDetails.text = "${person.personAge} yrs • ${person.personGender}"
             binding.lastSeenText.text = if (person.lastSeenAddress.isNotEmpty()) {
-                "Last seen: ${person.lastSeenAddress}"
+                person.lastSeenAddress
             } else {
                 person.submittedAt.toTimeAgo()
             }
 
-            // Status chip
+            // Status chip + severity stripe color + status dot
             when (person.status) {
                 MissingPersonStatus.SEARCHING -> {
                     binding.statusChip.text = ctx.getString(R.string.missing_status_searching)
                     binding.statusChip.setTextColor(ContextCompat.getColor(ctx, R.color.color_accent_info))
                     binding.statusChip.setBackgroundColor(ContextCompat.getColor(ctx, R.color.color_severity_monitoring_bg))
+                    binding.severityStripe.setBackgroundColor(ContextCompat.getColor(ctx, R.color.color_accent_info))
+                    binding.statusDot.visibility = android.view.View.VISIBLE
+                    binding.statusDot.setBackgroundResource(R.drawable.circle_pulse_green)
                 }
                 MissingPersonStatus.LINKED -> {
                     binding.statusChip.text = "Linked"
                     binding.statusChip.setTextColor(ContextCompat.getColor(ctx, R.color.color_secondary))
                     binding.statusChip.setBackgroundColor(ContextCompat.getColor(ctx, R.color.color_severity_medium_bg))
+                    binding.severityStripe.setBackgroundColor(ContextCompat.getColor(ctx, R.color.color_secondary))
+                    binding.statusDot.visibility = android.view.View.VISIBLE
                 }
                 MissingPersonStatus.FOUND -> {
                     binding.statusChip.text = ctx.getString(R.string.missing_status_found)
                     binding.statusChip.setTextColor(ContextCompat.getColor(ctx, R.color.color_accent_low))
                     binding.statusChip.setBackgroundColor(ContextCompat.getColor(ctx, R.color.color_severity_low_bg))
+                    binding.severityStripe.setBackgroundColor(ContextCompat.getColor(ctx, R.color.color_accent_low))
+                    binding.statusDot.visibility = android.view.View.GONE
                 }
                 MissingPersonStatus.POTENTIAL_DUPLICATE -> {
                     binding.statusChip.text = "Duplicate?"
                     binding.statusChip.setTextColor(ContextCompat.getColor(ctx, R.color.color_secondary))
                     binding.statusChip.setBackgroundColor(ContextCompat.getColor(ctx, R.color.color_severity_medium_bg))
+                    binding.severityStripe.setBackgroundColor(ContextCompat.getColor(ctx, R.color.color_secondary))
+                    binding.statusDot.visibility = android.view.View.GONE
                 }
             }
 

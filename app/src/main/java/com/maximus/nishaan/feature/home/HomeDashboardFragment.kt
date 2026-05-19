@@ -112,8 +112,8 @@ class HomeDashboardFragment : Fragment(R.layout.fragment_home_dashboard) {
                 }
         }
 
-        // Safety Status Card and Subview Click Listeners
-        val safetyCardClickListener = View.OnClickListener {
+        // Safety Status Row click listeners
+        val safetyClickListener = View.OnClickListener {
             val userLoc = userLocation
             if (userLoc == null) {
                 android.util.Log.d("HomeDashboardFragment", "Safety status clicked while location is disabled. Requesting permissions.")
@@ -123,10 +123,8 @@ class HomeDashboardFragment : Fragment(R.layout.fragment_home_dashboard) {
                 googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(userLoc, 14f))
             }
         }
-        
-        binding.cardSafetyStatus.setOnClickListener(safetyCardClickListener)
-        binding.txtSafetyStatus.setOnClickListener(safetyCardClickListener)
-        binding.imgSafetyStatusIcon.setOnClickListener(safetyCardClickListener)
+        binding.safetyStatusRow.setOnClickListener(safetyClickListener)
+        binding.txtSafetyStatus.setOnClickListener(safetyClickListener)
 
         // FAB → Report Missing
         binding.fabReportMissing.setOnClickListener {
@@ -252,49 +250,40 @@ class HomeDashboardFragment : Fragment(R.layout.fragment_home_dashboard) {
 
     private fun updateSafetyStatusCard(dangerCrisis: Crisis?, userLatLng: LatLng? = null) {
         val binding = _binding ?: return
-        
-        binding.cardSafetyStatus.visibility = View.VISIBLE
-        
-        if (userLatLng == null) {
-            // Location disabled / unavailable
-            val typedValueBackground = TypedValue()
-            val typedValueText = TypedValue()
-            requireContext().theme.resolveAttribute(com.google.android.material.R.attr.colorSurface, typedValueBackground, true)
-            requireContext().theme.resolveAttribute(com.google.android.material.R.attr.colorOnSurface, typedValueText, true)
 
-            binding.cardSafetyStatus.setCardBackgroundColor(typedValueBackground.data)
-            binding.cardSafetyStatus.strokeColor = ContextCompat.getColor(requireContext(), R.color.color_divider_dark)
-            binding.imgSafetyStatusIcon.setImageResource(android.R.drawable.ic_dialog_info)
-            binding.imgSafetyStatusIcon.imageTintList = ColorStateList.valueOf(typedValueText.data)
+        if (userLatLng == null) {
+            // Location disabled
+            binding.viewStatusDot.setBackgroundResource(R.drawable.circle_pulse_green)
+            binding.viewStatusDot.background?.setTint(
+                ContextCompat.getColor(requireContext(), R.color.color_chalk)
+            )
             binding.txtSafetyStatus.text = "Location disabled"
-            binding.txtSafetyStatus.setTextColor(typedValueText.data)
+            binding.txtSafetyStatus.setTextColor(
+                ContextCompat.getColor(requireContext(), R.color.color_chalk)
+            )
             return
         }
-        
+
         if (dangerCrisis != null) {
-            // Warning: Inside Crisis Area!
-            binding.cardSafetyStatus.setCardBackgroundColor(
-                ContextCompat.getColor(requireContext(), R.color.color_severity_critical_bg)
-            )
-            binding.cardSafetyStatus.strokeColor = ContextCompat.getColor(requireContext(), R.color.color_severity_critical)
-            binding.imgSafetyStatusIcon.setImageResource(android.R.drawable.ic_dialog_alert)
-            binding.imgSafetyStatusIcon.imageTintList = ColorStateList.valueOf(
+            // Warning: inside crisis area
+            binding.viewStatusDot.setBackgroundResource(R.drawable.circle_pulse_green)
+            binding.viewStatusDot.background?.setTint(
                 ContextCompat.getColor(requireContext(), R.color.color_severity_critical)
             )
             binding.txtSafetyStatus.text = "Warning: Inside Crisis Area! (${dangerCrisis.titleEn})"
-            binding.txtSafetyStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_severity_critical))
-        } else {
-            // Safe: No active crises nearby
-            binding.cardSafetyStatus.setCardBackgroundColor(
-                ContextCompat.getColor(requireContext(), R.color.color_severity_low_bg)
+            binding.txtSafetyStatus.setTextColor(
+                ContextCompat.getColor(requireContext(), R.color.color_severity_critical)
             )
-            binding.cardSafetyStatus.strokeColor = ContextCompat.getColor(requireContext(), R.color.color_severity_low)
-            binding.imgSafetyStatusIcon.setImageResource(android.R.drawable.ic_dialog_info)
-            binding.imgSafetyStatusIcon.imageTintList = ColorStateList.valueOf(
+        } else {
+            // Safe
+            binding.viewStatusDot.setBackgroundResource(R.drawable.circle_pulse_green)
+            binding.viewStatusDot.background?.setTint(
                 ContextCompat.getColor(requireContext(), R.color.color_severity_low)
             )
             binding.txtSafetyStatus.text = "You're Safe: No active crises nearby"
-            binding.txtSafetyStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_severity_low))
+            binding.txtSafetyStatus.setTextColor(
+                ContextCompat.getColor(requireContext(), R.color.color_severity_low)
+            )
         }
     }
 

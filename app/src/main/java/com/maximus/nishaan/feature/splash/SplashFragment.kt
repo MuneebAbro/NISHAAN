@@ -29,10 +29,15 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentSplashBinding.bind(view)
 
-        // Fade in logo over 500ms
-        binding.logoText.animate()
+        // Fade-in + subtle scale-up for logo
+        binding.logoImage.scaleX = 0.85f
+        binding.logoImage.scaleY = 0.85f
+        binding.logoImage.animate()
             .alpha(1f)
-            .setDuration(500)
+            .scaleX(1f)
+            .scaleY(1f)
+            .setDuration(700)
+            .setStartDelay(100)
             .start()
 
         viewLifecycleOwner.lifecycleScope.launch {

@@ -1,72 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--
+    NISHAAN — Alert Item (Redesigned)
+    • MaterialCardView with subtle border + elevation
+    • Left severity icon in a tinted circle
+    • Badge + Type + Time row
+    • Title + Description with proper text hierarchy
+    • Chevron on the right for navigation affordance
+-->
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/alertCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
-    android:orientation="horizontal"
-    android:padding="@dimen/spacing_md">
-
-    <!-- Left severity stripe -->
-    <View
-        android:id="@+id/severityStripe"
-        android:layout_width="@dimen/dimen_card_alert_stripe_width"
-        android:layout_height="match_parent"
-        android:layout_marginEnd="@dimen/spacing_md" />
+    android:layout_marginBottom="10dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardBackgroundColor="@color/color_card_dark"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/color_divider_dark"
+    app:strokeWidth="1dp">
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="14dp"
+        android:paddingVertical="14dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical">
+        <!-- ═══ Severity Icon Circle ═══ -->
+        <FrameLayout
+            android:id="@+id/severityIconContainer"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginEnd="14dp">
 
-            <TextView
-                android:id="@+id/severityBadge"
-                style="@style/TextBadge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="@dimen/dimen_badge_padding_h"
-                android:paddingVertical="@dimen/dimen_badge_padding_v" />
-
-            <TextView
-                android:id="@+id/crisisTypeText"
-                style="@style/TextCaption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_sm" />
-
+            <!-- Tinted circle background (color set programmatically) -->
             <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:id="@+id/severityIconBg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_severity_icon_circle" />
 
+            <ImageView
+                android:id="@+id/severityIcon"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_warning" />
+        </FrameLayout>
+
+        <!-- ═══ Content ═══ -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!-- Row 1: Badge + Crisis Type + Time -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/severityBadge"
+                    style="@style/TextBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_badge"
+                    android:paddingHorizontal="7dp"
+                    android:paddingVertical="3dp"
+                    android:textSize="9sp"
+                    tools:text="CRITICAL" />
+
+                <TextView
+                    android:id="@+id/crisisTypeText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/poppins"
+                    android:letterSpacing="0.04"
+                    android:textAllCaps="true"
+                    android:textColor="#80FFFFFF"
+                    android:textSize="10sp"
+                    tools:text="FLOOD" />
+
+                <TextView
+                    android:id="@+id/timeAgoText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:textColor="#55FFFFFF"
+                    android:textSize="10sp"
+                    tools:text="12m ago" />
+            </LinearLayout>
+
+            <!-- Title -->
             <TextView
-                android:id="@+id/timeAgoText"
-                style="@style/TextCaption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:id="@+id/alertTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/poppins"
+                android:maxLines="2"
+                android:textColor="@color/color_on_background_dark"
+                android:textSize="14sp"
+                tools:text="Flash Flooding in Karachi Central" />
+
+            <!-- Description -->
+            <TextView
+                android:id="@+id/alertDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/color_chalk"
+                android:textSize="12sp"
+                tools:text="Heavy rainfall causing flash floods affecting 3 districts near Malir River." />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/alertTitle"
-            style="@style/TextHeadline"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xs"
-            android:maxLines="2"
-            android:ellipsize="end" />
+        <!-- ═══ Severity Stripe + Chevron ═══ -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingStart="10dp">
 
-        <TextView
-            android:id="@+id/alertDescription"
-            style="@style/TextBodyMedium"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xs"
-            android:maxLines="2"
-            android:ellipsize="end" />
+            <View
+                android:id="@+id/severityStripe"
+                android:layout_width="3dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center_horizontal" />
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="6dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_chevron_right"
+                app:tint="#44FFFFFF" />
+        </LinearLayout>
+
     </LinearLayout>
-</LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
