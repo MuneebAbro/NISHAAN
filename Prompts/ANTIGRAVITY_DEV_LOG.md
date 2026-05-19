@@ -526,7 +526,20 @@ Each entry follows:
 
 ---
 
+### 2026-05-20 — 1:09 AM PKT — Pakistan-Wide City Support & Manual Crisis Injector Script
+
+- **Task:** Extended mock data signal generation to all major cities in Pakistan (including Steel Town, Karachi) with dynamic, organic impact perimeters, and created a manual testing CLI tool.
+- **Files Modified/Created:**
+  - `nishaan-agent/signals/social_signal.py` — Expanded `NEIGHBORHOODS` definition to cover Lahore, Islamabad, Rawalpindi, Peshawar, Quetta, Faisalabad, and Multan. Increased concurrent signal simulation count to run 3 to 6 active events concurrently.
+  - `nishaan-agent/signals/traffic_signal.py` — Synchronized `NEIGHBORHOODS` array with social signals.
+  - `nishaan-agent/firestore/writer.py` — Extended coordinate mapping to include coordinates for all new major city areas and Karachi Steel Town. Refactored hardcoded `5.0` impact radius into severity-based calculation (`radius = severity_radii.get(sev_raw)`) with random jitter.
+  - `nishaan-agent/simulate_crisis.py` [NEW] — Created CLI script utility leveraging the local `serviceAccountKey.json` to manually inject customized crisis alerts (supporting interactive menu or inline args like `--neighborhood "Steel Town (Karachi)" --severity "CRITICAL"`).
+- **Outcome:** Crises are now organically distributed across major cities in Pakistan with realistic perimeters. The simulation script compiles cleanly and allows instant, targetable crisis injection for client validation.
+
+---
+
 *This log will be updated with every subsequent Antigravity development session.*
+
 
 
 
