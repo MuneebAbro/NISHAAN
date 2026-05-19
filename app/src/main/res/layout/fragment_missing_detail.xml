@@ -181,6 +181,89 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
+        <!-- MATCHER Active Search Trace -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/NishaanCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_md"
+            app:cardCornerRadius="12dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="?attr/colorOutlineVariant"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_md">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/TextCaption"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="MATCHER AI SEARCH TRACE / لائیو سرچ ٹریس"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.05"
+                        android:textColor="@color/color_primary" />
+
+                    <TextView
+                        android:id="@+id/txtSearchStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="⚡ ACTIVE"
+                        android:textStyle="bold"
+                        android:textColor="@color/color_ops_blue"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+                <!-- Thinking Loading bar -->
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/progressSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:indeterminate="true"
+                    app:trackCornerRadius="4dp"
+                    app:indicatorColor="@color/color_ops_blue" />
+
+                <!-- Thinking Log Text -->
+                <TextView
+                    android:id="@+id/txtSearchLog"
+                    style="@style/TextMono"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Initializing search algorithm..."
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="12sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?attr/colorOutlineVariant"
+                    android:layout_marginVertical="10dp" />
+
+                <!-- List of Search Actions Trace -->
+                <TextView
+                    android:id="@+id/txtSearchTraceLogHistory"
+                    style="@style/TextMono"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="11sp"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:lineSpacingExtra="3dp"
+                    android:text="" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
         <!-- Feature 5: Witness Sighting count and Report button -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardWitnessSightings"
@@ -224,6 +307,15 @@
                         android:textColor="@color/color_ember_amber"
                         android:textSize="12sp" />
                 </LinearLayout>
+
+                <!-- LIST OF WITNESS REPORTS SIGHTINGS DETAILS -->
+                <LinearLayout
+                    android:id="@+id/layoutWitnessList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnReportSighting"

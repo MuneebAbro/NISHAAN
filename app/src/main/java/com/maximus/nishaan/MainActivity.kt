@@ -55,6 +55,16 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
+        // Subscribe to FCM topic for crisis alerts
+        com.google.firebase.messaging.FirebaseMessaging.getInstance().subscribeToTopic("all_users")
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    android.util.Log.d("MainActivity", "Successfully subscribed to 'all_users' topic")
+                } else {
+                    android.util.Log.e("MainActivity", "Failed to subscribe to 'all_users' topic", task.exception)
+                }
+            }
+
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.navHostFragment) as NavHostFragment
         val navController = navHostFragment.navController

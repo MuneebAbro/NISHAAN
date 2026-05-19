@@ -113,47 +113,14 @@ class CrisisRepositoryImpl(
         val crisisRef = firestore.collection(Constants.COLLECTION_CRISES).document(crisisId)
         val verificationRef = crisisRef.collection("verifications").document(verification.uid)
         
-        firestore.runTransaction { transaction ->
-            val existingVoteDoc = transaction.get(verificationRef)
-            val oldResponse = existingVoteDoc.getString("response")
-            
-            if (oldResponse == verification.response) {
-                return@runTransaction
-            }
-            
-            val verificationData = mapOf(
-                "uid" to verification.uid,
-                "response" to verification.response,
-                "timestamp" to com.google.firebase.firestore.FieldValue.serverTimestamp(),
-                "anonymous" to verification.anonymous
-            )
-            transaction.set(verificationRef, verificationData)
-            
-            val crisisSnapshot = transaction.get(crisisRef)
-            if (crisisSnapshot.exists()) {
-                val updates = mutableMapOf<String, Any>()
-                
-                if (oldResponse != null) {
-                    val oldField = when (oldResponse) {
-                        "YES" -> "verification_yes"
-                        "NO" -> "verification_no"
-                        else -> "verification_unsure"
-                    }
-                    val currentVal = (crisisSnapshot.getLong(oldField) ?: 0L)
-                    updates[oldField] = maxOf(0L, currentVal - 1)
-                }
-                
-                val newField = when (verification.response) {
-                    "YES" -> "verification_yes"
-                    "NO" -> "verification_no"
-                    else -> "verification_unsure"
-                }
-                val currentVal = (crisisSnapshot.getLong(newField) ?: 0L)
-                updates[newField] = currentVal + 1
-                
-                transaction.update(crisisRef, updates)
-            }
-        }.await()
+        val verificationData = mapOf(
+            "uid" to verification.uid,
+            "response" to verification.response,
+            "timestamp" to com.google.firebase.firestore.FieldValue.serverTimestamp(),
+            "anonymous" to verification.anonymous
+        )
+        
+        verificationRef.set(verificationData).await()
         Result.success(Unit)
     } catch (e: Exception) {
         Result.failure(e)

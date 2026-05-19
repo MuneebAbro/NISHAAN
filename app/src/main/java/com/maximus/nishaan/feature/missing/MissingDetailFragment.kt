@@ -80,13 +80,46 @@ class MissingDetailFragment : Fragment(R.layout.fragment_missing_detail) {
             binding.personPhoto.visibility = View.GONE
         }
 
-        // Feature 5: Real-time witness sightings count observer
+        // Feature 5: Real-time witness sightings list & count observer
         viewLifecycleOwner.lifecycleScope.launch {
-            app.appContainer.witnessReportRepository.observeWitnessReportsCount(person.reportId)
-                .collect { count ->
-                    binding.txtWitnessCount.text = "👥 $count reported"
+            app.appContainer.witnessReportRepository.observeWitnessReports(person.reportId)
+                .collect { reports ->
+                    binding.txtWitnessCount.text = "👥 ${reports.size} reported"
+                    
+                    binding.layoutWitnessList.removeAllViews()
+                    if (reports.isNotEmpty()) {
+                        binding.layoutWitnessList.visibility = View.VISIBLE
+                        reports.forEach { report ->
+                            val itemSighting = layoutInflater.inflate(R.layout.item_witness_sighting, binding.layoutWitnessList, false)
+                            
+                            val txtInfo = itemSighting.findViewById<android.widget.TextView>(R.id.txtWitnessInfo)
+                            val txtDetails = itemSighting.findViewById<android.widget.TextView>(R.id.txtWitnessDetails)
+                            val txtContact = itemSighting.findViewById<android.widget.TextView>(R.id.txtWitnessContact)
+                            
+                            val sdf = java.text.SimpleDateFormat("dd MMM yyyy, hh:mm a", java.util.Locale.getDefault())
+                            val dateStr = sdf.format(java.util.Date(report.sightingTime))
+                            
+                            txtInfo.text = "📍 ${report.neighborhood} • $dateStr"
+                            txtDetails.text = report.visualDetails
+                            
+                            if (report.anonymous || report.contactInfo.isNullOrBlank()) {
+                                txtContact.text = "🔒 Anonymous Sighting"
+                                txtContact.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_chalk))
+                            } else {
+                                txtContact.text = "📞 Contact: ${report.contactInfo}"
+                                txtContact.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_primary))
+                            }
+                            
+                            binding.layoutWitnessList.addView(itemSighting)
+                        }
+                    } else {
+                        binding.layoutWitnessList.visibility = View.GONE
+                    }
                 }
         }
+
+        // Start search trace simulation
+        startSearchTraceSimulation(person)
 
         // Setup Sighting Sighting button click
         binding.btnReportSighting.setOnClickListener {
@@ -207,6 +240,37 @@ class MissingDetailFragment : Fragment(R.layout.fragment_missing_detail) {
                 binding.btnMarkFound.isEnabled = true
                 Snackbar.make(binding.root, "Upload failed: ${e.localizedMessage}", Snackbar.LENGTH_LONG).show()
             }
+        }
+    }
+
+    private fun startSearchTraceSimulation(person: MissingPerson) {
+        val neighborhood = person.lastSeenAddress.split(",").firstOrNull()?.trim() ?: "local area"
+        val steps = listOf(
+            "📡 [Sentinel] Scanning social feeds & traffic reports around $neighborhood...",
+            "🧠 [Analyst] Fusing local weather and safety status indexes...",
+            "🔍 [Matcher] Running facial recognition on database photos...",
+            "👥 [Witness] Checking geolocation overlap with anonymous sightings...",
+            "🕵️ [System] Alerting active safety volunteers in $neighborhood..."
+        )
+        
+        viewLifecycleOwner.lifecycleScope.launch {
+            val history = StringBuilder()
+            binding.txtSearchStatus.text = "⚡ ACTIVE"
+            binding.txtSearchStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_ops_blue))
+            binding.progressSearch.visibility = View.VISIBLE
+            
+            for (step in steps) {
+                binding.txtSearchLog.text = step
+                kotlinx.coroutines.delay(3000) // Delay of 3 seconds per step
+                history.append(step).append("\n\n")
+                binding.txtSearchTraceLogHistory.text = history.toString()
+            }
+            
+            // Search complete, transition to stand-by
+            binding.txtSearchLog.text = "✅ [Matcher] Primary scan complete. Monitoring for fresh reports."
+            binding.txtSearchStatus.text = "📡 STANDBY"
+            binding.txtSearchStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_field_green))
+            binding.progressSearch.visibility = View.GONE
         }
     }
 

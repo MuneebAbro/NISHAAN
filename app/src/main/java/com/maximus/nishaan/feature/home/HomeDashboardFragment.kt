@@ -95,6 +95,9 @@ class HomeDashboardFragment : Fragment(R.layout.fragment_home_dashboard) {
             if (latestCrises.isNotEmpty()) plotCrisesOnMap(latestCrises)
         }
 
+        // Set designated safe assembly hubs count
+        binding.txtStatSafeZones.text = "5"
+
         // Observe active crises from Firestore
         val app = requireActivity().application as NishaanApplication
         viewLifecycleOwner.lifecycleScope.launch {
@@ -114,7 +117,44 @@ class HomeDashboardFragment : Fragment(R.layout.fragment_home_dashboard) {
 
                     // Recheck safety status if user location is already set
                     userLocation?.let { checkUserSafetyStatus(it, sorted) }
+
+                    // Update active alerts counter
+                    binding.txtStatAlerts.text = crises.size.toString()
                 }
+        }
+
+        // Observe active missing persons count for the REPORTS counter
+        viewLifecycleOwner.lifecycleScope.launch {
+            app.appContainer.missingPersonRepository.observeMissingPersons(null)
+                .catch { /* handle error */ }
+                .collect { persons ->
+                    val activeCount = persons.count { it.status != com.maximus.nishaan.domain.model.MissingPersonStatus.FOUND }
+                    binding.txtStatReports.text = activeCount.toString()
+                }
+        }
+
+        // Notification bell click listener
+        binding.btnNotifications.setOnClickListener {
+            findNavController().navigate(R.id.alertsFragment)
+        }
+
+        // Stats card click listeners
+        binding.cardAlerts.setOnClickListener {
+            findNavController().navigate(R.id.alertsFragment)
+        }
+
+        binding.cardReports.setOnClickListener {
+            findNavController().navigate(R.id.missingHubFragment)
+        }
+
+        binding.cardSafeZones.setOnClickListener {
+            val expoCentre = LatLng(24.8988, 67.0744)
+            googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(expoCentre, 14f))
+            android.widget.Toast.makeText(
+                requireContext(),
+                "Centering on Karachi Expo Centre (Safe Assembly Hub) / کراچی ایکسپو سینٹر",
+                android.widget.Toast.LENGTH_LONG
+            ).show()
         }
 
         // Safety Status Row click listeners

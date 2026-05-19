@@ -48,4 +48,29 @@ class WitnessReportRepositoryImpl(
         }
         awaitClose { listener.remove() }
     }
+
+    override fun observeWitnessReports(missingPersonId: String): Flow<List<WitnessReport>> = callbackFlow {
+        val ref = firestore.collection("missing_persons").document(missingPersonId).collection("witness_reports")
+        val listener = ref.addSnapshotListener { snapshot, error ->
+            if (error != null) {
+                trySend(emptyList())
+                return@addSnapshotListener
+            }
+            val reports = snapshot?.documents?.mapNotNull { doc ->
+                val sightingTimeVal = doc.getTimestamp("sighting_time")?.toDate()?.time ?: doc.getLong("sighting_time") ?: 0L
+                val timestampVal = doc.getTimestamp("timestamp")?.toDate()?.time ?: doc.getLong("timestamp") ?: 0L
+                WitnessReport(
+                    reportId = doc.id,
+                    sightingTime = sightingTimeVal,
+                    neighborhood = doc.getString("neighborhood").orEmpty(),
+                    visualDetails = doc.getString("visual_details").orEmpty(),
+                    contactInfo = doc.getString("contact_info"),
+                    anonymous = doc.getBoolean("anonymous") ?: true,
+                    timestamp = timestampVal
+                )
+            } ?: emptyList()
+            trySend(reports)
+        }
+        awaitClose { listener.remove() }
+    }
 }

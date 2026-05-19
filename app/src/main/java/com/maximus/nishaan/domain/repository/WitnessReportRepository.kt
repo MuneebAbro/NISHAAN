@@ -9,4 +9,5 @@ import kotlinx.coroutines.flow.Flow
 interface WitnessReportRepository {
     suspend fun submitWitnessReport(missingPersonId: String, report: WitnessReport): Result<Unit>
     fun observeWitnessReportsCount(missingPersonId: String): Flow<Int>
+    fun observeWitnessReports(missingPersonId: String): Flow<List<WitnessReport>>
 }
