@@ -215,6 +215,9 @@
         <action
             android:id="@+id/action_profile_to_settings"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_profile_to_missingDetail"
+            app:destination="@id/missingDetailFragment" />
     </fragment>
 
     <!-- Settings -->

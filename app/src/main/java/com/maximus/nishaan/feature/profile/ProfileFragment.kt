@@ -6,17 +6,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.maximus.nishaan.NishaanApplication
 import com.maximus.nishaan.R
 import com.maximus.nishaan.databinding.FragmentProfileBinding
+import com.maximus.nishaan.domain.model.MissingPersonStatus
 import com.maximus.nishaan.feature.missing.MissingPersonAdapter
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
 /**
- * Profile screen — user info, notification preferences, my reports, sign out.
+ * Profile screen — Instagram-style layout with user info, stats, my reports, settings icon.
  */
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
@@ -62,8 +62,13 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             binding.createAccountBanner.visibility = View.VISIBLE
         }
 
-        // My Reports — show user's submitted missing person reports
-        val reportsAdapter = MissingPersonAdapter { /* No click action for own reports */ }
+        // My Reports — click navigates to detail screen
+        val reportsAdapter = MissingPersonAdapter { person ->
+            val bundle = Bundle().apply {
+                putString("reportId", person.reportId)
+            }
+            findNavController().navigate(R.id.action_profile_to_missingDetail, bundle)
+        }
         binding.myReportsRecycler.adapter = reportsAdapter
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -72,8 +77,15 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 .collect { persons ->
                     // Filter to current user's reports (or show all for guest)
                     val uid = user?.uid ?: "guest"
-                    val myReports = persons.filter { it.submittedByUid == uid }.take(3)
-                    reportsAdapter.submitList(myReports)
+                    val myReports = persons.filter { it.submittedByUid == uid }
+
+                    // Update Instagram-style stats
+                    binding.txtReportCount.text = myReports.size.toString()
+                    binding.txtActiveCount.text = myReports.count { it.status == MissingPersonStatus.SEARCHING || it.status == MissingPersonStatus.LINKED }.toString()
+                    binding.txtFoundCount.text = myReports.count { it.status == MissingPersonStatus.FOUND }.toString()
+
+                    // Show latest 3 in the list
+                    reportsAdapter.submitList(myReports.take(3))
                 }
         }
 

@@ -50,7 +50,7 @@
         <!-- UCrop Image Cropping Activity -->
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
-            android:theme="@style/Theme.NISHAAN" />
+            android:theme="@style/Theme.NISHAAN.UCrop" />
 
         <!-- FileProvider for camera captures -->
         <provider

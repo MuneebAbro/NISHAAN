@@ -72,6 +72,8 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)
         bottomNav.setupWithNavController(navController)
+        // Prevent reloading the same fragment when tapping the already-selected tab
+        bottomNav.setOnItemReselectedListener { /* Do nothing */ }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
