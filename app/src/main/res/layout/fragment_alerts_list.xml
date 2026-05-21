@@ -115,7 +115,8 @@
             android:layout_marginTop="16dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingHorizontal="20dp">
+            android:paddingHorizontal="20dp"
+            android:paddingBottom="8dp">
 
             <!-- Active -->
             <com.google.android.material.card.MaterialCardView
@@ -126,7 +127,7 @@
                 android:layout_weight="1"
                 android:clickable="true"
                 android:focusable="true"
-                app:cardBackgroundColor="@color/selector_stat_card_bg"
+                app:cardBackgroundColor="@color/color_charcoal_grey"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
                 app:strokeColor="@color/color_ember_amber"
@@ -170,7 +171,7 @@
                 android:layout_weight="1"
                 android:clickable="true"
                 android:focusable="true"
-                app:cardBackgroundColor="@color/selector_stat_card_bg"
+                app:cardBackgroundColor="@color/color_charcoal_grey"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
                 app:strokeColor="@color/color_ember_amber"
@@ -213,7 +214,7 @@
                 android:layout_weight="1"
                 android:clickable="true"
                 android:focusable="true"
-                app:cardBackgroundColor="@color/selector_stat_card_bg"
+                app:cardBackgroundColor="@color/color_charcoal_grey"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
                 app:strokeColor="@color/color_ember_amber"
