@@ -71,12 +71,18 @@ class MissingDetailFragment : Fragment(R.layout.fragment_missing_detail) {
 
         // Load photo from Firebase Storage URL
         if (!person.photoUrl.isNullOrEmpty()) {
+            binding.cardPersonPhoto.visibility = View.VISIBLE
             binding.personPhoto.visibility = View.VISIBLE
             Glide.with(this)
                 .load(person.photoUrl)
                 .centerCrop()
                 .into(binding.personPhoto)
+
+            binding.cardPersonPhoto.setOnClickListener {
+                showFullscreenImageDialog(person)
+            }
         } else {
+            binding.cardPersonPhoto.visibility = View.GONE
             binding.personPhoto.visibility = View.GONE
         }
 
@@ -272,6 +278,33 @@ class MissingDetailFragment : Fragment(R.layout.fragment_missing_detail) {
             binding.txtSearchStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_field_green))
             binding.progressSearch.visibility = View.GONE
         }
+    }
+
+    private fun showFullscreenImageDialog(person: MissingPerson) {
+        val dialog = android.app.Dialog(requireContext(), android.R.style.Theme_Black_NoTitleBar_Fullscreen)
+        dialog.setContentView(R.layout.dialog_fullscreen_image)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        val container = dialog.findViewById<android.view.View>(R.id.dialogContainer)
+        val imageView = dialog.findViewById<android.widget.ImageView>(R.id.fullscreenImage)
+        val titleView = dialog.findViewById<android.widget.TextView>(R.id.txtFullscreenTitle)
+        val dismissBtn = dialog.findViewById<android.view.View>(R.id.btnDismiss)
+        val cardDismiss = dialog.findViewById<android.view.View>(R.id.cardDismiss)
+
+        titleView.text = "${person.personName} - Photo Dossier"
+
+        Glide.with(this)
+            .load(person.photoUrl)
+            .fitCenter()
+            .into(imageView)
+
+        val dismissAction = { dialog.dismiss() }
+        container.setOnClickListener { dismissAction() }
+        imageView.setOnClickListener { dismissAction() }
+        dismissBtn?.setOnClickListener { dismissAction() }
+        cardDismiss?.setOnClickListener { dismissAction() }
+
+        dialog.show()
     }
 
     override fun onDestroyView() {

@@ -3,20 +3,70 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:colorBackground">
+    android:background="@color/color_background_dark">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="@dimen/spacing_md"
-        android:paddingBottom="@dimen/spacing_xl">
+        android:orientation="vertical">
+
+        <!-- ═══════════════════════════════════════════
+             GLASS HEADER — bottom-rounded card
+             ═══════════════════════════════════════════ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_header_glass"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="52dp"
+            android:paddingBottom="20dp">
+
+            <TextView
+                style="@style/TextDisplay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Person Dossier"
+                android:textColor="@color/color_on_background_dark"
+                android:textSize="26sp" />
+
+            <!-- Subtle section label -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/poppins"
+                android:letterSpacing="0.06"
+                android:text="MISSING PERSON DETAILS"
+                android:textColor="#55FFFFFF"
+                android:textSize="10sp" />
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="#12FFFFFF" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/spacing_md"
+            android:paddingBottom="@dimen/spacing_xl">
 
         <!-- Photo dossier card with rounded crop frame -->
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardPersonPhoto"
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            android:layout_marginTop="@dimen/spacing_xxl"
+            android:layout_marginTop="@dimen/spacing_md"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardBackgroundColor="@color/color_charcoal_grey"
             app:cardCornerRadius="16dp"
             app:strokeWidth="1dp"
             app:strokeColor="@color/color_divider_dark"
@@ -46,6 +96,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="@color/color_on_background_dark"
                 android:textSize="22sp"
                 android:letterSpacing="-0.02" />
 
@@ -81,6 +132,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_md"
+            app:cardBackgroundColor="@color/color_charcoal_grey"
             app:cardCornerRadius="12dp"
             app:strokeWidth="1dp"
             app:strokeColor="@color/color_divider_dark"
@@ -102,6 +154,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_md"
+            app:cardBackgroundColor="@color/color_charcoal_grey"
             app:cardCornerRadius="12dp"
             app:strokeWidth="1dp"
             app:strokeColor="@color/color_divider_dark"
@@ -120,7 +173,7 @@
                     android:text="LAST SEEN LOCATION / آخری مقام"
                     android:textStyle="bold"
                     android:letterSpacing="0.05"
-                    android:textColor="?attr/colorOnSurfaceVariant" />
+                    android:textColor="#55FFFFFF" />
 
                 <TextView
                     android:id="@+id/lastSeenText"
@@ -139,6 +192,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_md"
+            app:cardBackgroundColor="@color/color_charcoal_grey"
             app:cardCornerRadius="12dp"
             app:strokeWidth="1dp"
             app:strokeColor="@color/color_divider_dark"
@@ -157,7 +211,7 @@
                     android:text="MATCHER INTELLIGENCE / نشان خودکار"
                     android:textStyle="bold"
                     android:letterSpacing="0.05"
-                    android:textColor="@color/color_primary" />
+                    android:textColor="@color/color_ember_amber" />
 
                 <TextView
                     android:id="@+id/matcherStatusText"
@@ -187,6 +241,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_md"
+            app:cardBackgroundColor="@color/color_charcoal_grey"
             app:cardCornerRadius="12dp"
             app:strokeWidth="1dp"
             app:strokeColor="@color/color_divider_dark"
@@ -212,7 +267,7 @@
                         android:text="MATCHER AI SEARCH TRACE / لائیو سرچ ٹریس"
                         android:textStyle="bold"
                         android:letterSpacing="0.05"
-                        android:textColor="@color/color_primary" />
+                        android:textColor="@color/color_ember_amber" />
 
                     <TextView
                         android:id="@+id/txtSearchStatus"
@@ -220,7 +275,7 @@
                         android:layout_height="wrap_content"
                         android:text="⚡ ACTIVE"
                         android:textStyle="bold"
-                        android:textColor="@color/color_ops_blue"
+                        android:textColor="@color/color_ops_blue_light"
                         android:textSize="11sp" />
                 </LinearLayout>
 
@@ -258,7 +313,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="11sp"
-                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textColor="#55FFFFFF"
                     android:lineSpacingExtra="3dp"
                     android:text="" />
             </LinearLayout>
@@ -271,6 +326,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_md"
+            app:cardBackgroundColor="@color/color_charcoal_grey"
             app:cardCornerRadius="12dp"
             app:strokeWidth="1dp"
             app:strokeColor="@color/color_divider_dark"
@@ -296,7 +352,7 @@
                         style="@style/TextCaption"
                         android:textStyle="bold"
                         android:letterSpacing="0.05"
-                        android:textColor="?attr/colorOnSurfaceVariant" />
+                        android:textColor="#55FFFFFF" />
 
                     <TextView
                         android:id="@+id/txtWitnessCount"
@@ -304,7 +360,7 @@
                         android:layout_height="wrap_content"
                         android:text="👥 0 reported"
                         android:textStyle="bold"
-                        android:textColor="@color/color_ember_amber"
+                        android:textColor="@color/color_ember_amber_light"
                         android:textSize="12sp" />
                 </LinearLayout>
 
@@ -319,13 +375,12 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnReportSighting"
-                    style="@style/SecondaryButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:text="Report Sighting / اطلاع دیں"
                     android:textSize="13sp"
-                    app:icon="@android:drawable/ic_menu_myplaces"
+                    app:icon="@drawable/ic_report"
                     app:iconSize="16dp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -336,6 +391,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_md"
+            app:cardBackgroundColor="@color/color_charcoal_grey"
             app:cardCornerRadius="12dp"
             app:strokeWidth="1dp"
             app:strokeColor="@color/color_divider_dark"
@@ -354,7 +410,7 @@
                     android:text="@string/missing_detail_reporter_phone"
                     android:textStyle="bold"
                     android:letterSpacing="0.05"
-                    android:textColor="?attr/colorOnSurfaceVariant" />
+                    android:textColor="#55FFFFFF" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -391,7 +447,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:textSize="11sp"
-                    android:textColor="?attr/colorOnSurfaceVariant" />
+                    android:textColor="#55FFFFFF" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -399,10 +455,12 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnMarkFound"
             style="@style/PrimaryButton"
+            android:backgroundTint="@color/color_ember_amber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_xl"
             android:layout_marginBottom="@dimen/spacing_md"
             android:text="@string/btn_mark_found" />
     </LinearLayout>
+</LinearLayout>
 </ScrollView>

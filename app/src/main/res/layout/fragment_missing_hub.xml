@@ -71,10 +71,10 @@
                     android:id="@+id/btnReportMissing"
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
-                    app:cardBackgroundColor="#1AFFFFFF"
+                    app:cardBackgroundColor="@color/color_charcoal_grey"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="0dp"
-                    app:strokeColor="#26FFFFFF"
+                    app:strokeColor="@color/color_ember_amber"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -90,14 +90,14 @@
                             android:layout_marginEnd="6dp"
                             android:contentDescription="@null"
                             android:src="@drawable/ic_add_person"
-                            app:tint="@color/color_signal_red_light" />
+                            app:tint="@color/color_secondary" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins"
                             android:text="Report"
-                            android:textColor="@color/color_signal_red_light"
+                            android:textColor="@color/white"
                             android:textSize="12sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -116,7 +116,7 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="14dp"
             android:layout_marginBottom="6dp"
-            android:background="@drawable/bg_search_pill"
+            android:background="@color/color_charcoal_grey"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingHorizontal="16dp">
@@ -156,7 +156,7 @@
             android:layout_marginTop="4dp"
             android:background="@android:color/transparent"
             app:tabGravity="fill"
-            app:tabIndicatorColor="@color/color_signal_red"
+            app:tabIndicatorColor="@color/color_ember_amber"
             app:tabIndicatorFullWidth="false"
             app:tabIndicatorHeight="3dp"
             app:tabMode="fixed"
