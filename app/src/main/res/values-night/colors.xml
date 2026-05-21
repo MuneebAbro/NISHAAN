@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ================================================================
+         DARK THEME OVERRIDES — Command Center aesthetic
+         Only adaptive surface/text colors are overridden here.
+         Brand colors (signal red, ember amber, etc.) stay in values/colors.xml.
+         ================================================================ -->
+
+    <color name="color_chalk">#9BA8B8</color>
+    <color name="color_charcoal_grey">#151515</color>
+
+    <color name="color_background_dark">#09090F</color>
+    <color name="color_surface_dark">#111119</color>
+    <color name="color_card_dark">#1A1A2A</color>
+    <color name="color_elevated_dark">#232336</color>
+    <color name="color_highlight_dark">#2D2D4A</color>
+    <color name="color_surface_variant_dark">#1A1A2A</color>
+    <color name="color_on_background_dark">#E8EAF2</color>
+    <color name="color_on_surface_dark">#C8CBD8</color>
+    <color name="color_on_surface_muted_dark">#9BA8B8</color>
+    <color name="color_divider_dark">#1EFFFFFF</color>
+    <color name="color_map_overlay_dark">#CC09090F</color>
+
+    <color name="color_severity_inactive">#3A3A52</color>
+    <color name="color_severity_inactive_bg">#333A3A52</color>
+
+    <color name="color_nav_bar_bg">#000000</color>
+
+    <!-- Adaptive text/tint dark overrides -->
+    <color name="color_text_subtitle">#55FFFFFF</color>
+    <color name="color_text_on_accent">@color/white</color>
+    <color name="color_splash_title">@color/white</color>
+    <color name="color_splash_subtitle">#B3FFFFFF</color>
+    <color name="color_splash_footnote">#40FFFFFF</color>
+    <color name="color_header_icon_tint">@color/white</color>
+    <color name="color_text_muted">#80FFFFFF</color>
+    <color name="color_text_extra_muted">#55FFFFFF</color>
+    <color name="color_glass_bg">#1AFFFFFF</color>
+    <color name="color_glass_stroke">#26FFFFFF</color>
+</resources>

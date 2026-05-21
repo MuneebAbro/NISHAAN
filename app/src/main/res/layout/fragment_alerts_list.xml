@@ -51,7 +51,7 @@
                         android:fontFamily="@font/poppins"
                         android:letterSpacing="0.06"
                         android:text="CRISIS FEED"
-                        android:textColor="#55FFFFFF"
+                        android:textColor="@color/color_text_subtitle"
                         android:textSize="10sp" />
                 </LinearLayout>
 
@@ -80,7 +80,7 @@
                             android:layout_marginEnd="5dp"
                             android:scaleType="fitCenter"
                             android:src="@drawable/ic_eye"
-                            app:tint="@color/white" />
+                            app:tint="@color/color_text_on_accent" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -88,7 +88,7 @@
                             android:fontFamily="@font/poppins"
                             android:gravity="center"
                             android:text="@string/alerts_mark_all_read"
-                            android:textColor="@color/white"
+                            android:textColor="@color/color_text_on_accent"
                             android:textSize="12sp" />
 
                     </LinearLayout>
@@ -101,7 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="16dp"
-                android:background="#12FFFFFF" />
+                android:background="@color/color_text_subtitle" />
 
         </LinearLayout>
 
@@ -146,7 +146,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins"
-                        android:textColor="@color/white"
+                        android:textColor="@color/color_text_on_accent"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         tools:text="12" />
@@ -157,7 +157,7 @@
                         android:layout_marginTop="1dp"
                         android:fontFamily="@font/poppins"
                         android:text="ACTIVE"
-                        android:textColor="@color/white"
+                        android:textColor="@color/color_text_on_accent"
                         android:textSize="9sp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -190,7 +190,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins"
-                        android:textColor="@color/white"
+                        android:textColor="@color/color_text_on_accent"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         tools:text="3" />
@@ -201,7 +201,7 @@
                         android:layout_marginTop="1dp"
                         android:fontFamily="@font/poppins"
                         android:text="CRITICAL"
-                        android:textColor="@color/white"
+                        android:textColor="@color/color_text_on_accent"
                         android:textSize="9sp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -233,7 +233,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins"
-                        android:textColor="@color/white"
+                        android:textColor="@color/color_text_on_accent"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         tools:text="5" />
@@ -244,7 +244,7 @@
                         android:layout_marginTop="1dp"
                         android:fontFamily="@font/poppins"
                         android:text="HIGH"
-                        android:textColor="@color/white"
+                        android:textColor="@color/color_text_on_accent"
                         android:textSize="9sp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -310,7 +310,7 @@
                 android:gravity="center"
                 android:letterSpacing="0.02"
                 android:text="You'll be notified instantly when\na crisis is detected near you."
-                android:textColor="#55FFFFFF"
+                android:textColor="@color/color_text_subtitle"
                 android:textSize="12sp" />
         </LinearLayout>
 

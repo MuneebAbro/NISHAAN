@@ -28,4 +28,12 @@
         <item name="android:windowSplashScreenAnimatedIcon">@android:color/transparent</item>
     </style>
     <style name="Theme.NISHAAN" parent="Base.Theme.NISHAAN" />
+
+    <!-- UCrop screen: dark bars + fitsSystemWindows to avoid overlap -->
+    <style name="Theme.NISHAAN.UCrop" parent="Theme.NISHAAN">
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:statusBarColor">@color/color_background_dark</item>
+        <item name="android:navigationBarColor">@color/color_background_dark</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
 </resources>

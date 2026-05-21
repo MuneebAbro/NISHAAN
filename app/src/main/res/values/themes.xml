@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Light Theme (Harmonized) -->
+    <!-- Light Theme -->
     <style name="Base.Theme.NISHAAN" parent="Theme.Material3.Light.NoActionBar">
         <!-- Brand colors -->
         <item name="colorPrimary">@color/color_signal_red</item>
@@ -24,7 +24,7 @@
         <item name="android:statusBarColor">@color/color_background_light</item>
         <item name="android:navigationBarColor">@color/color_surface_light</item>
         <!-- Splash Screen (Android 12+) -->
-        <item name="android:windowSplashScreenBackground">@color/color_background_dark</item>
+        <item name="android:windowSplashScreenBackground">@color/color_background_light</item>
         <item name="android:windowSplashScreenAnimatedIcon">@android:color/transparent</item>
     </style>
     <style name="Theme.NISHAAN" parent="Base.Theme.NISHAAN" />

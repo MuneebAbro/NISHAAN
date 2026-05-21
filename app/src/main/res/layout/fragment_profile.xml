@@ -51,7 +51,7 @@
                         android:fontFamily="@font/poppins"
                         android:letterSpacing="0.06"
                         android:text="Operational Officer Dashboard"
-                        android:textColor="#55FFFFFF"
+                        android:textColor="@color/color_text_subtitle"
                         android:textSize="10sp" />
                 </LinearLayout>
 
@@ -71,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="16dp"
-                android:background="#12FFFFFF" />
+                android:background="@color/color_text_subtitle" />
         </LinearLayout>
 
 

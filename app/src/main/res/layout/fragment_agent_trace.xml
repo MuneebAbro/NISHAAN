@@ -34,13 +34,17 @@
             android:textAllCaps="true"
             android:letterSpacing="0.05"
             android:textSize="10sp" />
+
+
+        <!-- Header Divider Line -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/color_text_subtitle" />
     </LinearLayout>
 
-    <!-- Header Divider Line -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/color_divider_dark" />
+
 
     <!-- Floating status / alert notification chip -->
     <FrameLayout
@@ -55,7 +59,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
             android:text="@string/agent_trace_new_activity"
-            android:textColor="@color/white"
+            android:textColor="@color/color_text_on_accent"
             android:visibility="gone"
             app:chipBackgroundColor="@color/color_primary"
             app:chipStrokeWidth="0dp"

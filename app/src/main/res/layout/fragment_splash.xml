@@ -33,7 +33,7 @@
             android:fontFamily="@font/poppins_bold"
             android:textStyle="bold"
             android:textSize="28sp"
-            android:textColor="@color/white"
+            android:textColor="@color/color_splash_title"
             android:layout_marginTop="-24dp" />
 
         <!-- Subheading -->
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:text="Pakistan's autonomous crisis detection\nand missing persons system"            android:fontFamily="@font/poppins_medium"
             android:textSize="12sp"
-            android:textColor="#B3FFFFFF"
+            android:textColor="@color/color_splash_subtitle"
             android:textAlignment="center"
             android:layout_marginHorizontal="32dp"
             android:layout_marginTop="8dp" />
@@ -59,6 +59,6 @@
         android:textSize="8sp"
         android:letterSpacing="0.15"
         android:textAllCaps="true"
-        android:textColor="#40FFFFFF" />
+        android:textColor="@color/color_splash_footnote" />
 
 </FrameLayout>

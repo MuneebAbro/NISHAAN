@@ -396,7 +396,7 @@ class HomeDashboardFragment : Fragment(R.layout.fragment_home_dashboard) {
                 ContextCompat.getColor(requireContext(), R.color.color_severity_critical)
             )
             val redColor = ContextCompat.getColor(requireContext(), R.color.color_severity_critical)
-            val whiteColor = ContextCompat.getColor(requireContext(), android.R.color.white)
+            val whiteColor = ContextCompat.getColor(requireContext(), R.color.color_chalk)
             val fullText = "Warning:\nInside Crisis Area! (${dangerCrisis.titleEn})"
             val spannable = android.text.SpannableString(fullText)
             spannable.setSpan(android.text.style.ForegroundColorSpan(redColor), 0, 8, android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)

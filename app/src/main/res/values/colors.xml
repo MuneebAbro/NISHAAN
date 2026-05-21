@@ -6,6 +6,7 @@
 
     <!-- ================================================================
          NISHAAN COLOR SYSTEM — Design System v2
+         Brand colors stay IDENTICAL in both themes.
          ================================================================ -->
 
     <!-- Signal Red (Primary — Critical / COMMANDER) -->
@@ -29,25 +30,24 @@
     <color name="color_field_green_light">#36C265</color>
 
     <!-- Chalk (Secondary text) -->
-    <color name="color_chalk">#9BA8B8</color>
-    <color name="color_charcoal_grey">#151515</color>
+    <color name="color_chalk">#6B7289</color>
 
     <!-- ================================================================
-         SURFACE HIERARCHY — Dark UI
+         ADAPTIVE SURFACE COLORS — Light theme defaults
+         Overridden in values-night/colors.xml for dark theme
          ================================================================ -->
-    <color name="color_background_dark">#09090F</color>
-    <color name="color_surface_dark">#111119</color>
-    <color name="color_card_dark">#1A1A2A</color>
-    <color name="color_elevated_dark">#232336</color>
-    <color name="color_highlight_dark">#2D2D4A</color>
-
-    <!-- Semantic aliases (dark theme) -->
-    <color name="color_surface_variant_dark">#1A1A2A</color>
-    <color name="color_on_background_dark">#E8EAF2</color>
-    <color name="color_on_surface_dark">#C8CBD8</color>
-    <color name="color_on_surface_muted_dark">#9BA8B8</color>
-    <color name="color_divider_dark">#1EFFFFFF</color>
-    <color name="color_map_overlay_dark">#CC09090F</color>
+    <color name="color_charcoal_grey">#EDEEF4</color>
+    <color name="color_background_dark">#F6F7FA</color>
+    <color name="color_surface_dark">#FFFFFF</color>
+    <color name="color_card_dark">#FFFFFF</color>
+    <color name="color_elevated_dark">#F0F1F7</color>
+    <color name="color_highlight_dark">#E4E5EF</color>
+    <color name="color_surface_variant_dark">#EDEEF4</color>
+    <color name="color_on_background_dark">#0A0A14</color>
+    <color name="color_on_surface_dark">#2A2A3E</color>
+    <color name="color_on_surface_muted_dark">#6B7289</color>
+    <color name="color_divider_dark">#1A000000</color>
+    <color name="color_map_overlay_dark">#CCF6F7FA</color>
 
     <!-- Primary / Secondary aliases pointing to design system colors -->
     <color name="color_primary">@color/color_signal_red</color>
@@ -57,7 +57,7 @@
     <color name="color_accent_info">@color/color_ops_blue</color>
 
     <!-- ================================================================
-         LIGHT THEME (Harmonized)
+         LIGHT THEME (kept for reference / explicit use)
          ================================================================ -->
     <color name="color_background_light">#F6F7FA</color>
     <color name="color_surface_light">#FFFFFF</color>
@@ -70,14 +70,14 @@
     <color name="color_map_overlay_light">#CCF6F7FA</color>
 
     <!-- ================================================================
-         SEVERITY ENCODING
+         SEVERITY ENCODING (same in both themes)
          ================================================================ -->
     <color name="color_severity_critical">@color/color_signal_red</color>
     <color name="color_severity_high">@color/color_ember_amber</color>
     <color name="color_severity_medium">#E8B800</color>
     <color name="color_severity_monitoring">@color/color_ops_blue</color>
     <color name="color_severity_resolved">@color/color_field_green</color>
-    <color name="color_severity_inactive">#3A3A52</color>
+    <color name="color_severity_inactive">#B0B0C0</color>
 
     <!-- Severity Backgrounds (20% opacity) -->
     <color name="color_severity_critical_bg">#33C8001A</color>
@@ -85,7 +85,7 @@
     <color name="color_severity_medium_bg">#33E8B800</color>
     <color name="color_severity_monitoring_bg">#331B52E8</color>
     <color name="color_severity_resolved_bg">#331A7C3A</color>
-    <color name="color_severity_inactive_bg">#333A3A52</color>
+    <color name="color_severity_inactive_bg">#33B0B0C0</color>
 
     <!-- ================================================================
          AGENT PIPELINE COLORS
@@ -104,4 +104,30 @@
     <!-- Legacy aliases (keep for any layouts still referencing old names) -->
     <color name="color_severity_low">@color/color_field_green</color>
     <color name="color_severity_low_bg">#331A7C3A</color>
+
+    <!-- ================================================================
+         BOTTOM NAV
+         ================================================================ -->
+    <color name="color_nav_bar_bg">#FFFFFF</color>
+
+    <!-- ================================================================
+         ADAPTIVE TEXT & TINT COLORS — Light theme defaults
+         Overridden in values-night/colors.xml
+         ================================================================ -->
+    <!-- Subtle header subtitles (was #55FFFFFF) -->
+    <color name="color_text_subtitle">#55000000</color>
+    <!-- Counter/badge text on colored backgrounds (stays white always) -->
+    <color name="color_text_on_accent">#1B1B1B</color>
+    <!-- Splash screen text -->
+    <color name="color_splash_title">#0A0A14</color>
+    <color name="color_splash_subtitle">#B30A0A14</color>
+    <color name="color_splash_footnote">#400A0A14</color>
+    <!-- Icon tint on headers -->
+    <color name="color_header_icon_tint">#0A0A14</color>
+    <!-- Muted alert timestamp text (was #80FFFFFF / #55FFFFFF) -->
+    <color name="color_text_muted">#80000000</color>
+    <color name="color_text_extra_muted">#55000000</color>
+    <!-- Glass card pill bg/stroke for headers (was #1AFFFFFF / #26FFFFFF) -->
+    <color name="color_glass_bg">#1A000000</color>
+    <color name="color_glass_stroke">#26000000</color>
 </resources>

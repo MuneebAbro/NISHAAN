@@ -82,7 +82,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.languageSelectFragment,
                 R.id.permissionsFragment,
                 R.id.settingsFragment,
-                R.id.authFragment -> {
+                R.id.authFragment,
+                R.id.signupFragment -> {
                     bottomNav.visibility = View.GONE
                 }
                 else -> {

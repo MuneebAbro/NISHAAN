@@ -60,7 +60,7 @@
                         android:fontFamily="@font/poppins"
                         android:letterSpacing="0.06"
                         android:text="SEARCH DATABASE"
-                        android:textColor="#55FFFFFF"
+                        android:textColor="@color/color_text_subtitle"
                         android:textSize="10sp" />
                 </LinearLayout>
 
@@ -95,7 +95,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins"
                             android:text="Report"
-                            android:textColor="@color/white"
+                            android:textColor="@color/color_text_on_accent"
                             android:textSize="12sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -104,7 +104,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="16dp"
-                android:background="#12FFFFFF" />
+                android:background="@color/color_text_subtitle" />
         </LinearLayout>
         <!-- ═══════════════════════════════════════════
              GLASS HEADER — bottom-rounded card
@@ -131,7 +131,7 @@
                 android:layout_marginEnd="12dp"
                 android:contentDescription="@null"
                 android:src="@drawable/ic_missing"
-                app:tint="#66FFFFFF" />
+                app:tint="@color/color_text_on_accent" />
 
             <EditText
                 android:id="@+id/searchInput"
@@ -145,7 +145,7 @@
                 android:inputType="text"
                 android:maxLines="1"
                 android:textColor="@color/color_on_background_dark"
-                android:textColorHint="#55FFFFFF"
+                android:textColorHint="@color/color_text_subtitle"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -166,7 +166,7 @@
             app:tabMode="fixed"
             app:tabRippleColor="@android:color/transparent"
             app:tabSelectedTextColor="@color/color_on_background_dark"
-            app:tabTextColor="#55FFFFFF">
+            app:tabTextColor="@color/color_text_subtitle">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
@@ -250,7 +250,7 @@
                 android:gravity="center"
                 android:letterSpacing="0.02"
                 android:text="Reports will appear here as they\nare filed into the system."
-                android:textColor="#55FFFFFF"
+                android:textColor="@color/color_text_subtitle"
                 android:textSize="12sp" />
         </LinearLayout>
 
