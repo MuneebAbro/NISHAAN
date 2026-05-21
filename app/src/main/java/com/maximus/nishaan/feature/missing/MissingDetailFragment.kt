@@ -71,6 +71,7 @@ class MissingDetailFragment : Fragment(R.layout.fragment_missing_detail) {
 
         // Load photo from Firebase Storage URL
         if (!person.photoUrl.isNullOrEmpty()) {
+            binding.cardPersonPhoto.visibility = View.VISIBLE
             binding.personPhoto.visibility = View.VISIBLE
             Glide.with(this)
                 .load(person.photoUrl)
@@ -82,6 +83,7 @@ class MissingDetailFragment : Fragment(R.layout.fragment_missing_detail) {
                 showFullScreenImage(person.photoUrl!!)
             }
         } else {
+            binding.cardPersonPhoto.visibility = View.GONE
             binding.personPhoto.visibility = View.GONE
         }
 
