@@ -76,6 +76,11 @@ class MissingDetailFragment : Fragment(R.layout.fragment_missing_detail) {
                 .load(person.photoUrl)
                 .centerCrop()
                 .into(binding.personPhoto)
+
+            // Tap to show full-screen image
+            binding.personPhoto.setOnClickListener {
+                showFullScreenImage(person.photoUrl!!)
+            }
         } else {
             binding.personPhoto.visibility = View.GONE
         }
@@ -272,6 +277,24 @@ class MissingDetailFragment : Fragment(R.layout.fragment_missing_detail) {
             binding.txtSearchStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_field_green))
             binding.progressSearch.visibility = View.GONE
         }
+    }
+
+    private fun showFullScreenImage(imageUrl: String) {
+        val dialog = android.app.Dialog(requireContext(), android.R.style.Theme_Black_NoTitleBar_Fullscreen)
+        dialog.setContentView(R.layout.dialog_fullscreen_image)
+        dialog.setCancelable(true)
+
+        val imageView = dialog.findViewById<android.widget.ImageView>(R.id.fullscreenImage)
+        val btnClose = dialog.findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.btnCloseFullscreen)
+
+        Glide.with(this)
+            .load(imageUrl)
+            .into(imageView)
+
+        btnClose.setOnClickListener { dialog.dismiss() }
+        imageView.setOnClickListener { dialog.dismiss() }
+
+        dialog.show()
     }
 
     override fun onDestroyView() {

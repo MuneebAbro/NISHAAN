@@ -20,6 +20,7 @@ googleServices = "4.4.2"
 playServicesMaps = "19.2.0"
 playServicesLocation = "21.3.0"
 glide = "4.16.0"
+ucrop = "2.2.9"
 datastore = "1.1.4"
 splashscreen = "1.0.1"
 junit = "4.13.2"
@@ -77,6 +78,7 @@ gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 
 # Image Loading
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+ucrop = { group = "com.github.yalantis", name = "ucrop", version.ref = "ucrop" }
 
 # Testing
 junit = { group = "junit", name = "junit", version.ref = "junit" }

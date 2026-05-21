@@ -16,29 +16,79 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_header_glass"
             android:orientation="vertical"
-            android:paddingTop="@dimen/spacing_xxl"
-            android:paddingBottom="@dimen/spacing_md">
+            android:paddingHorizontal="20dp"
+            android:paddingTop="52dp"
+            android:paddingBottom="20dp">
 
-            <TextView
-                style="@style/TextDisplay"
+            <!-- Row 1: Title + Report Button -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/profile_title"
-                android:textSize="22sp"
-                android:letterSpacing="-0.02" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-            <TextView
-                style="@style/TextCaption"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Operational Officer Dashboard"
-                android:textColor="?attr/colorOnSurfaceVariant"
-                android:textAllCaps="true"
-                android:letterSpacing="0.05"
-                android:textSize="10sp" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextDisplay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/profile_title"
+                        android:textColor="@color/color_on_background_dark"
+                        android:textSize="26sp" />
+
+                    <!-- Subtle section label -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/poppins"
+                        android:letterSpacing="0.06"
+                        android:text="Operational Officer Dashboard"
+                        android:textColor="#55FFFFFF"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <!-- Report Missing — glass pill button -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btnReportMissing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    app:cardBackgroundColor="#1AFFFFFF"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="#26FFFFFF"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="14dp">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_bold"
+                            android:text="Settings"
+                            android:textColor="@color/color_ops_blue"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+
+
         </LinearLayout>
+
 
         <View
             android:layout_width="match_parent"

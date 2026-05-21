@@ -5,12 +5,14 @@ import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -25,8 +27,10 @@ import com.maximus.nishaan.core.util.Constants
 import com.maximus.nishaan.databinding.FragmentReportMissingBinding
 import com.maximus.nishaan.domain.model.MissingPerson
 import com.maximus.nishaan.domain.model.MissingPersonStatus
+import com.yalantis.ucrop.UCrop
 import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
+import java.io.File
 
 /**
  * Multi-step missing person report form (3 steps).
@@ -40,6 +44,9 @@ class ReportMissingFragment : Fragment(R.layout.fragment_report_missing) {
     private var selectedPhotoBytes: ByteArray? = null
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
+    // Temp file for camera capture (full-resolution)
+    private var cameraImageUri: Uri? = null
+
     private val locationPermissionRequest = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
@@ -52,38 +59,32 @@ class ReportMissingFragment : Fragment(R.layout.fragment_report_missing) {
         }
     }
 
-    // Camera launcher — takes a photo and returns a thumbnail bitmap
+    // Camera launcher — captures full-resolution photo to file, then launches crop
     private val cameraLauncher = registerForActivityResult(
-        ActivityResultContracts.TakePicturePreview()
-    ) { bitmap ->
-        if (bitmap != null) {
-            handleCapturedBitmap(bitmap)
+        ActivityResultContracts.TakePicture()
+    ) { success ->
+        if (success && cameraImageUri != null) {
+            launchImageCrop(cameraImageUri!!)
         }
     }
 
-    // Gallery picker — uses the modern Photo Picker API
+    // Gallery picker — uses the modern Photo Picker API, then launches crop
     private val galleryLauncher = registerForActivityResult(
         ActivityResultContracts.PickVisualMedia()
     ) { uri ->
         if (uri != null) {
-            try {
-                val inputStream = requireContext().contentResolver.openInputStream(uri)
-                val bytes = inputStream?.readBytes()
-                inputStream?.close()
+            launchImageCrop(uri)
+        }
+    }
 
-                if (bytes != null && bytes.size > Constants.MAX_PHOTO_SIZE_BYTES) {
-                    Snackbar.make(binding.root, R.string.report_photo_too_large, Snackbar.LENGTH_LONG).show()
-                    return@registerForActivityResult
-                }
-
-                if (bytes != null) {
-                    val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-                    if (bitmap != null) {
-                        handleCapturedBitmap(bitmap)
-                    }
-                }
-            } catch (e: Exception) {
-                Snackbar.make(binding.root, R.string.error_generic, Snackbar.LENGTH_SHORT).show()
+    // UCrop result handler
+    private val cropLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == android.app.Activity.RESULT_OK && result.data != null) {
+            val croppedUri = UCrop.getOutput(result.data!!)
+            if (croppedUri != null) {
+                handleCroppedUri(croppedUri)
             }
         }
     }
@@ -121,13 +122,75 @@ class ReportMissingFragment : Fragment(R.layout.fragment_report_missing) {
                 getString(R.string.report_photo_gallery)
             )) { _, which ->
                 when (which) {
-                    0 -> cameraLauncher.launch(null)
+                    0 -> {
+                        // Create a temp file for the camera to write the full-resolution image
+                        val photoFile = File(requireContext().cacheDir, "nishaan_camera_${System.currentTimeMillis()}.jpg")
+                        cameraImageUri = FileProvider.getUriForFile(
+                            requireContext(),
+                            "${requireContext().packageName}.fileprovider",
+                            photoFile
+                        )
+                        cameraLauncher.launch(cameraImageUri!!)
+                    }
                     1 -> galleryLauncher.launch(
                         PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
                     )
                 }
             }
             .show()
+    }
+
+    /**
+     * Launches UCrop for WhatsApp-style crop/adjust before accepting the image.
+     */
+    private fun launchImageCrop(sourceUri: Uri) {
+        val destFile = File(requireContext().cacheDir, "nishaan_cropped_${System.currentTimeMillis()}.jpg")
+        val destUri = Uri.fromFile(destFile)
+
+        val options = UCrop.Options().apply {
+            setCompressionFormat(Bitmap.CompressFormat.JPEG)
+            setCompressionQuality(85)
+            setToolbarColor(ContextCompat.getColor(requireContext(), R.color.color_background_dark))
+            setStatusBarColor(ContextCompat.getColor(requireContext(), R.color.color_background_dark))
+            setToolbarWidgetColor(ContextCompat.getColor(requireContext(), R.color.white))
+            setActiveControlsWidgetColor(ContextCompat.getColor(requireContext(), R.color.color_signal_red))
+            setFreeStyleCropEnabled(false)
+            setShowCropGrid(true)
+            setShowCropFrame(true)
+        }
+
+        val intent = UCrop.of(sourceUri, destUri)
+            .withAspectRatio(1f, 1f)
+            .withOptions(options)
+            .withMaxResultSize(Constants.PHOTO_MAX_DIMENSION_PX, Constants.PHOTO_MAX_DIMENSION_PX)
+            .getIntent(requireContext())
+
+        cropLauncher.launch(intent)
+    }
+
+    /**
+     * Handles the cropped image URI — reads bytes and shows preview.
+     */
+    private fun handleCroppedUri(uri: Uri) {
+        try {
+            val inputStream = requireContext().contentResolver.openInputStream(uri)
+            val bytes = inputStream?.readBytes()
+            inputStream?.close()
+
+            if (bytes != null && bytes.size > Constants.MAX_PHOTO_SIZE_BYTES) {
+                Snackbar.make(binding.root, R.string.report_photo_too_large, Snackbar.LENGTH_LONG).show()
+                return
+            }
+
+            if (bytes != null) {
+                val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                if (bitmap != null) {
+                    handleCapturedBitmap(bitmap)
+                }
+            }
+        } catch (e: Exception) {
+            Snackbar.make(binding.root, R.string.error_generic, Snackbar.LENGTH_SHORT).show()
+        }
     }
 
     private fun handleCapturedBitmap(bitmap: Bitmap) {

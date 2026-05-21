@@ -100,6 +100,7 @@ dependencies {
 
     // Image Loading
     implementation(libs.glide)
+    implementation(libs.ucrop)
 
     // Testing
     testImplementation(libs.junit)

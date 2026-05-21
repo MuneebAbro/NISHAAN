@@ -1,9 +1,11 @@
 package com.maximus.nishaan.feature.auth
 
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -14,7 +16,9 @@ import com.maximus.nishaan.NishaanApplication
 import com.maximus.nishaan.R
 import com.maximus.nishaan.databinding.FragmentSignupBinding
 import com.maximus.nishaan.domain.model.User
+import com.yalantis.ucrop.UCrop
 import kotlinx.coroutines.launch
+import java.io.File
 
 class SignupFragment : Fragment(R.layout.fragment_signup) {
 
@@ -23,9 +27,19 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
     private var selectedImageUri: Uri? = null
 
     private val pickImage = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-        uri?.let {
-            selectedImageUri = it
-            Glide.with(this).load(it).into(binding.profileImage)
+        uri?.let { launchImageCrop(it) }
+    }
+
+    // UCrop result handler
+    private val cropLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == android.app.Activity.RESULT_OK && result.data != null) {
+            val croppedUri = UCrop.getOutput(result.data!!)
+            if (croppedUri != null) {
+                selectedImageUri = croppedUri
+                Glide.with(this).load(croppedUri).into(binding.profileImage)
+            }
         }
     }
 
@@ -95,6 +109,36 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
                 )
             }
         }
+    }
+
+    /**
+     * Launches UCrop for WhatsApp-style crop/adjust on the profile picture.
+     * Uses a 1:1 aspect ratio for the circular profile image.
+     */
+    private fun launchImageCrop(sourceUri: Uri) {
+        val destFile = File(requireContext().cacheDir, "nishaan_profile_cropped_${System.currentTimeMillis()}.jpg")
+        val destUri = Uri.fromFile(destFile)
+
+        val options = UCrop.Options().apply {
+            setCompressionFormat(Bitmap.CompressFormat.JPEG)
+            setCompressionQuality(90)
+            setToolbarColor(ContextCompat.getColor(requireContext(), R.color.color_background_dark))
+            setStatusBarColor(ContextCompat.getColor(requireContext(), R.color.color_background_dark))
+            setToolbarWidgetColor(ContextCompat.getColor(requireContext(), R.color.white))
+            setActiveControlsWidgetColor(ContextCompat.getColor(requireContext(), R.color.color_signal_red))
+            setCircleDimmedLayer(true)
+            setShowCropGrid(false)
+            setShowCropFrame(false)
+            setFreeStyleCropEnabled(false)
+        }
+
+        val intent = UCrop.of(sourceUri, destUri)
+            .withAspectRatio(1f, 1f)
+            .withMaxResultSize(512, 512)
+            .withOptions(options)
+            .getIntent(requireContext())
+
+        cropLauncher.launch(intent)
     }
 
     private fun setLoading(loading: Boolean) {
