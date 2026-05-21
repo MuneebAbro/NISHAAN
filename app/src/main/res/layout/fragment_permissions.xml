@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/android:colorBackground"
+    android:background="?android:colorBackground"
     android:orientation="vertical"
     android:paddingHorizontal="@dimen/spacing_xl"
     android:paddingVertical="@dimen/spacing_xxl">
@@ -41,7 +41,7 @@
             android:layout_marginBottom="@dimen/spacing_md"
             app:cardCornerRadius="12dp"
             app:strokeWidth="1dp"
-            app:strokeColor="?attr/colorOutlineVariant"
+            app:strokeColor="@color/color_divider_dark"
             app:cardElevation="0dp">
 
             <LinearLayout
@@ -56,7 +56,7 @@
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:layout_marginEnd="@dimen/spacing_md"
-                    app:tint="?attr/colorPrimary"
+                    app:tint="@color/color_signal_red"
                     android:contentDescription="@string/permission_location_label" />
 
                 <LinearLayout
@@ -70,7 +70,7 @@
                         android:text="@string/permission_location_label"
                         android:textSize="14sp"
                         android:textStyle="bold"
-                        android:textColor="?attr/colorOnSurface"
+                        android:textColor="@color/color_on_background_dark"
                         style="@style/TextHeadline" />
                     <TextView
                         android:layout_width="wrap_content"
@@ -103,7 +103,7 @@
             android:layout_marginBottom="@dimen/spacing_md"
             app:cardCornerRadius="12dp"
             app:strokeWidth="1dp"
-            app:strokeColor="?attr/colorOutlineVariant"
+            app:strokeColor="@color/color_divider_dark"
             app:cardElevation="0dp">
 
             <LinearLayout
@@ -118,7 +118,7 @@
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:layout_marginEnd="@dimen/spacing_md"
-                    app:tint="?attr/colorPrimary"
+                    app:tint="@color/color_signal_red"
                     android:contentDescription="@string/permission_notification_label" />
 
                 <LinearLayout
@@ -132,7 +132,7 @@
                         android:text="@string/permission_notification_label"
                         android:textSize="14sp"
                         android:textStyle="bold"
-                        android:textColor="?attr/colorOnSurface"
+                        android:textColor="@color/color_on_background_dark"
                         style="@style/TextHeadline" />
                     <TextView
                         android:layout_width="wrap_content"
@@ -164,7 +164,7 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="12dp"
             app:strokeWidth="1dp"
-            app:strokeColor="?attr/colorOutlineVariant"
+            app:strokeColor="@color/color_divider_dark"
             app:cardElevation="0dp">
 
             <LinearLayout
@@ -179,7 +179,7 @@
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:layout_marginEnd="@dimen/spacing_md"
-                    app:tint="?attr/colorPrimary"
+                    app:tint="@color/color_signal_red"
                     android:contentDescription="@string/permission_camera_label" />
 
                 <LinearLayout
@@ -193,7 +193,7 @@
                         android:text="@string/permission_camera_label"
                         android:textSize="14sp"
                         android:textStyle="bold"
-                        android:textColor="?attr/colorOnSurface"
+                        android:textColor="@color/color_on_background_dark"
                         style="@style/TextHeadline" />
                     <TextView
                         android:layout_width="wrap_content"

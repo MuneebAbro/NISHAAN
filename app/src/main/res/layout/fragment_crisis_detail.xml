@@ -4,17 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="?attr/android:colorBackground">
+    android:background="?android:colorBackground">
 
     <!-- Premium Toolbar supporting navigation back and overflow menu -->
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/android:colorBackground"
+        android:background="?android:colorBackground"
         app:navigationIcon="?attr/homeAsUpIndicator"
         app:title="Crisis Details"
-        app:titleTextColor="?attr/colorOnBackground"
+        app:titleTextColor="@color/color_on_background_dark"
         app:menu="@menu/menu_crisis_detail" />
 
     <!-- Static Header card so vital information stays visible during tab swiping -->
@@ -40,7 +40,7 @@
                 android:layout_height="48dp"
                 android:layout_marginEnd="@dimen/spacing_md"
                 android:contentDescription="@null"
-                app:tint="?attr/colorPrimary" />
+                app:tint="@color/color_signal_red" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -72,7 +72,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="?attr/colorOutlineVariant"
+            android:background="@color/color_divider_dark"
             android:layout_marginBottom="@dimen/spacing_sm" />
 
         <!-- Severity + Confidence + Time metadata pill container -->
@@ -115,10 +115,10 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/android:colorBackground"
+        android:background="?android:colorBackground"
         app:tabTextColor="?attr/colorOnSurfaceVariant"
-        app:tabSelectedTextColor="?attr/colorPrimary"
-        app:tabIndicatorColor="?attr/colorPrimary"
+        app:tabSelectedTextColor="@color/color_signal_red"
+        app:tabIndicatorColor="@color/color_signal_red"
         app:tabMode="fixed"
         app:tabGravity="fill" />
 

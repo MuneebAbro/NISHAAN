@@ -104,6 +104,9 @@
         <action
             android:id="@+id/action_home_to_reportMissing"
             app:destination="@id/reportMissingFragment" />
+        <action
+            android:id="@+id/action_home_to_fullScreenMap"
+            app:destination="@id/fullScreenMapFragment" />
     </fragment>
 
     <!-- Crisis Detail -->
@@ -228,6 +231,23 @@
             app:destination="@id/authFragment"
             app:popUpTo="@id/homeDashboardFragment"
             app:popUpToInclusive="true" />
+    </fragment>
+
+    <!-- Full Screen Map -->
+    <fragment
+        android:id="@+id/fullScreenMapFragment"
+        android:name="com.maximus.nishaan.feature.home.FullScreenMapFragment"
+        android:label="Full Screen Map"
+        tools:layout="@layout/fragment_full_screen_map">
+        <argument
+            android:name="latitude"
+            app:argType="float" />
+        <argument
+            android:name="longitude"
+            app:argType="float" />
+        <argument
+            android:name="zoom"
+            app:argType="float" />
     </fragment>
 
 </navigation>

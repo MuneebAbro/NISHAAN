@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Checked / Selected State: Solid Ember Amber Background -->
+    <item android:state_checked="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/color_ember_amber" />
+            <stroke android:width="1.5dp" android:color="@color/color_ember_amber" />
+            <corners android:radius="12dp" />
+        </shape>
+    </item>
+    
+    <!-- Pressed State -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#33D4720A" /> <!-- 20% Ember Amber over Charcoal -->
+            <stroke android:width="1.5dp" android:color="@color/color_ember_amber" />
+            <corners android:radius="12dp" />
+        </shape>
+    </item>
+
+    <!-- Default State: Charcoal Grey Background with Ember Amber Outline -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/color_charcoal_grey" />
+            <stroke android:width="1.5dp" android:color="@color/color_ember_amber" />
+            <corners android:radius="12dp" />
+        </shape>
+    </item>
+</selector>

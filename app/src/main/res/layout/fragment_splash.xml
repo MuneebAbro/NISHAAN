@@ -4,24 +4,50 @@
     android:layout_height="match_parent"
     android:background="@color/color_background_dark">
 
-    <!-- Subtle scan line accent at top -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_gravity="top"
-        android:layout_marginTop="80dp"
-        android:background="#0AFFFFFF" />
 
-    <!-- Centered Logo -->
-    <ImageView
-        android:id="@+id/logoImage"
-        android:layout_width="220dp"
-        android:layout_height="220dp"
+
+    <!-- Centered Content -->
+    <LinearLayout
+        android:id="@+id/splashContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:src="@drawable/nishaan_logo_light"
-        android:scaleType="fitCenter"
-        android:contentDescription="Nishaan Logo"
-        android:alpha="0" />
+        android:orientation="vertical"
+        android:gravity="center"
+        android:alpha="0">
+
+        <!-- Logo -->
+        <ImageView
+            android:id="@+id/logoImage"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:src="@drawable/nishaan_logo"
+            android:scaleType="fitCenter"
+            android:contentDescription="Nishaan Logo" />
+
+        <!-- Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nishaan"
+            android:fontFamily="@font/poppins_bold"
+            android:textStyle="bold"
+            android:textSize="28sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="-24dp" />
+
+        <!-- Subheading -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pakistan's autonomous crisis detection\nand missing persons system"            android:fontFamily="@font/poppins_medium"
+            android:textSize="12sp"
+            android:textColor="#B3FFFFFF"
+            android:textAlignment="center"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="8dp" />
+
+    </LinearLayout>
 
     <!-- Bottom build label -->
     <TextView

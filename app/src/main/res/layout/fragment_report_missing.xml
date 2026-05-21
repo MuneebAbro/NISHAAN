@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/android:colorBackground"
+    android:background="?android:colorBackground"
     android:orientation="vertical">
 
     <!-- Form Header -->
@@ -26,19 +26,20 @@
         <TextView
             android:id="@+id/stepIndicator"
             style="@style/TextCaption"
+            android:backgroundTint="@color/color_ember_amber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:textAllCaps="true"
             android:textStyle="bold"
             android:letterSpacing="0.05"
-            android:textColor="?attr/colorPrimary" />
+            android:textColor="@color/color_signal_red" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="?attr/colorOutlineVariant" />
+        android:background="@color/color_divider_dark" />
 
     <!-- Step content scroll area -->
     <ScrollView
@@ -67,7 +68,7 @@
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="14dp"
                     app:strokeWidth="1dp"
-                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:strokeColor="@color/color_ember_amber"
                     app:cardElevation="0dp">
 
                     <LinearLayout
@@ -88,7 +89,7 @@
                                 android:id="@+id/nameInput"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textColor="?attr/colorOnSurface" />
+                                android:textColor="@color/color_on_background_dark" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
@@ -104,7 +105,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="number"
-                                android:textColor="?attr/colorOnSurface" />
+                                android:textColor="@color/color_on_background_dark" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <TextView
@@ -169,7 +170,7 @@
                                 android:inputType="textMultiLine"
                                 android:maxLength="500"
                                 android:minLines="3"
-                                android:textColor="?attr/colorOnSurface" />
+                                android:textColor="@color/color_on_background_dark" />
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -189,7 +190,7 @@
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="14dp"
                     app:strokeWidth="1dp"
-                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:strokeColor="@color/color_divider_dark"
                     app:cardElevation="0dp">
 
                     <LinearLayout
@@ -219,7 +220,7 @@
                                 android:id="@+id/addressInput"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textColor="?attr/colorOnSurface" />
+                                android:textColor="@color/color_on_background_dark" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <TextView
@@ -240,8 +241,8 @@
                             android:focusable="true"
                             app:cardCornerRadius="10dp"
                             app:strokeWidth="1dp"
-                            app:strokeColor="?attr/colorOutlineVariant"
-                            app:cardBackgroundColor="?attr/colorSurface"
+                            app:strokeColor="@color/color_divider_dark"
+                            app:cardBackgroundColor="@color/color_charcoal_grey"
                             app:cardElevation="0dp">
 
                             <FrameLayout
@@ -300,7 +301,7 @@
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="14dp"
                     app:strokeWidth="1dp"
-                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:strokeColor="@color/color_divider_dark"
                     app:cardElevation="0dp">
 
                     <LinearLayout
@@ -322,7 +323,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="phone"
-                                android:textColor="?attr/colorOnSurface" />
+                                android:textColor="@color/color_on_background_dark" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
@@ -332,7 +333,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/spacing_lg"
                             android:hint="@string/report_relationship_label"
-                            app:boxBackgroundColor="?attr/colorSurface"
+                            app:boxBackgroundColor="@color/color_charcoal_grey"
                             app:boxCornerRadiusTopStart="@dimen/dimen_input_corner_radius"
                             app:boxCornerRadiusTopEnd="@dimen/dimen_input_corner_radius"
                             app:boxCornerRadiusBottomStart="@dimen/dimen_input_corner_radius"
@@ -343,14 +344,14 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="none"
-                                android:textColor="?attr/colorOnSurface" />
+                                android:textColor="@color/color_on_background_dark" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <!-- Divider line -->
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:background="?attr/colorOutlineVariant"
+                            android:background="@color/color_divider_dark"
                             android:layout_marginBottom="@dimen/spacing_md" />
 
                         <com.google.android.material.checkbox.MaterialCheckBox
@@ -358,7 +359,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/report_confirm_checkbox"
-                            android:textColor="?attr/colorOnSurface" />
+                            android:textColor="@color/color_on_background_dark" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
@@ -369,7 +370,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="?attr/colorOutlineVariant" />
+        android:background="@color/color_divider_dark" />
 
     <!-- Bottom Buttons -->
     <LinearLayout
@@ -377,7 +378,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="@dimen/spacing_md"
-        android:background="?attr/android:colorBackground">
+        android:background="?android:colorBackground">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnBack"
@@ -392,6 +393,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnNext"
             style="@style/PrimaryButton"
+            android:backgroundTint="@color/color_ember_amber"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -414,8 +416,8 @@
             android:layout_gravity="center"
             app:cardCornerRadius="16dp"
             app:strokeWidth="1dp"
-            app:strokeColor="?attr/colorOutlineVariant"
-            app:cardBackgroundColor="?attr/colorSurfaceVariant"
+            app:strokeColor="@color/color_divider_dark"
+            app:cardBackgroundColor="@color/color_charcoal_grey"
             app:cardElevation="0dp">
 
             <ProgressBar

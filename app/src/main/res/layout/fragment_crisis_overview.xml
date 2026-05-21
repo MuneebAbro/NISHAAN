@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/android:colorBackground">
+    android:background="?android:colorBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
             android:layout_marginBottom="@dimen/spacing_md"
             app:cardCornerRadius="12dp"
             app:strokeWidth="1dp"
-            app:strokeColor="?attr/colorOutlineVariant"
+            app:strokeColor="@color/color_divider_dark"
             app:cardElevation="0dp">
 
             <TextView
@@ -32,7 +32,7 @@
                 android:padding="@dimen/spacing_md"
                 android:textSize="14sp"
                 android:lineSpacingExtra="4dp"
-                android:textColor="?attr/colorOnSurface" />
+                android:textColor="@color/color_on_background_dark" />
         </com.google.android.material.card.MaterialCardView>
 
         <!-- Feature 3: Predicted Spread (2hr) Card (inserted here) -->
@@ -44,7 +44,7 @@
             android:layout_marginBottom="@dimen/spacing_md"
             app:cardCornerRadius="12dp"
             app:strokeWidth="1dp"
-            app:strokeColor="?attr/colorOutlineVariant"
+            app:strokeColor="@color/color_divider_dark"
             app:cardElevation="0dp"
             android:visibility="gone">
 
@@ -66,7 +66,7 @@
                         android:layout_height="20dp"
                         android:layout_marginEnd="8dp"
                         android:src="@android:drawable/ic_menu_compass"
-                        app:tint="?attr/colorPrimary" />
+                        app:tint="@color/color_signal_red" />
 
                     <TextView
                         style="@style/TextHeadline"
@@ -94,7 +94,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:textSize="18sp"
-                    android:textColor="?attr/colorOnBackground"
+                    android:textColor="@color/color_on_background_dark"
                     android:textStyle="bold" />
 
                 <TextView
@@ -117,7 +117,7 @@
             android:layout_marginBottom="@dimen/spacing_md"
             app:cardCornerRadius="12dp"
             app:strokeWidth="1dp"
-            app:strokeColor="?attr/colorOutlineVariant"
+            app:strokeColor="@color/color_divider_dark"
             app:cardElevation="0dp">
 
             <LinearLayout
@@ -133,7 +133,7 @@
                     android:text="Is this crisis real? Help us verify."
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    android:textColor="?attr/colorOnBackground" />
+                    android:textColor="@color/color_on_background_dark" />
 
                 <!-- 3 selection buttons in a row -->
                 <LinearLayout
@@ -152,7 +152,7 @@
                         android:layout_marginEnd="6dp"
                         android:text="✅ Yes"
                         android:textSize="12sp"
-                        app:strokeColor="?attr/colorOutline" />
+                        app:strokeColor="@color/color_divider_dark" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnVerifyNo"
@@ -163,7 +163,7 @@
                         android:layout_marginHorizontal="3dp"
                         android:text="❌ No"
                         android:textSize="12sp"
-                        app:strokeColor="?attr/colorOutline" />
+                        app:strokeColor="@color/color_divider_dark" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnVerifyUnsure"
@@ -174,7 +174,7 @@
                         android:layout_marginStart="6dp"
                         android:text="🤷 Not Sure"
                         android:textSize="12sp"
-                        app:strokeColor="?attr/colorOutline" />
+                        app:strokeColor="@color/color_divider_dark" />
                 </LinearLayout>
 
                 <!-- Vote Result/Tally label -->
@@ -195,7 +195,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:textStyle="bold"
-                    android:textColor="?attr/colorPrimary"
+                    android:textColor="@color/color_signal_red"
                     android:textSize="12sp"
                     android:visibility="gone" />
 
@@ -211,7 +211,7 @@
             android:text="@string/crisis_detail_agencies"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:textColor="?attr/colorOnBackground" />
+            android:textColor="@color/color_on_background_dark" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/agencyChipGroup"
@@ -231,8 +231,8 @@
             android:layout_marginBottom="@dimen/spacing_md"
             app:cardCornerRadius="12dp"
             app:strokeWidth="1dp"
-            app:strokeColor="?attr/colorOutlineVariant"
-            app:cardBackgroundColor="?attr/colorSurfaceVariant"
+            app:strokeColor="@color/color_divider_dark"
+            app:cardBackgroundColor="@color/color_charcoal_grey"
             app:cardElevation="0dp"
             android:clickable="true"
             android:focusable="true">
@@ -251,13 +251,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textStyle="bold"
-                    android:textColor="?attr/colorOnBackground" />
+                    android:textColor="@color/color_on_background_dark" />
 
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@android:drawable/ic_menu_more"
-                    app:tint="?attr/colorPrimary"
+                    app:tint="@color/color_signal_red"
                     android:contentDescription="@null" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -266,7 +266,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="?attr/colorOutlineVariant"
+            android:background="@color/color_divider_dark"
             android:layout_marginTop="@dimen/spacing_sm"
             android:layout_marginBottom="@dimen/spacing_md" />
 
@@ -286,7 +286,7 @@
                 android:text="@string/crisis_detail_agent_trace"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:textColor="?attr/colorOnBackground" />
+                android:textColor="@color/color_on_background_dark" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnViewFullTrace"

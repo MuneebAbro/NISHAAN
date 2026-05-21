@@ -4,11 +4,14 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.maximus.nishaan.core.util.Constants
 import com.maximus.nishaan.core.util.LocaleHelper
 import kotlinx.coroutines.flow.first
@@ -18,8 +21,14 @@ import kotlinx.coroutines.runBlocking
 /**
  * Single Activity host for the entire app.
  * All screen transitions handled via Navigation Component.
+ *
+ * Uses the AndroidX SplashScreen compat library so the system splash
+ * (Android 12+) is the ONLY splash — no second custom splash fragment.
  */
 class MainActivity : AppCompatActivity() {
+
+    /** Resolved once during onCreate — keeps system splash visible until ready. */
+    private var isReady = false
 
     override fun attachBaseContext(newBase: Context) {
         val app = newBase.applicationContext as? NishaanApplication
@@ -36,8 +45,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
-        
+
         // Load and apply theme mode from DataStore
         val app = application as NishaanApplication
         val themeMode = runBlocking {
@@ -48,22 +58,13 @@ class MainActivity : AppCompatActivity() {
         applyTheme(themeMode)
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        
-        // Dynamically adjust status bar icons to be dark in Light Mode and light in Dark Mode
+
         val isNightMode = (resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK) == android.content.res.Configuration.UI_MODE_NIGHT_YES
         WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = !isNightMode
 
         setContentView(R.layout.activity_main)
 
-        // Subscribe to FCM topic for crisis alerts
         com.google.firebase.messaging.FirebaseMessaging.getInstance().subscribeToTopic("all_users")
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    android.util.Log.d("MainActivity", "Successfully subscribed to 'all_users' topic")
-                } else {
-                    android.util.Log.e("MainActivity", "Failed to subscribe to 'all_users' topic", task.exception)
-                }
-            }
 
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.navHostFragment) as NavHostFragment

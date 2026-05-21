@@ -36,15 +36,25 @@ class CrisisCardAdapter(
         fun bind(crisis: Crisis) {
             val ctx = binding.root.context
             val severityColor = ContextCompat.getColor(ctx, crisis.severity.toColorRes())
-            val severityBgColor = ContextCompat.getColor(ctx, crisis.severity.toBgColorRes())
 
             binding.severityStripe.setBackgroundColor(severityColor)
+            
+            val badgeBg = when (crisis.severity.name) {
+                "CRITICAL" -> R.drawable.bg_badge_red
+                "HIGH"     -> R.drawable.bg_badge_amber
+                else       -> R.drawable.bg_badge_blue
+            }
+            binding.severityBadge.setBackgroundResource(badgeBg)
             binding.severityBadge.text = crisis.severity.name
-            binding.severityBadge.setTextColor(severityColor)
-            binding.severityBadge.setBackgroundColor(severityBgColor)
             binding.crisisTypeText.text = crisis.crisisType.name.replace("_", " ")
             binding.crisisTitle.text = crisis.titleEn
             binding.timeAgoText.text = crisis.createdAt.toTimeAgo()
+            
+            if (crisis.assignedAgencies.isNotEmpty()) {
+                binding.assigneeText.text = crisis.assignedAgencies.joinToString(", ")
+            } else {
+                binding.assigneeText.text = "Unassigned"
+            }
 
             binding.root.setOnClickListener { onClick(crisis) }
         }
@@ -64,10 +74,3 @@ private fun Severity.toColorRes(): Int = when (this) {
     Severity.MONITORING -> R.color.color_severity_monitoring
 }
 
-private fun Severity.toBgColorRes(): Int = when (this) {
-    Severity.CRITICAL -> R.color.color_severity_critical_bg
-    Severity.HIGH -> R.color.color_severity_high_bg
-    Severity.MEDIUM -> R.color.color_severity_medium_bg
-    Severity.LOW -> R.color.color_severity_low_bg
-    Severity.MONITORING -> R.color.color_severity_monitoring_bg
-}

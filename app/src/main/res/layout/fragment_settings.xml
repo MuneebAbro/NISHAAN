@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/android:colorBackground">
+    android:background="?android:colorBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/btn_back"
                 android:src="@android:drawable/ic_menu_revert"
-                app:tint="?attr/colorOnBackground" />
+                app:tint="@color/color_on_background_dark" />
 
             <TextView
                 style="@style/TextDisplay"
@@ -43,7 +43,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="?attr/colorOutlineVariant"
+            android:background="@color/color_divider_dark"
             android:layout_marginBottom="@dimen/spacing_sm" />
 
         <!-- Theme Selection Section -->
@@ -55,7 +55,7 @@
             android:text="@string/settings_theme_title"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:textColor="?attr/colorOnBackground" />
+            android:textColor="@color/color_on_background_dark" />
 
         <com.google.android.material.card.MaterialCardView
             style="@style/NishaanCard"
@@ -64,7 +64,7 @@
             android:layout_marginTop="6dp"
             app:cardCornerRadius="12dp"
             app:strokeWidth="1dp"
-            app:strokeColor="?attr/colorOutlineVariant"
+            app:strokeColor="@color/color_divider_dark"
             app:cardElevation="0dp">
 
             <RadioGroup
@@ -78,7 +78,7 @@
                     android:id="@+id/radioThemeLight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="?attr/colorOnSurface"
+                    android:textColor="@color/color_on_background_dark"
                     android:textSize="14sp"
                     android:text="@string/settings_theme_light" />
 
@@ -87,7 +87,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:textColor="?attr/colorOnSurface"
+                    android:textColor="@color/color_on_background_dark"
                     android:textSize="14sp"
                     android:text="@string/settings_theme_dark" />
 
@@ -96,7 +96,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:textColor="?attr/colorOnSurface"
+                    android:textColor="@color/color_on_background_dark"
                     android:textSize="14sp"
                     android:text="@string/settings_theme_system" />
             </RadioGroup>
@@ -111,7 +111,7 @@
             android:text="@string/profile_notification_prefs"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:textColor="?attr/colorOnBackground" />
+            android:textColor="@color/color_on_background_dark" />
 
         <com.google.android.material.card.MaterialCardView
             style="@style/NishaanCard"
@@ -120,7 +120,7 @@
             android:layout_marginTop="6dp"
             app:cardCornerRadius="12dp"
             app:strokeWidth="1dp"
-            app:strokeColor="?attr/colorOutlineVariant"
+            app:strokeColor="@color/color_divider_dark"
             app:cardElevation="0dp">
 
             <LinearLayout
@@ -134,7 +134,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:textColor="?attr/colorOnSurface"
+                    android:textColor="@color/color_on_background_dark"
                     android:textSize="14sp"
                     android:text="@string/profile_pref_critical" />
 
@@ -144,7 +144,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:checked="true"
-                    android:textColor="?attr/colorOnSurface"
+                    android:textColor="@color/color_on_background_dark"
                     android:textSize="14sp"
                     android:text="@string/profile_pref_medium" />
 
@@ -154,7 +154,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:checked="false"
-                    android:textColor="?attr/colorOnSurface"
+                    android:textColor="@color/color_on_background_dark"
                     android:textSize="14sp"
                     android:text="@string/profile_pref_low" />
 
@@ -164,7 +164,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:checked="true"
-                    android:textColor="?attr/colorOnSurface"
+                    android:textColor="@color/color_on_background_dark"
                     android:textSize="14sp"
                     android:text="@string/profile_pref_missing" />
             </LinearLayout>
@@ -179,7 +179,7 @@
             android:text="App Language"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:textColor="?attr/colorOnBackground" />
+            android:textColor="@color/color_on_background_dark" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnChangeLanguage"

@@ -239,6 +239,21 @@ class HomeDashboardFragment : Fragment(R.layout.fragment_home_dashboard) {
         binding.fabReportMissing.setOnClickListener {
             findNavController().navigate(R.id.action_home_to_reportMissing)
         }
+
+        // Expand Map
+        binding.btnExpandMap.setOnClickListener {
+            val cameraPosition = googleMap?.cameraPosition
+            val lat = cameraPosition?.target?.latitude?.toFloat() ?: 0f
+            val lng = cameraPosition?.target?.longitude?.toFloat() ?: 0f
+            val zoom = cameraPosition?.zoom ?: 12f
+
+            val bundle = Bundle().apply {
+                putFloat("latitude", lat)
+                putFloat("longitude", lng)
+                putFloat("zoom", zoom)
+            }
+            findNavController().navigate(R.id.action_home_to_fullScreenMap, bundle)
+        }
     }
 
     private fun configureMap(map: GoogleMap) {
@@ -305,7 +320,7 @@ class HomeDashboardFragment : Fragment(R.layout.fragment_home_dashboard) {
                 
                 userLocation = userLatLng
                 // Center map camera on user's location
-                map.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 12f))
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 14f))
                 
                 // Plot crises (which will now encompass user's location inside bounds builder)
                 plotCrisesOnMap(latestCrises)
@@ -380,10 +395,13 @@ class HomeDashboardFragment : Fragment(R.layout.fragment_home_dashboard) {
             binding.viewStatusDot.background?.setTint(
                 ContextCompat.getColor(requireContext(), R.color.color_severity_critical)
             )
-            binding.txtSafetyStatus.text = "Warning: Inside Crisis Area! (${dangerCrisis.titleEn})"
-            binding.txtSafetyStatus.setTextColor(
-                ContextCompat.getColor(requireContext(), R.color.color_severity_critical)
-            )
+            val redColor = ContextCompat.getColor(requireContext(), R.color.color_severity_critical)
+            val whiteColor = ContextCompat.getColor(requireContext(), android.R.color.white)
+            val fullText = "Warning:\nInside Crisis Area! (${dangerCrisis.titleEn})"
+            val spannable = android.text.SpannableString(fullText)
+            spannable.setSpan(android.text.style.ForegroundColorSpan(redColor), 0, 8, android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            spannable.setSpan(android.text.style.ForegroundColorSpan(whiteColor), 8, fullText.length, android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            binding.txtSafetyStatus.text = spannable
             binding.fabSafeRoute.visibility = View.VISIBLE
         } else {
             // Safe
@@ -456,13 +474,8 @@ class HomeDashboardFragment : Fragment(R.layout.fragment_home_dashboard) {
         }
 
         if (hasPoints) {
-            try {
-                val bounds = boundsBuilder.build()
-                map.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100))
-            } catch (_: Exception) {
-                val center = userLocation ?: LatLng(crises.first().centroidLat, crises.first().centroidLng)
-                map.animateCamera(CameraUpdateFactory.newLatLngZoom(center, 12f))
-            }
+            // Camera animation removed to ensure the map stays focused on the user's location
+            // or the current view, instead of constantly zooming out to fit all crises.
         }
 
         // Re-draw active safe route if available (Feature 4)

@@ -17,7 +17,7 @@
     android:layout_marginBottom="10dp"
     android:clickable="true"
     android:focusable="true"
-    app:cardBackgroundColor="@color/color_card_dark"
+    app:cardBackgroundColor="@color/color_charcoal_grey"
     app:cardCornerRadius="16dp"
     app:cardElevation="0dp"
     app:strokeColor="@color/color_divider_dark"
@@ -70,14 +70,16 @@
 
                 <TextView
                     android:id="@+id/severityBadge"
-                    style="@style/TextBadge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_badge"
-                    android:paddingHorizontal="7dp"
+                    android:paddingHorizontal="8dp"
                     android:paddingVertical="3dp"
                     android:textSize="9sp"
-                    tools:text="CRITICAL" />
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins"
+                    android:textColor="@android:color/white"
+                    tools:text="CRITICAL"
+                    android:background="@drawable/bg_badge_red" />
 
                 <TextView
                     android:id="@+id/crisisTypeText"
@@ -88,6 +90,8 @@
                     android:fontFamily="@font/poppins"
                     android:letterSpacing="0.04"
                     android:textAllCaps="true"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:textColor="#80FFFFFF"
                     android:textSize="10sp"
                     tools:text="FLOOD" />

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/mapContainer"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Collapse/Close Map Button -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/btnCollapseMap"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        app:cardCornerRadius="24dp"
+        app:cardBackgroundColor="@color/color_charcoal_grey"
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/color_secondary"
+        app:cardElevation="6dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="✕"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_secondary" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Safe Route Button -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/fabSafeRoute"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="20dp"
+        android:visibility="gone"
+        app:cardCornerRadius="18dp"
+        app:cardBackgroundColor="@color/color_charcoal_grey"
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/color_secondary"
+        app:cardElevation="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="4dp"
+            android:paddingEnd="14dp"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_arrow"
+                android:scaleType="fitCenter"
+                android:layout_marginStart="6dp"
+                app:tint="@color/color_secondary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="Safe Route"
+                android:paddingTop="1dp"
+                android:textSize="12sp"
+                android:textColor="@android:color/white"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.03" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Safe Route Loading Chip -->
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chipSafeRouteLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="12dp"
+        android:text="Calculating route..."
+        android:visibility="gone"
+        app:chipIcon="@android:drawable/stat_sys_download"
+        app:layout_constraintBottom_toTopOf="@id/fabSafeRoute"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Safe Evacuation Route Banner -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/bannerSafeRoute"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="12dp"
+        app:cardBackgroundColor="@color/color_charcoal_grey"
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/color_divider_dark"
+        app:cardElevation="6dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/fabSafeRoute"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@android:drawable/ic_menu_directions"
+                app:tint="@color/color_signal_red" />
+
+            <TextView
+                android:id="@+id/txtSafeRouteBanner"
+                style="@style/TextBodyMedium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:text="Safe Route Active. Follow green path to safety."
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textStyle="bold"
+                android:textSize="13sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDismissSafeRoute"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dismiss"
+                android:textSize="12sp"
+                android:textColor="@color/color_signal_red" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/android:colorBackground"
+    android:background="?android:colorBackground"
     android:orientation="vertical">
 
     <!-- EOC Timeline Header -->
@@ -14,7 +14,7 @@
         android:paddingHorizontal="@dimen/spacing_md"
         android:paddingTop="@dimen/spacing_xxl"
         android:paddingBottom="@dimen/spacing_md"
-        android:background="?attr/android:colorBackground">
+        android:background="?android:colorBackground">
 
         <TextView
             android:id="@+id/traceTitle"
@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="22sp"
-            android:textColor="?attr/colorOnBackground" />
+            android:textColor="@color/color_on_background_dark" />
 
         <TextView
             style="@style/TextCaption"
@@ -40,7 +40,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="?attr/colorOutlineVariant" />
+        android:background="@color/color_divider_dark" />
 
     <!-- Floating status / alert notification chip -->
     <FrameLayout

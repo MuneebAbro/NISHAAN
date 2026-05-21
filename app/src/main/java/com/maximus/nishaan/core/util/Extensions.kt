@@ -16,6 +16,7 @@ fun Long.toTimeAgo(): String {
         minutes < 1 -> "just now"
         minutes < 60 -> "${minutes} min ago"
         hours < 24 -> "${hours} hr ago"
+        days == 1L -> "1 day ago"
         else -> "${days} days ago"
     }
 }

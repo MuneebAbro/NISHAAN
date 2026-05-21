@@ -1,13 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-    NISHAAN — Alerts Fragment (Redesigned)
-    Aesthetic: Premium command-center / glass-morphism
-    Key changes:
-      • Dark background with rounded glass-style header
-      • Summary stat row (Critical · High · Active count) beneath title
-      • Animated divider and polished empty state with icon + subtitle
-      • MaterialCardView-based alert items with severity icon circles
--->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -21,7 +12,7 @@
         android:orientation="vertical">
 
         <!-- ═══════════════════════════════════════════
-             GLASS HEADER — bottom-rounded card
+             GLASS HEADER
              ═══════════════════════════════════════════ -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,7 +44,6 @@
                         android:textColor="@color/color_on_background_dark"
                         android:textSize="26sp" />
 
-                    <!-- Subtle section label -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -65,27 +55,44 @@
                         android:textSize="10sp" />
                 </LinearLayout>
 
-                <!-- Mark All Read — glass pill button -->
+                <!-- Mark All Read -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/btnMarkAllRead"
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
-                    app:cardBackgroundColor="#1AFFFFFF"
+                    app:cardBackgroundColor="@color/color_charcoal_grey"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="0dp"
-                    app:strokeColor="#26FFFFFF"
+                    app:strokeColor="@color/color_ember_amber"
                     app:strokeWidth="1dp">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:fontFamily="@font/poppins"
-                        android:gravity="center"
-                        android:paddingHorizontal="16dp"
-                        android:text="@string/alerts_mark_all_read"
-                        android:textColor="@color/color_ops_blue_light"
-                        android:textSize="12sp" />
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="12dp">
+
+                        <ImageView
+                            android:layout_width="13dp"
+                            android:layout_height="13dp"
+                            android:layout_marginEnd="5dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ic_eye"
+                            app:tint="@color/white" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins"
+                            android:gravity="center"
+                            android:text="@string/alerts_mark_all_read"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
@@ -94,24 +101,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="14dp"
                 android:background="#12FFFFFF" />
 
-            <!-- Row 2: Summary stat chips -->
-            <LinearLayout
-                android:id="@+id/statChipsRow"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+        </LinearLayout>
 
-                <!-- Active alerts count -->
+        <!-- ═══════════════════════════════════════════
+             SUMMARY STAT CHIPS
+             ═══════════════════════════════════════════ -->
+        <LinearLayout
+            android:id="@+id/statChipsRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp">
+
+            <!-- Active -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardStatTotal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardBackgroundColor="@color/selector_stat_card_bg"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/color_ember_amber"
+                app:strokeWidth="1dp">
+
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_stat_chip"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:paddingHorizontal="12dp"
@@ -122,7 +145,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins"
-                        android:textColor="@color/color_on_background_dark"
+                        android:textColor="@color/white"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         tools:text="12" />
@@ -132,19 +155,30 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:fontFamily="@font/poppins"
-                        android:letterSpacing="0.08"
                         android:text="ACTIVE"
-                        android:textColor="#66FFFFFF"
+                        android:textColor="@color/white"
                         android:textSize="9sp" />
                 </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-                <!-- Critical count -->
+            <!-- Critical -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardStatCritical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardBackgroundColor="@color/selector_stat_card_bg"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/color_ember_amber"
+                app:strokeWidth="1dp">
+
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_stat_chip"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:paddingHorizontal="12dp"
@@ -155,7 +189,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins"
-                        android:textColor="@color/color_signal_red_light"
+                        android:textColor="@color/white"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         tools:text="3" />
@@ -165,18 +199,29 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:fontFamily="@font/poppins"
-                        android:letterSpacing="0.08"
                         android:text="CRITICAL"
-                        android:textColor="#66FFFFFF"
+                        android:textColor="@color/white"
                         android:textSize="9sp" />
                 </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-                <!-- High count -->
+            <!-- High -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardStatHigh"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardBackgroundColor="@color/selector_stat_card_bg"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/color_ember_amber"
+                app:strokeWidth="1dp">
+
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_stat_chip"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:paddingHorizontal="12dp"
@@ -187,7 +232,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins"
-                        android:textColor="@color/color_ember_amber_light"
+                        android:textColor="@color/white"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         tools:text="5" />
@@ -197,13 +242,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:fontFamily="@font/poppins"
-                        android:letterSpacing="0.08"
                         android:text="HIGH"
-                        android:textColor="#66FFFFFF"
+                        android:textColor="@color/white"
                         android:textSize="9sp" />
                 </LinearLayout>
-
-            </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
 
@@ -222,7 +265,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         <!-- ═══════════════════════════════════════════
-             EMPTY STATE — polished with icon + text
+             EMPTY STATE
              ═══════════════════════════════════════════ -->
         <LinearLayout
             android:id="@+id/emptyState"
@@ -234,7 +277,6 @@
             android:paddingHorizontal="48dp"
             android:visibility="gone">
 
-            <!-- Icon circle -->
             <FrameLayout
                 android:layout_width="80dp"
                 android:layout_height="80dp"

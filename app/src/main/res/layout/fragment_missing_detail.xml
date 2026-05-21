@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/android:colorBackground">
+    android:background="?android:colorBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             android:layout_marginTop="@dimen/spacing_xxl"
             app:cardCornerRadius="16dp"
             app:strokeWidth="1dp"
-            app:strokeColor="?attr/colorOutlineVariant"
+            app:strokeColor="@color/color_divider_dark"
             app:cardElevation="0dp">
 
             <ImageView
@@ -62,7 +62,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="?attr/colorOutlineVariant"
+            android:background="@color/color_divider_dark"
             android:layout_marginBottom="@dimen/spacing_sm" />
 
         <!-- Details Dossier Summary -->
@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="15sp"
-            android:textColor="?attr/colorOnBackground" />
+            android:textColor="@color/color_on_background_dark" />
 
         <!-- Dossier description card -->
         <com.google.android.material.card.MaterialCardView
@@ -83,7 +83,7 @@
             android:layout_marginTop="@dimen/spacing_md"
             app:cardCornerRadius="12dp"
             app:strokeWidth="1dp"
-            app:strokeColor="?attr/colorOutlineVariant"
+            app:strokeColor="@color/color_divider_dark"
             app:cardElevation="0dp">
 
             <TextView
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:lineSpacingExtra="3dp"
-                android:textColor="?attr/colorOnSurface" />
+                android:textColor="@color/color_on_background_dark" />
         </com.google.android.material.card.MaterialCardView>
 
         <!-- Last Seen Info -->
@@ -104,7 +104,7 @@
             android:layout_marginTop="@dimen/spacing_md"
             app:cardCornerRadius="12dp"
             app:strokeWidth="1dp"
-            app:strokeColor="?attr/colorOutlineVariant"
+            app:strokeColor="@color/color_divider_dark"
             app:cardElevation="0dp">
 
             <LinearLayout
@@ -129,7 +129,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:textSize="14sp"
-                    android:textColor="?attr/colorOnSurface" />
+                    android:textColor="@color/color_on_background_dark" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -141,7 +141,7 @@
             android:layout_marginTop="@dimen/spacing_md"
             app:cardCornerRadius="12dp"
             app:strokeWidth="1dp"
-            app:strokeColor="?attr/colorOutlineVariant"
+            app:strokeColor="@color/color_divider_dark"
             app:cardElevation="0dp">
 
             <LinearLayout
@@ -166,7 +166,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:textSize="12sp"
-                    android:textColor="?attr/colorOnSurface" />
+                    android:textColor="@color/color_on_background_dark" />
 
                 <TextView
                     android:id="@+id/linkedCrisisText"
@@ -176,7 +176,7 @@
                     android:layout_marginTop="6dp"
                     android:textSize="13sp"
                     android:textStyle="bold"
-                    android:textColor="?attr/colorOnSurface"
+                    android:textColor="@color/color_on_background_dark"
                     android:visibility="gone" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -189,7 +189,7 @@
             android:layout_marginTop="@dimen/spacing_md"
             app:cardCornerRadius="12dp"
             app:strokeWidth="1dp"
-            app:strokeColor="?attr/colorOutlineVariant"
+            app:strokeColor="@color/color_divider_dark"
             app:cardElevation="0dp">
 
             <LinearLayout
@@ -242,13 +242,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="Initializing search algorithm..."
-                    android:textColor="?attr/colorOnSurface"
+                    android:textColor="@color/color_on_background_dark"
                     android:textSize="12sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="?attr/colorOutlineVariant"
+                    android:background="@color/color_divider_dark"
                     android:layout_marginVertical="10dp" />
 
                 <!-- List of Search Actions Trace -->
@@ -273,7 +273,7 @@
             android:layout_marginTop="@dimen/spacing_md"
             app:cardCornerRadius="12dp"
             app:strokeWidth="1dp"
-            app:strokeColor="?attr/colorOutlineVariant"
+            app:strokeColor="@color/color_divider_dark"
             app:cardElevation="0dp">
 
             <LinearLayout
@@ -338,7 +338,7 @@
             android:layout_marginTop="@dimen/spacing_md"
             app:cardCornerRadius="12dp"
             app:strokeWidth="1dp"
-            app:strokeColor="?attr/colorOutlineVariant"
+            app:strokeColor="@color/color_divider_dark"
             app:cardElevation="0dp">
 
             <LinearLayout
@@ -370,7 +370,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="15sp"
-                        android:textColor="?attr/colorOnSurface" />
+                        android:textColor="@color/color_on_background_dark" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnCallReporter"

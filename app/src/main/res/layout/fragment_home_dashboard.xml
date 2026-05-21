@@ -1,519 +1,629 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:colorBackground"
-    android:paddingBottom="48dp">
+    android:fillViewport="true"
+    android:background="?android:colorBackground">
 
-    <!-- HEADER -->
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="140dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="56dp"
-        android:src="@drawable/nishaan_logo_dark"
-        android:scaleType="fitStart"
-        app:tint="?attr/colorOnBackground"
-        tools:ignore="UseAppTint"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/subtitle"
-        style="@style/TextBodyMedium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Your Command Center"
-        android:textColor="?attr/colorOnSurfaceVariant"
-        app:layout_constraintTop_toBottomOf="@id/logo"
-        app:layout_constraintStart_toStartOf="@id/logo" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/btnNotifications"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="24dp"
-        app:cardCornerRadius="24dp"
-        app:cardBackgroundColor="?attr/colorSurface"
-        app:strokeWidth="1dp"
-        app:strokeColor="?attr/colorOutlineVariant"
-        app:cardElevation="0dp"
-        app:layout_constraintTop_toTopOf="@id/logo"
-        app:layout_constraintBottom_toBottomOf="@id/subtitle"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_bell"
-            app:tint="?attr/colorOnSurface" />
-    </com.google.android.material.card.MaterialCardView>
-
-    <!-- STATS ROW -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardAlerts"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="6dp"
-        android:layout_marginTop="24dp"
-        app:cardCornerRadius="20dp"
-        app:cardBackgroundColor="?attr/colorSurface"
-        app:strokeWidth="1dp"
-        app:strokeColor="?attr/colorOutlineVariant"
-        app:cardElevation="0dp"
-        app:layout_constraintTop_toBottomOf="@id/subtitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/cardSafeZones"
-        app:layout_constraintHorizontal_chainStyle="spread">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="20dp"
-            android:paddingHorizontal="12dp">
-
-            <TextView
-                android:id="@+id/txtStatAlerts"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="—"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:textColor="@color/color_signal_red"
-                android:fontFamily="@font/poppins"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ALERTS"
-                android:textSize="11sp"
-                android:textStyle="bold"
-                android:letterSpacing="0.05"
-                android:textColor="?attr/colorOnSurfaceVariant"
-                android:fontFamily="@font/poppins"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@id/txtStatAlerts"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardSafeZones"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="6dp"
-        app:cardCornerRadius="20dp"
-        app:cardBackgroundColor="?attr/colorSurface"
-        app:strokeWidth="1dp"
-        app:strokeColor="?attr/colorOutlineVariant"
-        app:cardElevation="0dp"
-        app:layout_constraintTop_toTopOf="@id/cardAlerts"
-        app:layout_constraintBottom_toBottomOf="@id/cardAlerts"
-        app:layout_constraintStart_toEndOf="@id/cardAlerts"
-        app:layout_constraintEnd_toStartOf="@id/cardReports">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="20dp"
-            android:paddingHorizontal="12dp">
-
-            <TextView
-                android:id="@+id/txtStatSafeZones"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="—"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:textColor="@color/color_field_green"
-                android:fontFamily="@font/poppins"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="SAFE ZONES"
-                android:textSize="11sp"
-                android:textStyle="bold"
-                android:letterSpacing="0.05"
-                android:textColor="?attr/colorOnSurfaceVariant"
-                android:fontFamily="@font/poppins"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@id/txtStatSafeZones"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardReports"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="24dp"
-        app:cardCornerRadius="20dp"
-        app:cardBackgroundColor="?attr/colorSurface"
-        app:strokeWidth="1dp"
-        app:strokeColor="?attr/colorOutlineVariant"
-        app:cardElevation="0dp"
-        app:layout_constraintTop_toTopOf="@id/cardAlerts"
-        app:layout_constraintBottom_toBottomOf="@id/cardAlerts"
-        app:layout_constraintStart_toEndOf="@id/cardSafeZones"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="20dp"
-            android:paddingHorizontal="12dp">
-
-            <TextView
-                android:id="@+id/txtStatReports"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="—"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:textColor="@color/color_ember_amber"
-                android:fontFamily="@font/poppins"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="REPORTS"
-                android:textSize="11sp"
-                android:textStyle="bold"
-                android:letterSpacing="0.05"
-                android:textColor="?attr/colorOnSurfaceVariant"
-                android:fontFamily="@font/poppins"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@id/txtStatReports"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <!-- Feature 4: Safe Evacuation Route Banner -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/bannerSafeRoute"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="16dp"
-        app:cardCornerRadius="12dp"
-        app:cardBackgroundColor="?attr/colorSurfaceVariant"
-        app:strokeWidth="1dp"
-        app:strokeColor="?attr/colorOutlineVariant"
-        app:cardElevation="2dp"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/cardAlerts"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:paddingBottom="48dp">
 
+        <!-- HEADER -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/header"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="12dp">
+            android:background="@drawable/bg_header_glass"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="52dp"
+            android:paddingBottom="20dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_directions"
-                app:tint="?attr/colorPrimary" />
-
-            <TextView
-                android:id="@+id/txtSafeRouteBanner"
-                style="@style/TextBodyMedium"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="12dp"
-                android:text="Safe Route Active. Follow green path to safety."
-                android:textColor="?attr/colorOnSurfaceVariant"
-                android:textStyle="bold"
-                android:textSize="13sp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnDismissSafeRoute"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dismiss"
-                android:textSize="12sp"
-                android:textColor="?attr/colorPrimary" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <!-- MAP CARD -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/mapCard"
-        android:layout_width="match_parent"
-        android:layout_height="360dp"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="32dp"
-        app:cardCornerRadius="28dp"
-        app:cardElevation="0dp"
-        app:strokeWidth="1dp"
-        app:strokeColor="?attr/colorOutlineVariant"
-        app:layout_constraintTop_toBottomOf="@id/bannerSafeRoute">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/mapContainer"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <!-- Safety Status Floating Pill -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/safetyStatusRow"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:cardCornerRadius="24dp"
-                app:cardBackgroundColor="?attr/colorSurface"
-                app:strokeWidth="1dp"
-                app:strokeColor="?attr/colorOutlineVariant"
-                app:cardElevation="8dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="wrap_content"
+                <!-- Logo + Title stacked -->
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="20dp"
-                    android:paddingVertical="12dp">
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                    <View
-                        android:id="@+id/viewStatusDot"
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
-                        android:background="@drawable/circle_pulse_green"
-                        android:layout_marginEnd="12dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/txtSafetyStatus" />
+                    <ImageView
+                        android:id="@+id/logo"
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:src="@drawable/nishaan_logo"
+                        android:scaleType="fitCenter"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="Nishaan"
+                        android:layout_marginEnd="8dp" />
 
-                    <TextView
-                        android:id="@+id/txtSafetyStatus"
-                        style="@style/TextBodyMedium"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Detecting location..."
-                        android:textColor="?attr/colorOnSurface"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toEndOf="@id/viewStatusDot"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent" />
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/cardLocationAccuracy"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        app:cardCornerRadius="8dp"
-                        app:cardBackgroundColor="?attr/colorSurfaceVariant"
-                        app:cardElevation="0dp"
-                        app:strokeWidth="0dp"
-                        app:layout_constraintStart_toEndOf="@id/txtSafetyStatus"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent">
+                        android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/txtLocationAccuracy"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="GPS"
-                            android:textSize="10sp"
-                            android:textStyle="bold"
-                            android:textColor="?attr/colorOnSurfaceVariant"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="4dp"
-                            android:fontFamily="@font/poppins" />
-                    </com.google.android.material.card.MaterialCardView>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
+                            android:fontFamily="@font/poppins_bold"
+                            android:text="Dashboard"
+                            style="@style/TextDisplay"
+                            android:textColor="@color/color_on_background_dark"
+                            android:textSize="26sp" />
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/btnMyLocation"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
-                app:cardCornerRadius="16dp"
-                app:cardBackgroundColor="?attr/colorSurface"
-                app:strokeWidth="1dp"
-                app:strokeColor="?attr/colorOutlineVariant"
-                app:cardElevation="6dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:fontFamily="@font/poppins"
+                            android:letterSpacing="0.06"
+                            android:text="Crisis Intelligence and Reporting"
+                            android:textColor="#55FFFFFF"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Bell button -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btnNotifications"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="21dp"
+                    app:cardBackgroundColor="@color/color_charcoal_grey"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/color_ember_amber"
+                    app:cardElevation="0dp">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_bell"
+                        app:tint="@color/color_secondary" />
+
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="#12FFFFFF" />
+
+        </LinearLayout>
+
+        <!-- STATS ROW -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardAlerts"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="14dp"
+            app:cardBackgroundColor="@color/color_charcoal_grey"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/color_divider_dark"
+            app:cardElevation="0dp"
+            app:layout_constraintTop_toBottomOf="@id/safetyStatusRow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/cardSafeZones"
+            app:layout_constraintHorizontal_chainStyle="spread">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="12dp"
+                android:paddingHorizontal="8dp">
+
+                <TextView
+                    android:id="@+id/txtStatAlerts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="—"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_on_background_dark"
+                    android:fontFamily="@font/poppins"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ALERTS"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:fontFamily="@font/poppins"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintTop_toBottomOf="@id/txtStatAlerts"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardSafeZones"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            app:cardCornerRadius="14dp"
+            app:cardBackgroundColor="@color/color_charcoal_grey"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/color_divider_dark"
+            app:cardElevation="0dp"
+            app:layout_constraintTop_toTopOf="@id/cardAlerts"
+            app:layout_constraintBottom_toBottomOf="@id/cardAlerts"
+            app:layout_constraintStart_toEndOf="@id/cardAlerts"
+            app:layout_constraintEnd_toStartOf="@id/cardReports">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="12dp"
+                android:paddingHorizontal="8dp">
+
+                <TextView
+                    android:id="@+id/txtStatSafeZones"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="—"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_on_background_dark"
+                    android:fontFamily="@font/poppins"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SAFE ZONES"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:fontFamily="@font/poppins"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintTop_toBottomOf="@id/txtStatSafeZones"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardReports"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="24dp"
+            app:cardCornerRadius="14dp"
+            app:cardBackgroundColor="@color/color_charcoal_grey"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/color_divider_dark"
+            app:cardElevation="0dp"
+            app:layout_constraintTop_toTopOf="@id/cardAlerts"
+            app:layout_constraintBottom_toBottomOf="@id/cardAlerts"
+            app:layout_constraintStart_toEndOf="@id/cardSafeZones"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="12dp"
+                android:paddingHorizontal="8dp">
+
+                <TextView
+                    android:id="@+id/txtStatReports"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="—"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_on_background_dark"
+                    android:fontFamily="@font/poppins"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="REPORTS"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:fontFamily="@font/poppins"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintTop_toBottomOf="@id/txtStatReports"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Safety Status Row -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/safetyStatusRow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="16dp"
+            app:cardBackgroundColor="@color/color_charcoal_grey"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/color_divider_dark"
+            app:cardElevation="0dp"
+            app:layout_constraintTop_toBottomOf="@id/bannerSafeRoute"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="14dp">
+
+                <View
+                    android:id="@+id/viewStatusDot"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/circle_pulse_green"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtSafetyStatus"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="Detecting location..."
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins"
+                    android:textColor="@color/color_on_background_dark"
+                    app:layout_constraintStart_toEndOf="@id/viewStatusDot"
+                    app:layout_constraintEnd_toStartOf="@id/txtLocationAccuracy"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtLocationAccuracy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="GPS"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins"
+                    android:textColor="@color/color_secondary"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="4dp"
+                    android:background="@drawable/bg_chip_gps"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Safe Evacuation Route Banner -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/bannerSafeRoute"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardBackgroundColor="@color/color_charcoal_grey"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/color_ember_amber"
+            app:cardElevation="0dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/mapCard"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="14dp">
+
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_location"
-                    app:tint="?attr/colorOnSurface" />
-            </com.google.android.material.card.MaterialCardView>
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_arrow"
+                    android:scaleType="fitCenter"
+                    app:tint="@color/color_ember_amber" />
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/btnMapZoomOut"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginBottom="12dp"
-                app:cardCornerRadius="16dp"
-                app:cardBackgroundColor="?attr/colorSurface"
-                app:strokeWidth="1dp"
-                app:strokeColor="?attr/colorOutlineVariant"
-                app:cardElevation="6dp"
-                app:layout_constraintBottom_toTopOf="@id/btnMyLocation"
-                app:layout_constraintEnd_toEndOf="@id/btnMyLocation">
-                <TextView
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Warning"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.08"
+                        android:fontFamily="@font/poppins"
+                        android:textColor="@color/color_signal_red" />
+
+                    <TextView
+                        android:id="@+id/txtSafeRouteBanner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="Safe Route Active.\nFollow green path to safety."
+                        android:textSize="12sp"
+                        android:fontFamily="@font/poppins"
+                        android:textColor="@android:color/white" />
+
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnDismissSafeRoute"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dismiss"
+                    android:layout_marginStart="8dp"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_ember_amber" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- MAP CARD -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mapCard"
+            android:layout_width="0dp"
+            android:layout_height="450dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp"
+            app:layout_constraintTop_toBottomOf="@id/header"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.maximus.nishaan.core.maps.TouchableWrapper
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="−"
-                    android:textSize="26sp"
-                    android:textColor="?attr/colorOnSurface"
-                    android:fontFamily="@font/poppins" />
-            </com.google.android.material.card.MaterialCardView>
+                    android:layout_height="match_parent">
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/btnMapZoomIn"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginBottom="12dp"
-                app:cardCornerRadius="16dp"
-                app:cardBackgroundColor="?attr/colorSurface"
-                app:strokeWidth="1dp"
-                app:strokeColor="?attr/colorOutlineVariant"
-                app:cardElevation="6dp"
-                app:layout_constraintBottom_toTopOf="@id/btnMapZoomOut"
-                app:layout_constraintEnd_toEndOf="@id/btnMyLocation">
+                    <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/mapContainer"
+                        android:name="com.google.android.gms.maps.SupportMapFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </com.maximus.nishaan.core.maps.TouchableWrapper>
+
+                <!-- Expand Map Button -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btnExpandMap"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    app:cardCornerRadius="24dp"
+                    app:cardBackgroundColor="@color/color_charcoal_grey"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/color_secondary"
+                    app:cardElevation="6dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_full_screen"
+                        app:tint="@color/color_secondary" />
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <!-- Safe Route Button -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/fabSafeRoute"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:visibility="gone"
+                    app:cardCornerRadius="18dp"
+                    app:cardBackgroundColor="@color/color_charcoal_grey"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/color_secondary"
+                    app:cardElevation="6dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="14dp"
+                        android:layout_gravity="center">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_arrow"
+                            android:scaleType="fitCenter"
+                            android:layout_marginStart="6dp"
+                            app:tint="@color/color_secondary" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:text="Safe Route"
+                            android:paddingTop="1dp"
+                            android:textSize="12sp"
+                            android:textColor="@android:color/white"
+                            android:fontFamily="sans-serif-medium"
+                            android:letterSpacing="0.03" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Safe Route Loading Chip -->
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipSafeRouteLoading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginBottom="12dp"
+                    android:text="Calculating route..."
+                    android:visibility="gone"
+                    app:chipIcon="@android:drawable/stat_sys_download"
+                    app:layout_constraintBottom_toTopOf="@id/fabSafeRoute"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- CTA BUTTON -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/fabReportMissing"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="24dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardCornerRadius="32dp"
+            app:cardBackgroundColor="@color/black"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/color_signal_red"
+            app:cardElevation="8dp"
+            app:layout_constraintTop_toBottomOf="@id/cardAlerts"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_add_user"
+                    android:scaleType="fitCenter"
+                    android:layout_marginEnd="10dp"
+                    app:tint="@android:color/white" />
+
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="+"
-                    android:textSize="26sp"
-                    android:textColor="?attr/colorOnSurface"
-                    android:fontFamily="@font/poppins" />
-            </com.google.android.material.card.MaterialCardView>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fab_report_missing"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:fontFamily="@font/poppins_bold"
+                    android:letterSpacing="0.02" />
 
-            <!-- Feature 4: Safe Route FAB -->
-            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/fabSafeRoute"
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ACTIVE ALERTS TITLE -->
+        <TextView
+            android:id="@+id/txtActiveAlertsTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:text="Active Alerts"
+            android:fontFamily="@font/poppins_bold"
+            android:textSize="20sp"
+            android:textColor="@color/color_on_background_dark"
+            app:layout_constraintTop_toBottomOf="@id/fabReportMissing"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnViewAllAlerts" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnViewAllAlerts"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_marginEnd="24dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardCornerRadius="14dp"
+            app:cardBackgroundColor="@color/color_charcoal_grey"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/color_ember_amber"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/txtActiveAlertsTitle"
+            app:layout_constraintTop_toTopOf="@id/txtActiveAlertsTitle"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginBottom="20dp"
-                android:text="Safe Route"
-                android:textSize="12sp"
-                android:textColor="?attr/colorOnPrimary"
-                app:backgroundTint="?attr/colorPrimary"
-                app:icon="@android:drawable/ic_menu_directions"
-                app:iconTint="?attr/colorOnPrimary"
-                app:elevation="6dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingHorizontal="12dp"
+                android:text="View All"
+                android:textSize="11sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/poppins"
+                android:textStyle="bold" />
 
-            <!-- Feature 4: Safe Route Loading Chip -->
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipSafeRouteLoading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginBottom="12dp"
-                android:text="Calculating route..."
-                android:visibility="gone"
-                app:chipIcon="@android:drawable/stat_sys_download"
-                app:layout_constraintBottom_toTopOf="@id/fabSafeRoute"
-                app:layout_constraintStart_toStartOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+        </com.google.android.material.card.MaterialCardView>
 
-    <!-- CTA BUTTON -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/fabReportMissing"
-        style="@style/PrimaryButton"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/fab_report_missing"
-        android:textSize="16sp"
-        app:cornerRadius="20dp"
-        app:icon="@drawable/ic_add_person"
-        app:iconSize="24dp"
-        app:iconGravity="textStart"
-        app:layout_constraintTop_toBottomOf="@id/mapCard" />
+        <!-- ALERTS RECYCLER -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/alertBannerRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:clipToPadding="false"
+            android:paddingHorizontal="8dp"
+            android:nestedScrollingEnabled="false"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/txtActiveAlertsTitle" />
 
-    <!-- ACTIVE ALERTS TITLE -->
-    <TextView
-        android:id="@+id/txtActiveAlertsTitle"
-        style="@style/TextHeadline"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="40dp"
-        android:text="Active Alerts"
-        android:fontFamily="@font/poppins_bold"
-        android:textSize="22sp"
-        app:layout_constraintTop_toBottomOf="@id/fabReportMissing"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btnViewAllAlerts" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/btnViewAllAlerts"
-        style="@style/TextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:text="View All"
-        android:fontFamily="@font/poppins"
-        app:layout_constraintBottom_toBottomOf="@id/txtActiveAlertsTitle"
-        app:layout_constraintTop_toTopOf="@id/txtActiveAlertsTitle"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- ALERTS RECYCLER -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/alertBannerRecycler"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:clipToPadding="false"
-        android:paddingHorizontal="16dp"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/txtActiveAlertsTitle" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

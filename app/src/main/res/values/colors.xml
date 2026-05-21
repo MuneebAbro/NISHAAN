@@ -30,6 +30,7 @@
 
     <!-- Chalk (Secondary text) -->
     <color name="color_chalk">#9BA8B8</color>
+    <color name="color_charcoal_grey">#151515</color>
 
     <!-- ================================================================
          SURFACE HIERARCHY — Dark UI

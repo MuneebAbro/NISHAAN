@@ -44,13 +44,12 @@ class AlertAdapter(
 
             // Severity badge
             binding.severityBadge.text = crisis.severity.name
-            binding.severityBadge.setTextColor(severityColor)
-            val badgeBg = binding.severityBadge.background
-            if (badgeBg is GradientDrawable) {
-                badgeBg.setColor(severityBg)
-            } else {
-                binding.severityBadge.setBackgroundColor(severityBg)
+            val badgeDrawable = when (crisis.severity.name) {
+                "CRITICAL" -> R.drawable.bg_badge_red
+                "HIGH"     -> R.drawable.bg_badge_amber
+                else       -> R.drawable.bg_badge_blue
             }
+            binding.severityBadge.setBackgroundResource(badgeDrawable)
 
             // Severity icon circle — tint the circular background
             val iconBgDrawable = binding.severityIconBg.background

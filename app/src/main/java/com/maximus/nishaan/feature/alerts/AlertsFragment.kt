@@ -22,6 +22,9 @@ class AlertsFragment : Fragment(R.layout.fragment_alerts_list) {
     private var _binding: FragmentAlertsListBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: AlertAdapter
+    
+    private var allCrises: List<Crisis> = emptyList()
+    private var currentFilter: Severity? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,20 +41,29 @@ class AlertsFragment : Fragment(R.layout.fragment_alerts_list) {
             app.appContainer.crisisRepository.observeActiveCrises()
                 .catch { /* Handle error */ }
                 .collect { crises ->
-                    val sorted = crises.sortedWith(
+                    allCrises = crises.sortedWith(
                         compareBy<Crisis> { it.severity.ordinal }
                             .thenByDescending { it.createdAt }
                     )
-                    adapter.submitList(sorted)
-
+                    
                     // Update stat chips
-                    updateStatChips(sorted)
+                    updateStatChips(allCrises)
 
-                    // Toggle empty/list visibility
-                    binding.emptyState.visibility = if (sorted.isEmpty()) View.VISIBLE else View.GONE
-                    binding.alertsRecycler.visibility = if (sorted.isEmpty()) View.GONE else View.VISIBLE
-                    binding.statChipsRow.visibility = if (sorted.isEmpty()) View.GONE else View.VISIBLE
+                    applyFilter()
                 }
+        }
+
+        binding.cardStatTotal.setOnClickListener {
+            currentFilter = null
+            applyFilter()
+        }
+        binding.cardStatCritical.setOnClickListener {
+            currentFilter = Severity.CRITICAL
+            applyFilter()
+        }
+        binding.cardStatHigh.setOnClickListener {
+            currentFilter = Severity.HIGH
+            applyFilter()
         }
 
         binding.btnMarkAllRead.setOnClickListener {
@@ -73,5 +85,31 @@ class AlertsFragment : Fragment(R.layout.fragment_alerts_list) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun applyFilter() {
+        val filtered = if (currentFilter == null) {
+            allCrises
+        } else {
+            allCrises.filter { it.severity == currentFilter }
+        }
+        adapter.submitList(filtered)
+        binding.emptyState.visibility = if (filtered.isEmpty()) View.VISIBLE else View.GONE
+        binding.alertsRecycler.visibility = if (filtered.isEmpty()) View.GONE else View.VISIBLE
+        binding.statChipsRow.visibility = if (allCrises.isEmpty()) View.GONE else View.VISIBLE
+        
+        updateChipSelection()
+    }
+
+    private fun updateChipSelection() {
+        binding.cardStatTotal.setBackgroundResource(
+            if (currentFilter == null) R.drawable.bg_stat_chip_selected else R.drawable.bg_stat_chip
+        )
+        binding.cardStatCritical.setBackgroundResource(
+            if (currentFilter == Severity.CRITICAL) R.drawable.bg_stat_chip_selected else R.drawable.bg_stat_chip
+        )
+        binding.cardStatHigh.setBackgroundResource(
+            if (currentFilter == Severity.HIGH) R.drawable.bg_stat_chip_selected else R.drawable.bg_stat_chip
+        )
     }
 }

@@ -29,19 +29,14 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentSplashBinding.bind(view)
 
-        // Fade-in + subtle scale-up for logo
-        binding.logoImage.scaleX = 0.85f
-        binding.logoImage.scaleY = 0.85f
-        binding.logoImage.animate()
+        // Smooth fade-in for the entire logo + text container
+        binding.splashContent.animate()
             .alpha(1f)
-            .scaleX(1f)
-            .scaleY(1f)
-            .setDuration(700)
-            .setStartDelay(100)
+            .setDuration(1000)
             .start()
 
         viewLifecycleOwner.lifecycleScope.launch {
-            delay(1500) // 1.5 second splash duration
+            delay(3000) // 3.0 second splash duration
 
             val app = requireActivity().application as NishaanApplication
             val onboardingComplete = app.appContainer.dataStore.data
